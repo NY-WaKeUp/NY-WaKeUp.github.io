@@ -7,7 +7,7 @@ redirect_from:
   - /about/
   - /about.html
 ---
-
+I am NingYu.
 <span class='anchor' id='about-me'></span>
 {% include_relative includes/intro.md %}
 
