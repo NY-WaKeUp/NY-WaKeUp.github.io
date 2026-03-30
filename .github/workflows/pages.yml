@@ -7,6 +7,8 @@ on:
       - "myblog/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
+  schedule:
+    - cron: "10 22 * * *" # UTC 22:10 = Asia/Shanghai 06:10
 
 permissions:
   contents: read
