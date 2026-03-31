@@ -3,6 +3,47 @@
 &lt;p&gt;&lt;img src=&quot;https://sspai.com/prime/story/get-started-with-zellij&quot; alt=&quot;一个比 tmux 更友好的终端复用工具：Zellij 简介及使用技巧&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://zellij.dev/documentation/filepicker-alias.html&quot; alt=&quot;官方文档&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://zhuanlan.zhihu.com/p/600682580&quot; alt=&quot;是用rust写的，作者是全职开源维护者&quot; /&gt;&lt;/p&gt;
+</content:encoded></item><item><title>常见卷积组合</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF%E7%BB%84%E5%90%88/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF%E7%BB%84%E5%90%88/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</guid><pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;在深度学习（尤其是计算机视觉和机器人感知）中，卷积核大小（Kernel）、填充（Padding）和步长（Stride）的组合通常遵循特定的设计模式。&lt;/p&gt;
+&lt;p&gt;以下是除 3×3,P=1 之外最常用的几类经典组合及其应用场景：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;降采样组合（Downsampling）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;用于缩小特征图尺寸，增加感受野，同时替代池化层（Pooling）。
+组合内容	效果与目的	经典应用
+3×3,S=2,P=1	尺寸减半（H/2,W/2），步幅较大。	ResNet 中的残差块跳转、各种 Backbone 的特征提取。
+4×4,S=2,P=1	严格尺寸减半，且计算对称。	GANs（生成对抗网络） 和 VAE 的编码器部分。
+2. 升采样/转置卷积（Upsampling / Transposed Conv）&lt;/p&gt;
+&lt;p&gt;用于恢复图像尺寸，常用于生成模型或分割模型。
+组合内容	效果与目的	经典应用
+4×4,S=2,P=1	尺寸翻倍（2H,2W），边缘平滑。	DCGAN、图像超分辨率、U-Net 的解码器。
+2×2,S=2,P=0	最简单的尺寸翻倍。	早期视觉模型中的反卷积。
+3. 跨维度/局部整合（Dimensionality Shifting）&lt;/p&gt;
+&lt;p&gt;不改变空间尺寸，仅改变通道数或进行局部融合。
+组合内容	效果与目的	经典应用
+1×1,S=1,P=0	Pointwise Conv。改变通道深度，不影响空间结构。	Inception 模块降维、ResNet 的 Bottleneck 结构。
+7×7,S=2,P=3	大感受野初始特征提取。	ResNet-50 的第一层（Input Layer），快速获取全局轮廓。
+5×5,S=1,P=2	较大的局部特征捕捉（保持尺寸）。	早期用于处理较大噪声的图像，或简单的浅层网络。
+4. 现代轻量化组合（Efficient Conv）&lt;/p&gt;
+&lt;p&gt;针对计算资源有限（如嵌入式机器人平台）设计的组合。
+组合内容	效果与目的	经典应用
+3×1 连接 1×3	非对称卷积。等效于 3×3，但参数量减少 33%。	Inception v3、计算受限的实时感知模型。
+3×3,Groups=C	Depthwise Conv。每个通道独立卷积。	MobileNet 核心组件，极大降低 FLOPs。
+5. 扩张/空洞卷积（Dilated Conv）&lt;/p&gt;
+&lt;p&gt;不增加参数量的情况下，成倍扩大感受野。
+组合内容	效果与目的	经典应用
+3×3,P=d,Dilation=d	保持尺寸的同时，跳着采样。	DeepLab（语义分割）、WaveNet（音频处理）。
+核心计算规律（老练研究者的口诀）：&lt;/p&gt;
+&lt;p&gt;如果你想让输出和输入尺寸一致（Same Padding），通用的公式规律是：
+P=2K−1​&lt;/p&gt;
+&lt;p&gt;（前提是 S=1 且 K 为奇数）。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;K=1⟹P=0
+
+K=3⟹P=1
+
+K=5⟹P=2
+
+K=7⟹P=3
+&lt;/code&gt;&lt;/pre&gt;
 </content:encoded></item><item><title>Simple Guides for Fuwari</title><link>https://ny-wakeup.github.io/myblog/posts/guide/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/guide/</guid><description>How to use this blog template.</description><pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;Cover image source: &lt;a href=&quot;https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/208fc754-890d-4adb-9753-2c963332675d/width=2048/01651-1456859105-(colour_1.5),girl,_Blue,yellow,green,cyan,purple,red,pink,_best,8k,UHD,masterpiece,male%20focus,%201boy,gloves,%20ponytail,%20long%20hair,.jpeg&quot;&gt;Source&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
