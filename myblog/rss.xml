@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>zellij-is-good-to-use</title><link>https://ny-wakeup.github.io/myblog/posts/zellij/zellij-is-good-to-use/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/zellij/zellij-is-good-to-use/</guid><pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;tmux虽然拥有很简洁的配置，但是鼠标滚动超级快，很抽象，同时，他复制粘贴的操作也非常令人上火。:spoiler[而且也不够炫酷。]&lt;/p&gt;
 &lt;h2&gt;一些学习链接&lt;/h2&gt;
-&lt;p&gt;![一个比 tmux 更友好的终端复用工具：Zellij 简介及使用技巧][https://sspai.com/prime/story/get-started-with-zellij]&lt;/p&gt;
-&lt;p&gt;![官方文档][https://zellij.dev/documentation/filepicker-alias.html]&lt;/p&gt;
-&lt;p&gt;![是用rust写的，作者是全职开源维护者][https://zhuanlan.zhihu.com/p/600682580]&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sspai.com/prime/story/get-started-with-zellij&quot; alt=&quot;一个比 tmux 更友好的终端复用工具：Zellij 简介及使用技巧&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://zellij.dev/documentation/filepicker-alias.html&quot; alt=&quot;官方文档&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://zhuanlan.zhihu.com/p/600682580&quot; alt=&quot;是用rust写的，作者是全职开源维护者&quot; /&gt;&lt;/p&gt;
 </content:encoded></item><item><title>Simple Guides for Fuwari</title><link>https://ny-wakeup.github.io/myblog/posts/guide/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/guide/</guid><description>How to use this blog template.</description><pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;Cover image source: &lt;a href=&quot;https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/208fc754-890d-4adb-9753-2c963332675d/width=2048/01651-1456859105-(colour_1.5),girl,_Blue,yellow,green,cyan,purple,red,pink,_best,8k,UHD,masterpiece,male%20focus,%201boy,gloves,%20ponytail,%20long%20hair,.jpeg&quot;&gt;Source&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
