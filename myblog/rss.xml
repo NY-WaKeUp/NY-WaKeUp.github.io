@@ -4,46 +4,139 @@
 &lt;p&gt;&lt;a href=&quot;https://zellij.dev/documentation/filepicker-alias.html&quot;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/600682580&quot;&gt;是用rust写的，作者是全职开源维护者&lt;/a&gt;&lt;/p&gt;
 </content:encoded></item><item><title>常见卷积组合</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF%E7%BB%84%E5%90%88/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF%E7%BB%84%E5%90%88/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</guid><pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;在深度学习（尤其是计算机视觉和机器人感知）中，卷积核大小（Kernel）、填充（Padding）和步长（Stride）的组合通常遵循特定的设计模式。&lt;/p&gt;
-&lt;p&gt;以下是除 3×3,P=1 之外最常用的几类经典组合及其应用场景：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;降采样组合（Downsampling）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;用于缩小特征图尺寸，增加感受野，同时替代池化层（Pooling）。
-组合内容	效果与目的	经典应用
-3×3,S=2,P=1	尺寸减半（H/2,W/2），步幅较大。	ResNet 中的残差块跳转、各种 Backbone 的特征提取。
-4×4,S=2,P=1	严格尺寸减半，且计算对称。	GANs（生成对抗网络） 和 VAE 的编码器部分。
-2. 升采样/转置卷积（Upsampling / Transposed Conv）&lt;/p&gt;
-&lt;p&gt;用于恢复图像尺寸，常用于生成模型或分割模型。
-组合内容	效果与目的	经典应用
-4×4,S=2,P=1	尺寸翻倍（2H,2W），边缘平滑。	DCGAN、图像超分辨率、U-Net 的解码器。
-2×2,S=2,P=0	最简单的尺寸翻倍。	早期视觉模型中的反卷积。
-3. 跨维度/局部整合（Dimensionality Shifting）&lt;/p&gt;
-&lt;p&gt;不改变空间尺寸，仅改变通道数或进行局部融合。
-组合内容	效果与目的	经典应用
-1×1,S=1,P=0	Pointwise Conv。改变通道深度，不影响空间结构。	Inception 模块降维、ResNet 的 Bottleneck 结构。
-7×7,S=2,P=3	大感受野初始特征提取。	ResNet-50 的第一层（Input Layer），快速获取全局轮廓。
-5×5,S=1,P=2	较大的局部特征捕捉（保持尺寸）。	早期用于处理较大噪声的图像，或简单的浅层网络。
-4. 现代轻量化组合（Efficient Conv）&lt;/p&gt;
-&lt;p&gt;针对计算资源有限（如嵌入式机器人平台）设计的组合。
-组合内容	效果与目的	经典应用
-3×1 连接 1×3	非对称卷积。等效于 3×3，但参数量减少 33%。	Inception v3、计算受限的实时感知模型。
-3×3,Groups=C	Depthwise Conv。每个通道独立卷积。	MobileNet 核心组件，极大降低 FLOPs。
-5. 扩张/空洞卷积（Dilated Conv）&lt;/p&gt;
-&lt;p&gt;不增加参数量的情况下，成倍扩大感受野。
-组合内容	效果与目的	经典应用
-3×3,P=d,Dilation=d	保持尺寸的同时，跳着采样。	DeepLab（语义分割）、WaveNet（音频处理）。
-核心计算规律（老练研究者的口诀）：&lt;/p&gt;
-&lt;p&gt;如果你想让输出和输入尺寸一致（Same Padding），通用的公式规律是：
-P=2K−1​&lt;/p&gt;
-&lt;p&gt;（前提是 S=1 且 K 为奇数）。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;K=1⟹P=0
-
-K=3⟹P=1
-
-K=5⟹P=2
-
-K=7⟹P=3
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以下是除 $3 \times 3, P=1$ 之外最常用的几类&lt;strong&gt;经典组合&lt;/strong&gt;及其应用场景：&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h3&gt;1. 降采样组合（Downsampling）&lt;/h3&gt;
+&lt;p&gt;用于缩小特征图尺寸，增加感受野，同时替代池化层（Pooling）。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;组合内容&lt;/th&gt;
+&lt;th&gt;效果与目的&lt;/th&gt;
+&lt;th&gt;经典应用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$3 \times 3, S=2, P=1$&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;尺寸减半（$H/2, W/2$），步幅较大。&lt;/td&gt;
+&lt;td&gt;ResNet 中的残差块跳转、各种 Backbone 的特征提取。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$4 \times 4, S=2, P=1$&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;严格尺寸减半，且计算对称。&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;GANs（生成对抗网络）&lt;/strong&gt; 和 &lt;strong&gt;VAE&lt;/strong&gt; 的编码器部分。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr /&gt;
+&lt;h3&gt;2. 升采样/转置卷积（Upsampling / Transposed Conv）&lt;/h3&gt;
+&lt;p&gt;用于恢复图像尺寸，常用于生成模型或分割模型。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;组合内容&lt;/th&gt;
+&lt;th&gt;效果与目的&lt;/th&gt;
+&lt;th&gt;经典应用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$4 \times 4, S=2, P=1$&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;尺寸翻倍（$2H, 2W$），边缘平滑。&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;DCGAN&lt;/strong&gt;、图像超分辨率、U-Net 的解码器。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$2 \times 2, S=2, P=0$&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;最简单的尺寸翻倍。&lt;/td&gt;
+&lt;td&gt;早期视觉模型中的反卷积。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr /&gt;
+&lt;h3&gt;3. 跨维度/局部整合（Dimensionality Shifting）&lt;/h3&gt;
+&lt;p&gt;不改变空间尺寸，仅改变通道数或进行局部融合。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;组合内容&lt;/th&gt;
+&lt;th&gt;效果与目的&lt;/th&gt;
+&lt;th&gt;经典应用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$1 \times 1, S=1, P=0$&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;Pointwise Conv&lt;/strong&gt;。改变通道深度，不影响空间结构。&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;Inception&lt;/strong&gt; 模块降维、ResNet 的 Bottleneck 结构。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$7 \times 7, S=2, P=3$&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;大感受野初始特征提取。&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;ResNet-50&lt;/strong&gt; 的第一层（Input Layer），快速获取全局轮廓。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$5 \times 5, S=1, P=2$&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;较大的局部特征捕捉（保持尺寸）。&lt;/td&gt;
+&lt;td&gt;早期用于处理较大噪声的图像，或简单的浅层网络。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr /&gt;
+&lt;h3&gt;4. 现代轻量化组合（Efficient Conv）&lt;/h3&gt;
+&lt;p&gt;针对计算资源有限（如嵌入式机器人平台）设计的组合。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;组合内容&lt;/th&gt;
+&lt;th&gt;效果与目的&lt;/th&gt;
+&lt;th&gt;经典应用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$3 \times 1$ 连接 $1 \times 3$&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;非对称卷积&lt;/strong&gt;。等效于 $3 \times 3$，但参数量减少 33%。&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;Inception v3&lt;/strong&gt;、计算受限的实时感知模型。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$3 \times 3, \text{Groups}=C$&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;Depthwise Conv&lt;/strong&gt;。每个通道独立卷积。&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;MobileNet&lt;/strong&gt; 核心组件，极大降低 FLOPs。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr /&gt;
+&lt;h3&gt;5. 扩张/空洞卷积（Dilated Conv）&lt;/h3&gt;
+&lt;p&gt;不增加参数量的情况下，成倍扩大感受野。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;组合内容&lt;/th&gt;
+&lt;th&gt;效果与目的&lt;/th&gt;
+&lt;th&gt;经典应用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;$3 \times 3, P=d, \text{Dilation}=d$&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;保持尺寸的同时，跳着采样。&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;DeepLab&lt;/strong&gt;（语义分割）、&lt;strong&gt;WaveNet&lt;/strong&gt;（音频处理）。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr /&gt;
+&lt;h3&gt;核心计算规律（老练研究者的口诀）：&lt;/h3&gt;
+&lt;p&gt;如果你想让输出和输入&lt;strong&gt;尺寸一致（Same Padding）&lt;/strong&gt;，通用的公式规律是：
+$$P = \frac{K - 1}{2}$$
+（前提是 $S=1$ 且 $K$ 为奇数）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$K=1 \implies P=0$&lt;/li&gt;
+&lt;li&gt;$K=3 \implies P=1$&lt;/li&gt;
+&lt;li&gt;$K=5 \implies P=2$&lt;/li&gt;
+&lt;li&gt;$K=7 \implies P=3$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;你目前在优化的 DACER 算法或者触觉感知模型中，主要是在处理哪一类维度的特征提取？我可以帮你针对性地看看如何选择这些组合。&lt;/strong&gt;&lt;/p&gt;
 </content:encoded></item><item><title>Simple Guides for Fuwari</title><link>https://ny-wakeup.github.io/myblog/posts/guide/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/guide/</guid><description>How to use this blog template.</description><pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;Cover image source: &lt;a href=&quot;https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/208fc754-890d-4adb-9753-2c963332675d/width=2048/01651-1456859105-(colour_1.5),girl,_Blue,yellow,green,cyan,purple,red,pink,_best,8k,UHD,masterpiece,male%20focus,%201boy,gloves,%20ponytail,%20long%20hair,.jpeg&quot;&gt;Source&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
