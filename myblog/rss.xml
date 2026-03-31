@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>海象运算符</title><link>https://ny-wakeup.github.io/myblog/posts/%E6%B5%B7%E8%B1%A1%E8%BF%90%E7%AE%97%E7%AC%A6/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E6%B5%B7%E8%B1%A1%E8%BF%90%E7%AE%97%E7%AC%A6/</guid><pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;pre&gt;&lt;code&gt;class Einsum(nn.Module):
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>海象运算符&amp;einops</title><link>https://ny-wakeup.github.io/myblog/posts/%E6%B5%B7%E8%B1%A1%E8%BF%90%E7%AE%97%E7%AC%A6&amp;einops/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E6%B5%B7%E8%B1%A1%E8%BF%90%E7%AE%97%E7%AC%A6&amp;einops/</guid><pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;pre&gt;&lt;code&gt;class Einsum(nn.Module):
     &quot;&quot;&quot;Einsum with LoRA support. Can be used as a drop-in replacement for the Gemma Einsum.&quot;&quot;&quot;
 
     # Shape of the weight.
@@ -32,6 +32,7 @@
 
         return result
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/665513223&quot;&gt;einops实现transformer(这个我也能写)&lt;/a&gt;&lt;/p&gt;
 </content:encoded></item><item><title>常见卷积组合</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF%E7%BB%84%E5%90%88/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF%E7%BB%84%E5%90%88/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</guid><pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;在深度学习（尤其是计算机视觉和机器人感知）中，卷积核大小（Kernel）、填充（Padding）和步长（Stride）的组合通常遵循特定的设计模式。&lt;/p&gt;
 &lt;p&gt;以下是除 $3 \times 3, P=1$ 之外最常用的几类&lt;strong&gt;经典组合&lt;/strong&gt;及其应用场景：&lt;/p&gt;
 &lt;hr /&gt;
