@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>All-about-conditional-distribution</title><link>https://ny-wakeup.github.io/myblog/posts/All-about-conditional-distribution/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/All-about-conditional-distribution/</guid><pubDate>Sat, 04 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;总是阶段性地遗忘这一朴素，智慧，大道至简的思想，所以专门写下来方便以后直接回看自己的思路：&lt;/p&gt;
 &lt;h1&gt;思路概览&lt;/h1&gt;
 &lt;h2&gt;目标&lt;/h2&gt;
-&lt;p&gt;我们要拟合一个真实的分布，$${p_t}$$&lt;/p&gt;
+&lt;p&gt;我们要拟合一个真实的分布，${p_t}$&lt;/p&gt;
 &lt;h2&gt;方法：所有非gan系生成模型的算法：flow matching, ddpm, ae, vae, vq-vae, eq-vae...&lt;/h2&gt;
 &lt;h2&gt;问题：我们永远没有办法获得理想中的完全真实的分布&lt;/h2&gt;
 &lt;h2&gt;补救方案：&lt;/h2&gt;
