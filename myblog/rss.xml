@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>fisher-information</title><link>https://ny-wakeup.github.io/myblog/posts/fisher-information/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/fisher-information/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Fisher 信息量&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>fisher-information</title><link>https://ny-wakeup.github.io/myblog/posts/fisher-information/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/fisher-information/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&amp;lt;span id=&quot;twikoo_visitors&quot;&amp;gt;0&amp;lt;/span&amp;gt;&lt;/p&gt;
+&lt;h1&gt;Fisher 信息量&lt;/h1&gt;
 &lt;p&gt;描述的是某参数 $\theta$ 携带信息量的多少，信息量在数学上正是由 &lt;strong&gt;不确定性&lt;/strong&gt;，&lt;strong&gt;敏感度&lt;/strong&gt;，来定义的。&lt;/p&gt;
 &lt;h1&gt;信息量&amp;lt;==&amp;gt;敏感度&lt;/h1&gt;
 &lt;p&gt;如果一个参数 $\theta$ 的微小变动可以引起概率分布 $f(x|\theta)$ 的剧烈变化，则称这个参数 &lt;strong&gt;携带的信息量大&lt;/strong&gt;。&lt;/p&gt;
@@ -73,7 +74,7 @@ $dw$：维纳过程增量/随机扰动/布朗运动。&lt;/p&gt;
 &lt;p&gt;虽然现实世界中的数据比如一张图片是由成千上万个维度 $D$（像素）组成，但他们实际上分布在一个内嵌入于高维空间中的低维（维度为 $d$ 且 $d\ll D$ ）的流形上，或其近邻&lt;/p&gt;
 &lt;h1&gt;Example&lt;/h1&gt;
 &lt;p&gt;在数学拓扑学中，流形在局部近似欧几里得空间 （如平面/直线），但是整体上是可能有复杂结构的几何形状。
-一张二维的纸（2D 平面），本身是二维的，其基为 $(u,v)$，但若将其揉搓成一团，放在三维空间中，对于观察者来说，这就是一个三维空间中的物体，其基为 $(x,y,z)$。但是对于纸上的一只蚂蚁来说，他仍然是一个二维世界。于是： &amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;这张卷曲的纸便对应了高维现实空间（e.g.3 D）中数据所在的低维流形（e.g.2 D）&amp;lt;/mark&amp;gt;&lt;/p&gt;
+一张二维的纸（2D 平面），本身是二维的，其基为 $(u,v)$，但若将其揉搓成一团，放在三维空间中，对于观察者来说，这就是一个三维空间中的物体，其基为 $(x,y,z)$。但是对于纸上的一只蚂蚁来说，他仍然是一个二维世界。于是： &amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;这张卷曲的纸便对应了高维现实空间（e.g. 3D）中数据所在的低维流形（e.g. 2D）&amp;lt;/mark&amp;gt;&lt;/p&gt;
 &lt;p&gt;以 mnist 数据集举例，每张原始图都是 28 * 28 =784 维的，但是实际上，我们在 使用 vae 生成图的时候，引入的隐变量 $z\in R^d$，$z\sim N(0,I),x=p_{\theta}(z|x)$ 这个 d 就是 &lt;code&gt;laten_dim&lt;/code&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;if d &amp;lt;&amp;lt; 内在维度：
 	模型capacity不够
@@ -255,7 +256,7 @@ A:多个&lt;/p&gt;
 &lt;h4&gt;Flow 模型（Normalized Flow）：&lt;/h4&gt;
 &lt;h1&gt;对于流形空间的一些实际的例证&lt;/h1&gt;
 &lt;h2&gt;隐空间插值（latent space interpolation）&lt;/h2&gt;
-&lt;p&gt;如果直接在原始数据空间进行插值，会得到重影，非常不自然的图像，因为&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;简单插值叠加后的数据，离开了流形，走到了高维空间中概率密度非常低的角落（空旷地带）&amp;lt;/mark&amp;gt;，但是如果使用训练后的 GAN/VAE...等等生成模型，将图片映射到低维的隐空间后，进行插值，再解码回来，则会看到较为平滑的变化。这说明，低维隐空间中数据，确实形成了连续的低维流形，变化的过程是流形上的坐标变化过程，同时自然就发生了数据特征的变化。&lt;/p&gt;
+&lt;p&gt;如果直接在原始数据空间进行插值，会得到重影，非常不自然的图像，因为&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;简单插值叠加后的数据，离开了流形，走到了高维空间中概率密度非常低的角落（空旷地带）&amp;lt;/mark&amp;gt; ，但是如果使用训练后的 GAN/VAE...等等生成模型，将图片映射到低维的隐空间后，进行插值，再解码回来，则会看到较为平滑的变化。这说明，低维隐空间中数据，确实形成了连续的低维流形，变化的过程是流形上的坐标变化过程，同时自然就发生了数据特征的变化。&lt;/p&gt;
 &lt;h2&gt;对抗样本（adversarial examples）&lt;/h2&gt;
 &lt;p&gt;对抗攻击会在图向上添加微小扰动，这个扰动是随机的，所以一定会包含在流形法向上的位移，使数据越过决策的边界，模型这时候会崩溃，分类错误。这个现象实际上又反向说明了模型学习到的决策边界是紧贴着数据的流形的，&lt;strong&gt;这种紧贴必然会带来在数据流形切向上的健壮性和法向上的脆弱性&lt;/strong&gt;。&lt;/p&gt;
 </content:encoded></item><item><title>海象运算符&amp;einops</title><link>https://ny-wakeup.github.io/myblog/posts/%E6%B5%B7%E8%B1%A1%E8%BF%90%E7%AE%97%E7%AC%A6&amp;einops/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E6%B5%B7%E8%B1%A1%E8%BF%90%E7%AE%97%E7%AC%A6&amp;einops/</guid><pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;pre&gt;&lt;code&gt;class Einsum(nn.Module):
