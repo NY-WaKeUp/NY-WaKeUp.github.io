@@ -58,7 +58,15 @@ Use：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;pip install pipreqs
 pypreqs .
 &lt;/code&gt;&lt;/pre&gt;
-</content:encoded></item><item><title>score-matching</title><link>https://ny-wakeup.github.io/myblog/posts/score-matching/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/score-matching/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>SDE&amp;ODE</title><link>https://ny-wakeup.github.io/myblog/posts/SDE&amp;ODE/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/SDE&amp;ODE/</guid><pubDate>Mon, 06 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;扩散模型中的 SDE&lt;/h1&gt;
+</content:encoded></item><item><title>score-matching</title><link>https://ny-wakeup.github.io/myblog/posts/score-matching/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/score-matching/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;$$
+S(x)=\nabla_{x} \log p(x)
+$$&lt;/p&gt;
+&lt;h1&gt;为什么不直接计算 $\nabla_{x}p(x)$ 呢？&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;化简计算&lt;/strong&gt;，对于正高斯分布这类指数族分布，取 log 之后可以将指数抵消，就变成了简单的线性或者二次项，简化了后续的求导。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;消除常数&lt;/strong&gt;，这个问题需要更加细节的讨论&lt;/li&gt;
+&lt;/ol&gt;
+</content:encoded></item><item><title>SDE&amp;ODE</title><link>https://ny-wakeup.github.io/myblog/posts/SDE&amp;ODE/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/SDE&amp;ODE/</guid><pubDate>Mon, 06 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;扩散模型中的 SDE&lt;/h1&gt;
 &lt;p&gt;扩散模型（如 DDPM）在连续时间极限下可以被视为一个 Ito SDE
 $$
 dx=f(x,t)dt+g(t)dW_{t}
