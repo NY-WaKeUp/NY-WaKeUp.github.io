@@ -1,10 +1,263 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>All-about-conditional-distribution</title><link>https://ny-wakeup.github.io/myblog/posts/All-about-conditional-distribution/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/All-about-conditional-distribution/</guid><pubDate>Sat, 04 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;总是阶段性地遗忘这一朴素，智慧，大道至简的思想，所以专门写下来方便以后直接回看自己的思路：&lt;/p&gt;
-&lt;h1&gt;思路概览&lt;/h1&gt;
-&lt;h2&gt;目标&lt;/h2&gt;
-&lt;p&gt;我们要拟合一个真实的分布，${p_t}$&lt;/p&gt;
-&lt;h2&gt;方法：所有非gan系生成模型的算法：flow matching, ddpm, ae, vae, vq-vae, eq-vae...&lt;/h2&gt;
-&lt;h2&gt;问题：我们永远没有办法获得理想中的完全真实的分布&lt;/h2&gt;
-&lt;h2&gt;补救方案：&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>fisher-information</title><link>https://ny-wakeup.github.io/myblog/posts/fisher-information/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/fisher-information/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Fisher 信息量&lt;/h1&gt;
+&lt;p&gt;描述的是某参数 $\theta$ 携带信息量的多少，信息量在数学上正是由 &lt;strong&gt;不确定性&lt;/strong&gt;，&lt;strong&gt;敏感度&lt;/strong&gt;，来定义的。&lt;/p&gt;
+&lt;h1&gt;信息量&amp;lt;==&amp;gt;敏感度&lt;/h1&gt;
+&lt;p&gt;如果一个参数 $\theta$ 的微小变动可以引起概率分布 $f(x|\theta)$ 的剧烈变化，则称这个参数 &lt;strong&gt;携带的信息量大&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;证明：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/OYZNdw.png&quot; alt=&quot;OYZNdw&quot; /&gt;
+在标量语境下，这个式子是方差，针对&lt;strong&gt;标量&lt;/strong&gt;随机变量 $X$，定义为 $E(X-E[X])^2$。&lt;/p&gt;
+&lt;p&gt;但是参数 $\theta$ 通常是一个 d 维向量。而 $s(\theta)=\nabla \log p(x|\theta)$ 当然是梯度向量，也是 $score\space function$，其期望为 0。针对&lt;strong&gt;向量&lt;/strong&gt;随机变量 $\vec{s}$，定义为 $Cov(\vec{s})=E[(\vec{s}-E[\vec{s}])(\vec{s}-E[\vec{s}])^T]$。&lt;/p&gt;
+&lt;p&gt;得到的是一个协方差矩阵，他的对角线元素表示了每个参数分量的波动（方差），非对角线元素表示了不同参数估计值之间的线性相关性。（ps.线性不相关一定协方差为 0,但是协方差为 0 不一定独立，因为可能非线性相关）。因为 $s(\theta)$ 是列向量，所以这个操作实际上计算的是外积。
+&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/ArCRf6.png&quot; alt=&quot;ArCRf6&quot; /&gt;
+同时，这个矩阵描述了似然函数曲面的曲率。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!note] 从梯度到曲率&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;一阶导数（Score function）&lt;/strong&gt;：描述的是“坡度”（陡峭程度）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;二阶导数（Hessian Matrix）&lt;/strong&gt;：描述的是“坡度的变化”，即&lt;strong&gt;曲率&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;综上，如果一个参数 $\theta$ 的微小变动能引起概率分布 $p(x|\theta)$ 的剧烈变化，那么这个参数携带的信息量大。-&amp;gt;意味着观测数据 $x$ 对参数 $\theta$ 的变化非常敏感-&amp;gt;说明我通过观测 $x$ 来估计 $\theta$ 时，能够获得的确定性越高。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!tip] &lt;strong&gt;Cramér-Rao 不等式&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;对于任何无偏估计量 $\hat{\theta}$，其方差（不确定性）满足：$var(\hat{\theta})=\frac{1}{I(\theta)}$, $I(\theta)$ 就是那个协方差矩阵。Fisher 信息量越大 → 估计量的方差下界越小 → 估计得越准。既然它能让估计变得更准，我们自然称它为“携带的信息量更多。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!tip]&lt;/p&gt;
+&lt;p&gt;同时，开了一个大坑：信息几何-Information Geomotry&lt;/p&gt;
+&lt;/blockquote&gt;
+</content:encoded></item><item><title>geodesic-distance</title><link>https://ny-wakeup.github.io/myblog/posts/geodesic-distance/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/geodesic-distance/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;中文名字叫测地线，先是在做角度度量的时候了解到的，但是没有详细深究，最近在学习流形的时候，了解到的一个概念，然后看了苏剑林的笔记： &lt;a href=&quot;https://spaces.ac.cn/archives/9368&quot;&gt;从局部到全局：语义相似度的测地线距离&lt;/a&gt;，有了一些认识。
+简单来说就是两点间的最短距离，为什么不是简单的欧氏距离呢？是因为这个信息量的流形未必是平直的，所以这个距离未必是两点之间的欧氏距离。&lt;/p&gt;
+&lt;h1&gt;形象化解释&lt;/h1&gt;
+&lt;p&gt;要从地球的南极走到北极，我们是没有办法穿过地心走直线的，只能沿着地球表面先走到赤道，然后再走到南极，这就是走了一段曲线距离，但是这个在球面的流形空间中，就是最短的距离。&lt;/p&gt;
+&lt;h1&gt;严格定义&lt;/h1&gt;
+&lt;p&gt;黎曼几何中，测地线是满足以下条件的&lt;strong&gt;曲线&lt;/strong&gt;（另外吐槽一下这个中文名，人家英文名起的多好，信达雅，中文名起的简直就是不知所云）：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;局部最短路径：这条曲线在局部的长度，是两点间最短的长度&lt;/li&gt;
+&lt;li&gt;测地线的切向量沿自身做“平行移动”（parallel transport），速度方向“没有被外力弯曲”，类似牛顿第一定律（惯性运动）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1&gt;应用&lt;/h1&gt;
+&lt;p&gt;基本上只要是非欧空间，都有测地线思想的应用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;概率分布的空间中，使用 KL/FIsher metric 来做分布间的 geodesic distance&lt;/li&gt;
+&lt;li&gt;角度空间，是 $S^1$ 空间，这就是 MSE 方法不好的原因，因为 MSE 认为 $d(\theta_{1},\theta_{2})=(\theta_{1}-\theta_{2})^2$ ，但是角度空间中，$0^。=360^。$，MSE 会认为这是很大的误差。所以正确的方法应该是用圆弧（单位圆上，弧长=角度 x 半径，而两点间的距离就是沿圆弧的圆上的最短路径）
+$$
+d(\theta_1, \theta_2) = \min(|\theta_1 - \theta_2|,; 2\pi - |\theta_1 - \theta_2|)
+$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;或者，嵌入到欧几里得空间，把角度映射到单位圆：$\theta ;\rightarrow; (\cos\theta, \sin\theta)$ ，然后再用 MSE：$|(\cos\theta_1, \sin\theta_1) - (\cos\theta_2, \sin\theta_2)|^2$，其实还是算的圆上的 geodesic distance 的等价度量（上面才是真正的 geodesic distance），也就是单调相关。&lt;/p&gt;
+&lt;p&gt;那为什么不直接用真正的测地线距离呢？这就需要考虑到实际优化的场景了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;测地线的损失：$L=|\Delta \theta|$, 在 0 处不可导，在 $\pm \pi$ 有折点，梯度不连续。&lt;/li&gt;
+&lt;li&gt;MSE，处处光滑可导，梯度连续，数值稳定，在微小 $\Delta \theta$ 时等价于测地线距离。&lt;/li&gt;
+&lt;li&gt;测地线的梯度：$L = d_g^2 = \Delta\theta^2 \Rightarrow \nabla \sim 2\Delta\theta$，远离目标 → 梯度大，可能不稳定。&lt;/li&gt;
+&lt;li&gt;MSE 的梯度：cosine loss：$L = 1 - \cos(\Delta\theta) \Rightarrow \nabla \sim \sin(\Delta\theta)$，小误差：≈ 线性（很好），大误差：梯度饱和（更稳）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其实又是大一统思想，&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;我们优化的永远是真实的信息的光滑代理&amp;lt;/mark&amp;gt;&lt;/p&gt;
+</content:encoded></item><item><title>pypreqs</title><link>https://ny-wakeup.github.io/myblog/posts/pypreqs/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pypreqs/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;pipreqs 是一个可以自动生成项目中使用的依赖到 requirements.txt中去的工具。
+Use：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pip install pipreqs
+pypreqs .
+&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>score-matching</title><link>https://ny-wakeup.github.io/myblog/posts/score-matching/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/score-matching/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>SDE&amp;ODE</title><link>https://ny-wakeup.github.io/myblog/posts/SDE&amp;ODE/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/SDE&amp;ODE/</guid><pubDate>Mon, 06 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;扩散模型中的 SDE&lt;/h1&gt;
+&lt;p&gt;扩散模型（如 DDPM）在连续时间极限下可以被视为一个 Ito SDE
+$$
+dx=f(x,t)dt+g(t)dW_{t}
+$$
+$f(x,t)$ ：漂移项是确定的意图。
+$g(t)$:幅度。决定噪声有多大，如果 $g(t)=0$，SDE 退化成了普通的 ODE。
+$dw$：维纳过程增量/随机扰动/布朗运动。&lt;/p&gt;
+&lt;p&gt;在扩散模型中&lt;/p&gt;
+&lt;h1&gt;Flow 模型中的 ODE&lt;/h1&gt;
+</content:encoded></item><item><title>Manifold-Hypothesis</title><link>https://ny-wakeup.github.io/myblog/posts/Manifold-Hypothesis/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Manifold-Hypothesis/</guid><pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;流形假设&lt;/p&gt;
+&lt;h1&gt;陈述&lt;/h1&gt;
+&lt;p&gt;虽然现实世界中的数据比如一张图片是由成千上万个维度 $D$（像素）组成，但他们实际上分布在一个内嵌入于高维空间中的低维（维度为 $d$ 且 $d\ll D$ ）的流形上，或其近邻&lt;/p&gt;
+&lt;h1&gt;Example&lt;/h1&gt;
+&lt;p&gt;在数学拓扑学中，流形在局部近似欧几里得空间 （如平面/直线），但是整体上是可能有复杂结构的几何形状。
+一张二维的纸（2D 平面），本身是二维的，其基为 $(u,v)$，但若将其揉搓成一团，放在三维空间中，对于观察者来说，这就是一个三维空间中的物体，其基为 $(x,y,z)$。但是对于纸上的一只蚂蚁来说，他仍然是一个二维世界。于是： &amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;这张卷曲的纸便对应了高维现实空间（e.g.3 D）中数据所在的低维流形（e.g.2 D）&amp;lt;/mark&amp;gt;&lt;/p&gt;
+&lt;p&gt;以 mnist 数据集举例，每张原始图都是 28 * 28 =784 维的，但是实际上，我们在 使用 vae 生成图的时候，引入的隐变量 $z\in R^d$，$z\sim N(0,I),x=p_{\theta}(z|x)$ 这个 d 就是 &lt;code&gt;laten_dim&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if d &amp;lt;&amp;lt; 内在维度：
+	模型capacity不够
+	生成模糊
+	细节丢失
+else if d &amp;gt;&amp;gt; 内在维度：
+	KL collapse/后验坍塌的风险增加
+	浪费
+	采样噪声大
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;后验坍塌（posterior collapse）&lt;/h2&gt;
+&lt;p&gt;指&lt;strong&gt;近似后验&lt;/strong&gt; $q_\phi(z\mid x)$ &lt;strong&gt;不再随 $x$ 变化&lt;/strong&gt;，实质上接近&lt;strong&gt;先验&lt;/strong&gt; $p(z)$：&lt;/p&gt;
+&lt;p&gt;$$
+q_\phi(z\mid x) \approx p(z) \quad (\text{对很多或所有 } x).
+$$&lt;/p&gt;
+&lt;p&gt;于是 $z$ &lt;strong&gt;几乎不携带&lt;/strong&gt;关于 $x$ 的信息——编码器「形同虚设」，潜变量没用。&lt;/p&gt;
+&lt;h2&gt;KL collapse / KL 消失&lt;/h2&gt;
+&lt;p&gt;指 ELBO 里的 &lt;strong&gt;KL 项&lt;/strong&gt; $\mathrm{KL}\bigl(q_\phi(z\mid x),|,p(z)\bigr)$ &lt;strong&gt;趋近于 0&lt;/strong&gt;（或非常小）。&lt;br /&gt;
+若 $q_\phi(z\mid x)\approx p(z)$，则这项自然接近 0，所以从&lt;strong&gt;优化目标&lt;/strong&gt;角度叫「KL 塌了 / 没了」。&lt;/p&gt;
+&lt;p&gt;因此：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;后验坍塌&lt;/strong&gt;：从&lt;strong&gt;分布&lt;/strong&gt;上说——「$q$ 相对 $x$ 塌成先验」。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;KL collapse&lt;/strong&gt;：从&lt;strong&gt;目标函数&lt;/strong&gt;上说——「那一项 KL 没了」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;就是说对 z 的观测，无效，z 几乎没有携带 x 的信息，无论面对什么 x 样本，都给出相似的 z&amp;lt;/mark&amp;gt;&lt;/p&gt;
+&lt;h2&gt;容易混淆的另一些东西（不等价）&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;说法&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Mode collapse（GAN）&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;生成器只覆盖少数模式，和 VAE 的 posterior collapse &lt;strong&gt;不是一回事&lt;/strong&gt;。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;先验与后验「匹配」得好&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;训练健康时 KL 也会小，但此时 $q(z\mid x)$ **仍依赖 $x$ **，信息仍在，&lt;strong&gt;不是&lt;/strong&gt; collapse。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;记忆点：&lt;/strong&gt; 判断是否「真·坍塌」，要看 ** $q(z\mid x)$ 是否还依赖 $x$ **；若对所有 $x$ 都差不多是 $p(z)$，那就是 posterior collapse，对应 KL 项也趋近 0。&lt;/p&gt;
+&lt;h1&gt;流形的连通性&lt;/h1&gt;
+&lt;p&gt;Q:流形是一个还是多个？
+A:多个&lt;/p&gt;
+&lt;p&gt;比如对于 MNIST，一共 0-9,是个类别，那其实每个类别都有一个流形，这个的根本原理是&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;数据的连续性&amp;lt;/mark&amp;gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!note] 数据的连续性&lt;/p&gt;
+&lt;p&gt;对于任意一个具体数字，比如 3,我们可以连续地改变：笔画的粗细，倾斜角度，大小等等。这种连续变化一位着：对于任意两种&lt;strong&gt;合理&lt;/strong&gt;的 写法 $x_{1}$ 和 $x_{2}$ ，有一条连续路径 $\gamma (t),t\in[0,1],$ 使得 $\gamma(0)=x_{1},\gamma(1)=x_{2}$,路径上的每一个 t 都属于数字 3 的低维流形分布&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;在深度学习语境下的几个推论&lt;/h1&gt;
+&lt;h2&gt;流形的存在 说明了&lt;/h2&gt;
+&lt;p&gt;数据的表观存在的维度虽然庞大 ，但是受现实条件的约束，数据的&lt;strong&gt;自由度&lt;/strong&gt;很低&amp;lt;==&amp;gt;流形的存在&lt;/p&gt;
+&lt;h2&gt;神经网络的作用其实是展开流形&lt;/h2&gt;
+&lt;p&gt;在原始数据的高维空间中，各种特征的分布的流形可能复杂纠缠。深度学习实际上就是用深层网络+非线性变换的手段，找到特征空间的映射，这个映射可以做到在流形空间中，&lt;strong&gt;类内连续，类间可分&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;神经网络的操作无非是矩阵运算，矩阵运算本质上是对空间/向量进行折叠、旋转、拉伸。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原始空间：&lt;/strong&gt; 像是一团被揉得极皱的彩色面团（不同颜色代表不同类）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;神经网络：&lt;/strong&gt; 像是一双由于非线性（Activation）而变得极其灵活的手，尝试把面团抻平。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!NOTE] Example
+两张&lt;strong&gt;揉搓&lt;/strong&gt;之后缠在一起的&lt;strong&gt;纸&lt;/strong&gt;（2 D-&amp;gt;3 D 纠缠的流形）。神经网络（应该具体说是 Encoder）就是通过&lt;strong&gt;逐步的前向过程&lt;/strong&gt;，并且在其中应用&lt;strong&gt;非线性变换&lt;/strong&gt;，来将他们两个&lt;strong&gt;抚平展开&lt;/strong&gt;，最后还能在他俩中间画一条分界线（类间可分，但是只针对分类模型来说）。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&amp;lt;mark style=&quot;background: #FFB86CA6;&quot;&amp;gt;But！&amp;lt;/mark&amp;gt;
+在生成模型中，隐空间通常被强制约束在正态分布上。这就意味着，在数学上，隐空间其实是&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;连通的&amp;lt;/mark&amp;gt;。这是不是自相矛盾呢？&lt;/p&gt;
+&lt;p&gt;答案是并不是。这个问题笔者思考许久才把逻辑理顺：流形假设所关注的层面是数据本身，也就是说，他表达的意思是，无论表象多复杂高维的数据，其就数据本身而言，是存在于一个嵌入到高维空间（现实）中的低维空间（仅观测数据，那数据本身是有一个低维流形）的。
+而对于分类模型和生成模型而言，其区别是对数据所做的维度变换，也就是&lt;strong&gt;看数据的维度度（在什么维度上观测数据）&lt;/strong&gt;：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;观测维度&lt;/th&gt;
+&lt;th&gt;操作&lt;/th&gt;
+&lt;th&gt;典型模型&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;分类模型&lt;/td&gt;
+&lt;td&gt;高维&lt;/td&gt;
+&lt;td&gt;将数据升维，找到分类面，但是这并不于数据本身的流形假设矛盾，只是我们看数据的视角变了&lt;/td&gt;
+&lt;td&gt;SVM&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;生成模型&lt;/td&gt;
+&lt;td&gt;低维&lt;/td&gt;
+&lt;td&gt;将数据降维，找到一个低维参数化的映射，可以将原始高维数据映射到低维，再从低维恢复成高维（恢复的过程就是生成过程，同时由于低维流形是连续的，所以我们可以观察到生成数据的连续，平滑的变化）&lt;/td&gt;
+&lt;td&gt;VAE&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;判别任务 ：流形的 tangle（解纠缠与分离）&lt;/h3&gt;
+&lt;p&gt;原始高维空间中，不同类别的样本往往位于高度卷曲且相互纠缠的流形上，单纯的线性分类器无法将其分离。但是神经网络形式的判别器可以通过层级化的非线性变换，充当拓扑学中的同胚映射（&lt;s&gt;非严格&lt;/s&gt;，其实根本不是）-&amp;gt; 神经网络通过一系列非线性映射，把原始空间中的复杂分布变换到一个更“可分”的表示空间，在该空间中类别可以用简单（如线性）方式分离。
+本质是将数据升维，以达到：将卷曲、纠缠的流形展开；使类别流形在高维空间中线性可分。但是最终输出是一个多对一的映射，毕竟映射到的是标签，从信息量角度，是降维/压缩。&lt;/p&gt;
+&lt;p&gt;严格的同胚定义：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;设X，Y 是两个拓扑空间，一个映射 f:X-&amp;gt;Y，称为同胚，当且仅当：- 双射 - 连续 - 逆映射也连续
+同胚映射可以理解为，在不改变拓扑结构的前提下，对空间进行的连续变形。
+同胚也不是算子，他是只函数空间上的映射。比如，他经常和&lt;strong&gt;连续映射&lt;/strong&gt;，&lt;strong&gt;微分同胚&lt;/strong&gt;，在一起比较。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;条件&lt;/th&gt;
+&lt;th&gt;强度&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;连续映射&lt;/td&gt;
+&lt;td&gt;只要求连续&lt;/td&gt;
+&lt;td&gt;弱&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;同胚&lt;/td&gt;
+&lt;td&gt;连续+可逆+逆连续&lt;/td&gt;
+&lt;td&gt;中&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;微分同胚&lt;/td&gt;
+&lt;td&gt;同胚+可微+逆可微&lt;/td&gt;
+&lt;td&gt;强&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;同胚的判别原则：&lt;/p&gt;
+&lt;p&gt;如果两个空间同胚，那么他们必须在以下性质上完全一致：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;连通性&lt;/li&gt;
+&lt;li&gt;是否有边界：线段有（有两个端点），圆没有（没有端点）&lt;/li&gt;
+&lt;li&gt;洞的数量（拓扑亏格/genus）&lt;/li&gt;
+&lt;li&gt;维度&lt;/li&gt;
+&lt;li&gt;紧性：&amp;lt;=&amp;gt;闭且有界=&amp;gt; 1. 连续函数在紧集上一定能取到最大/最小值2. 紧性在同胚下保持
+闭区间[0,1]-&amp;gt;紧
+开区间（0,1）-&amp;gt;非紧
+整个 R-&amp;gt;非紧&lt;/li&gt;
+&lt;/ol&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;strong&gt;空间对&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;关键差异&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;圆 vs 线段&lt;/td&gt;
+&lt;td&gt;是否有边界（线段有端点）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;球面 vs 环面&lt;/td&gt;
+&lt;td&gt;洞的数量（genus 0 vs 1）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;圆 vs 椭圆&lt;/td&gt;
+&lt;td&gt;全部不变量一致 → 同胚&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;球面 vs 立方体表面&lt;/td&gt;
+&lt;td&gt;全部不变量一致 → 同胚&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;生成任务：流形的参数化与便利&lt;/h3&gt;
+&lt;p&gt;生成模型关注的是流形本身的几何形状与概率密度。对 diffusion model 来说，其去噪过程可以视为在高维能量景观中寻找流形的过程。模型学习了一个能够指示“（目前）距离流形有多远”的 score function/gradient field 。生成的过程就像是一个随机落入高维空间的噪点，沿梯度场将轨迹收敛至低维流形表面的过程。
+这个过程要更加细节的分类：&lt;/p&gt;
+&lt;h4&gt;隐变量模型（VAE，GAN）：&lt;/h4&gt;
+&lt;p&gt;引入隐变量 $z$，寻找 $z\to x$ 的映射，本质上是在构造数据的低维流形。&lt;/p&gt;
+&lt;h4&gt;Flow 模型（Normalized Flow）：&lt;/h4&gt;
+&lt;h1&gt;对于流形空间的一些实际的例证&lt;/h1&gt;
+&lt;h2&gt;隐空间插值（latent space interpolation）&lt;/h2&gt;
+&lt;p&gt;如果直接在原始数据空间进行插值，会得到重影，非常不自然的图像，因为&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;简单插值叠加后的数据，离开了流形，走到了高维空间中概率密度非常低的角落（空旷地带）&amp;lt;/mark&amp;gt;，但是如果使用训练后的 GAN/VAE...等等生成模型，将图片映射到低维的隐空间后，进行插值，再解码回来，则会看到较为平滑的变化。这说明，低维隐空间中数据，确实形成了连续的低维流形，变化的过程是流形上的坐标变化过程，同时自然就发生了数据特征的变化。&lt;/p&gt;
+&lt;h2&gt;对抗样本（adversarial examples）&lt;/h2&gt;
+&lt;p&gt;对抗攻击会在图向上添加微小扰动，这个扰动是随机的，所以一定会包含在流形法向上的位移，使数据越过决策的边界，模型这时候会崩溃，分类错误。这个现象实际上又反向说明了模型学习到的决策边界是紧贴着数据的流形的，&lt;strong&gt;这种紧贴必然会带来在数据流形切向上的健壮性和法向上的脆弱性&lt;/strong&gt;。&lt;/p&gt;
 </content:encoded></item><item><title>海象运算符&amp;einops</title><link>https://ny-wakeup.github.io/myblog/posts/%E6%B5%B7%E8%B1%A1%E8%BF%90%E7%AE%97%E7%AC%A6&amp;einops/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E6%B5%B7%E8%B1%A1%E8%BF%90%E7%AE%97%E7%AC%A6&amp;einops/</guid><pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;pre&gt;&lt;code&gt;class Einsum(nn.Module):
     &quot;&quot;&quot;Einsum with LoRA support. Can be used as a drop-in replacement for the Gemma Einsum.&quot;&quot;&quot;
 
@@ -40,7 +293,7 @@
         return result
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/665513223&quot;&gt;einops实现transformer(这个我也能写)&lt;/a&gt;&lt;/p&gt;
-</content:encoded></item><item><title>常见卷积组合</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF%E7%BB%84%E5%90%88/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF%E7%BB%84%E5%90%88/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</guid><pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;在深度学习（尤其是计算机视觉和机器人感知）中，卷积核大小（Kernel）、填充（Padding）和步长（Stride）的组合通常遵循特定的设计模式。&lt;/p&gt;
+</content:encoded></item><item><title>常见卷积组合</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</guid><pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;在深度学习（尤其是计算机视觉和机器人感知）中，卷积核大小（Kernel）、填充（Padding）和步长（Stride）的组合通常遵循特定的设计模式。&lt;/p&gt;
 &lt;p&gt;以下是除 $3 \times 3, P=1$ 之外最常用的几类&lt;strong&gt;经典组合&lt;/strong&gt;及其应用场景：&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h3&gt;1. 降采样组合（Downsampling）&lt;/h3&gt;
@@ -173,7 +426,7 @@ $$P = \frac{K - 1}{2}$$
 &lt;li&gt;$K=5 \implies P=2$&lt;/li&gt;
 &lt;li&gt;$K=7 \implies P=3$&lt;/li&gt;
 &lt;/ul&gt;
-</content:encoded></item><item><title>zellij-is-good-to-use</title><link>https://ny-wakeup.github.io/myblog/posts/zellij/zellij-is-good-to-use/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/zellij/zellij-is-good-to-use/</guid><pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;tmux虽然拥有很简洁的配置，但是鼠标滚动超级快，很抽象，同时，他复制粘贴的操作也非常令人上火。:spoiler[而且也不够炫酷。]&lt;/p&gt;
+</content:encoded></item><item><title>zellij-is-good-to-use</title><link>https://ny-wakeup.github.io/myblog/posts/zellij-is-good-to-use/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/zellij-is-good-to-use/</guid><pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;tmux虽然拥有很简洁的配置，但是鼠标滚动超级快，很抽象，同时，他复制粘贴的操作也非常令人上火。:spoiler[而且也不够炫酷。]&lt;/p&gt;
 &lt;h2&gt;一些学习链接&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://sspai.com/prime/story/get-started-with-zellij&quot;&gt;一个比 tmux 更友好的终端复用工具：Zellij 简介及使用技巧&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://zellij.dev/documentation/filepicker-alias.html&quot;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
@@ -574,17 +827,4 @@ math should get its own line and be put in in double-dollarsigns:&lt;/p&gt;
 $$&lt;/p&gt;
 &lt;p&gt;And note that you can backslash-escape any punctuation characters
 which you wish to be displayed literally, ex.: `foo`, *bar*, etc.&lt;/p&gt;
-</content:encoded></item><item><title>Include Video in the Posts</title><link>https://ny-wakeup.github.io/myblog/posts/video/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/video/</guid><description>This post demonstrates how to include embedded video in a blog post.</description><pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Just copy the embed code from YouTube or other platforms, and paste it in the markdown file.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;---
-title: Include Video in the Post
-published: 2023-10-19
-// ...
----
-
-&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;https://www.youtube.com/embed/5gIf0_xpFPI?si=N1WTorLKL0uwLsU_&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allowfullscreen&amp;gt;&amp;lt;/iframe&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;YouTube&lt;/h2&gt;
-&lt;p&gt;&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;https://www.youtube.com/embed/5gIf0_xpFPI?si=N1WTorLKL0uwLsU_&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; allowfullscreen&amp;gt;&amp;lt;/iframe&amp;gt;&lt;/p&gt;
-&lt;h2&gt;Bilibili&lt;/h2&gt;
-&lt;p&gt;&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;//player.bilibili.com/player.html?bvid=BV1fK4y1s7Qf&amp;amp;p=1&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot; framespacing=&quot;0&quot; allowfullscreen=&quot;true&quot;&amp;gt; &amp;lt;/iframe&amp;gt;&lt;/p&gt;
 </content:encoded></item></channel></rss>
