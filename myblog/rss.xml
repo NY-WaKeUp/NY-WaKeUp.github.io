@@ -53,7 +53,7 @@ $$&lt;/li&gt;
 &lt;li&gt;MSE 的梯度：cosine loss：$L = 1 - \cos(\Delta\theta) \Rightarrow \nabla \sim \sin(\Delta\theta)$，小误差：≈ 线性（很好），大误差：梯度饱和（更稳）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;其实又是大一统思想，&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;我们优化的永远是真实的信息的光滑代理&amp;lt;/mark&amp;gt;&lt;/p&gt;
-</content:encoded></item><item><title>pypreqs</title><link>https://ny-wakeup.github.io/myblog/posts/pypreqs/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pypreqs/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;pipreqs 是一个可以自动生成项目中使用的依赖到 requirements.txt中去的工具。
+</content:encoded></item><item><title>pipreqs</title><link>https://ny-wakeup.github.io/myblog/posts/pipreqs/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pipreqs/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;pipreqs 是一个可以自动生成项目中使用的依赖到 requirements.txt中去的工具。
 Use：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;pip install pipreqs
 pypreqs .
