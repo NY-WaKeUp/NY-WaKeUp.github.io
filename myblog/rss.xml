@@ -1,31 +1,136 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>fisher-information</title><link>https://ny-wakeup.github.io/myblog/posts/fisher-information/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/fisher-information/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Fisher 信息量&lt;/h1&gt;
-&lt;p&gt;描述的是某参数 $\theta$ 携带信息量的多少，信息量在数学上正是由 &lt;strong&gt;不确定性&lt;/strong&gt;，&lt;strong&gt;敏感度&lt;/strong&gt;，来定义的。&lt;/p&gt;
-&lt;h1&gt;信息量&amp;lt;==&amp;gt;敏感度&lt;/h1&gt;
-&lt;p&gt;如果一个参数 $\theta$ 的微小变动可以引起概率分布 $f(x|\theta)$ 的剧烈变化，则称这个参数 &lt;strong&gt;携带的信息量大&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;证明：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/OYZNdw.png&quot; alt=&quot;OYZNdw&quot; /&gt;
-在标量语境下，这个式子是方差，针对&lt;strong&gt;标量&lt;/strong&gt;随机变量 $X$，定义为 $E(X-E[X])^2$。&lt;/p&gt;
-&lt;p&gt;但是参数 $\theta$ 通常是一个 d 维向量。而 $s(\theta)=\nabla \log p(x|\theta)$ 当然是梯度向量，也是 $score\space function$，其期望为 0。针对&lt;strong&gt;向量&lt;/strong&gt;随机变量 $\vec{s}$，定义为 $Cov(\vec{s})=E[(\vec{s}-E[\vec{s}])(\vec{s}-E[\vec{s}])^T]$。&lt;/p&gt;
-&lt;p&gt;得到的是一个协方差矩阵，他的对角线元素表示了每个参数分量的波动（方差），非对角线元素表示了不同参数估计值之间的线性相关性。（ps.线性不相关一定协方差为 0,但是协方差为 0 不一定独立，因为可能非线性相关）。因为 $s(\theta)$ 是列向量，所以这个操作实际上计算的是外积。
-&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/ArCRf6.png&quot; alt=&quot;ArCRf6&quot; /&gt;
-同时，这个矩阵描述了似然函数曲面的曲率。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;[!note] 从梯度到曲率&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>adam&amp;adamw</title><link>https://ny-wakeup.github.io/myblog/posts/Adam&amp;AdamW/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Adam&amp;AdamW/</guid><pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;AdamW 将对 $\theta$ 的 $L_{2}$ 正则化从 Adam 的梯度更新中拿出来，在更新 $\theta$ 的时候直接加上，更像是真正的&lt;strong&gt;权重衰减&lt;/strong&gt;。
+现在基本上是大模型训练的标配
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/643452086&quot;&gt;知乎讲解&lt;/a&gt;&lt;/p&gt;
+</content:encoded></item><item><title>MLE&amp;MAP</title><link>https://ny-wakeup.github.io/myblog/posts/MLE&amp;MAP/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/MLE&amp;MAP/</guid><pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;MAP 是 &lt;strong&gt;极大后验估计&lt;/strong&gt;，MLE 是 &lt;strong&gt;极大似然估计&lt;/strong&gt;。&lt;/p&gt;
+&lt;h1&gt;MLE&lt;/h1&gt;
+&lt;p&gt;数据 $D={x_{1},\dots x_{n}}$，模型参数为 $\theta$，MLE 选择&lt;strong&gt;使数据出现概率最大&lt;/strong&gt;的参数：&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;所谓似然&amp;lt;/mark&amp;gt;
+$$
+\hat{\theta}&lt;em&gt;{MLE}=\arg \max&lt;/em&gt;{\theta}\sum_{i=1}^n\log p(x_{i}|\theta)
+$$
+用 log 是因为常用 log 转成对数形式，好运算。&lt;/p&gt;
+&lt;p&gt;哪个参数最能解释已经观察到的数据。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;容易过拟合&lt;/strong&gt;（尤其小数据）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;MAP&lt;/h1&gt;
+&lt;p&gt;在 MLE 的基础上，引入参数的先验分布 $p(\theta)$，注：$\log p(D \mid \theta) = \sum_{i=1}^n \log p(x_i \mid \theta)$，和上边是一样的
+$$
+\hat{\theta}&lt;em&gt;{\text{MAP}} = \arg\max&lt;/em&gt;{\theta} , p(\theta \mid D)
+$$
+利用贝叶斯公式：
+$$
+p(\theta|D)=\frac{p(D|\theta)p(\theta)}{p(D)}
+$$
+去掉与 $\theta$ 无关的参数，比如 D 的分布，他其实只起到一个归一化的作用而已，概率相乘会导致求导非常复杂，于是用 log：单调递增函数
+$$
+\hat{\theta}&lt;em&gt;{MAP}=\arg\max&lt;/em&gt;{\theta}[\log p(D|\theta)+\log p(\theta)]
+$$
+直观的理解就是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不仅看数据，还考虑这个参数本身的合理性&lt;/li&gt;
+&lt;li&gt;在数据少的时候就尤其重要。&lt;/li&gt;
+&lt;li&gt;正则化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们习惯最小化损失，而不是最大化收益。所以我们给整个函数加一个负号，来将 argmax 变为 argmin。
+$$
+\hat{\theta}&lt;em&gt;{MAP}=\arg\min&lt;/em&gt;{\theta}[-\log p(x|\theta)-\log p(\theta)]
+$$
+假设 D 内数据是 IID 的，那似然项可以展开为 log 求和：
+$$
+\hat{\theta}&lt;em&gt;{MAP}=\arg\min&lt;/em&gt;{\theta}\left( -\sum_{i=1}^np_{\theta}(x_{i}) \right)+(-\log p(\theta))
+$$
+==前项==：复对数似然（NLL）
+==后项==：正则化项&lt;/p&gt;
+&lt;h2&gt;MAP&amp;amp;MLE&lt;/h2&gt;
+&lt;p&gt;MAP=MLE+正则化
+$$
+\begin{align}
+&amp;amp;假如先验是高斯：p_{\theta} \sim N(0,\sigma^2) \
+&amp;amp;则：\log p(\theta)=-\frac{1}{2\sigma^2}||\theta||^2 \
+&amp;amp;MAP变成了\max_\theta \left( \log p(D|\theta) - \lambda |\theta|^2 \right) \
+&amp;amp;正好就是L_{2}正则化
+\end{align}
+$$&lt;/p&gt;
+&lt;h1&gt;总结&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;MLE：只相信数据&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;MAP：数据 + 先验&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;正则化 = 先验&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;现代深度学习几乎都在做 MAP（只是没明说）&lt;/strong&gt;
+MAP：
+$$
+\begin{align}
+&amp;amp;\max_\theta ; \log p(D|\theta) + \log p(\theta)\
+&amp;amp;若设先验为各向同性高斯： \
+&amp;amp;p(\theta) = \mathcal{N}(0, \sigma^2 I) \
+&amp;amp;\log p(\theta) = -\frac{1}{2\sigma^2}|\theta|^2 + C \
+&amp;amp;\max_\theta ; \log p(D|\theta) - \lambda |\theta|^2 \quad (\lambda = \tfrac{1}{2\sigma^2}) \
+&amp;amp;正是正则化
+\end{align}
+$$&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded></item><item><title>SDE&amp;ODE</title><link>https://ny-wakeup.github.io/myblog/posts/SDE&amp;ODE/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/SDE&amp;ODE/</guid><pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;扩散模型中的 SDE&lt;/h1&gt;
+&lt;p&gt;扩散模型（如 DDPM）在连续时间极限下可以被视为一个 Ito SDE&lt;/p&gt;
+&lt;p&gt;$$
+dx=f(x,t)dt+g(t)dW_{t}
+$$&lt;/p&gt;
+&lt;p&gt;$f(x,t)$ ：漂移项是确定的意图。
+$g(t)$:幅度。决定噪声有多大，如果 $g(t)=0$，SDE 退化成了普通的 ODE。
+$dw$：维纳过程增量/随机扰动/布朗运动。&lt;/p&gt;
+&lt;p&gt;在扩散模型中&lt;/p&gt;
+&lt;h1&gt;Flow 模型中的 ODE&lt;/h1&gt;
+</content:encoded></item><item><title>score-matching</title><link>https://ny-wakeup.github.io/myblog/posts/score-matching/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/score-matching/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;$$
+S(x)=\nabla_{x} \log p(x)
+$$&lt;/p&gt;
+&lt;h1&gt;为什么不直接计算 $\nabla_{x}p(x)$ 呢？&lt;/h1&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;一阶导数（Score function）&lt;/strong&gt;：描述的是“坡度”（陡峭程度）。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;二阶导数（Hessian Matrix）&lt;/strong&gt;：描述的是“坡度的变化”，即&lt;strong&gt;曲率&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;化简计算&lt;/strong&gt;，对于正高斯分布这类指数族分布，取 log 之后可以将指数抵消，就变成了简单的线性或者二次项，简化了后续的求导。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;消除常数&lt;/strong&gt;，这个问题需要更加细节的讨论&lt;/li&gt;
 &lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;综上，如果一个参数 $\theta$ 的微小变动能引起概率分布 $p(x|\theta)$ 的剧烈变化，那么这个参数携带的信息量大。-&amp;gt;意味着观测数据 $x$ 对参数 $\theta$ 的变化非常敏感-&amp;gt;说明我通过观测 $x$ 来估计 $\theta$ 时，能够获得的确定性越高。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;[!tip] &lt;strong&gt;Cramér-Rao 不等式&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;对于任何无偏估计量 $\hat{\theta}$，其方差（不确定性）满足：$var(\hat{\theta})=\frac{1}{I(\theta)}$, $I(\theta)$ 就是那个协方差矩阵。Fisher 信息量越大 → 估计量的方差下界越小 → 估计得越准。既然它能让估计变得更准，我们自然称它为“携带的信息量更多。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;[!tip]&lt;/p&gt;
-&lt;p&gt;同时，开了一个大坑：信息几何-Information Geomotry&lt;/p&gt;
-&lt;/blockquote&gt;
-</content:encoded></item><item><title>geodesic-distance</title><link>https://ny-wakeup.github.io/myblog/posts/geodesic-distance/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/geodesic-distance/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;中文名字叫测地线，先是在做角度度量的时候了解到的，但是没有详细深究，最近在学习流形的时候，了解到的一个概念，然后看了苏剑林的笔记： &lt;a href=&quot;https://spaces.ac.cn/archives/9368&quot;&gt;从局部到全局：语义相似度的测地线距离&lt;/a&gt;，有了一些认识。
+</content:encoded></item><item><title>海象运算符&amp;einops</title><link>https://ny-wakeup.github.io/myblog/posts/%E6%B5%B7%E8%B1%A1%E8%BF%90%E7%AE%97%E7%AC%A6&amp;einops/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E6%B5%B7%E8%B1%A1%E8%BF%90%E7%AE%97%E7%AC%A6&amp;einops/</guid><pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;pre&gt;&lt;code&gt;class Einsum(nn.Module):
+    &quot;&quot;&quot;Einsum with LoRA support. Can be used as a drop-in replacement for the Gemma Einsum.&quot;&quot;&quot;
+
+    # Shape of the weight.
+    shape: tuple[int, ...]
+    # Initialization function for the weight.
+    init_fn: nn.initializers.Initializer = nn.initializers.zeros
+    # If not None, apply LoRA to the weight.
+    lora_config: LoRAConfig | None = None
+
+    def setup(self):
+        self.w = self.param(&quot;w&quot;, self.init_fn, self.shape)
+
+        if config := self.lora_config:
+            # Setup LoRA parameters.
+            shape_a, shape_b = list(self.shape), list(self.shape)
+            shape_a[config.axes[1]] = config.rank
+            shape_b[config.axes[0]] = config.rank
+            self.w_a = self.param(&quot;lora_a&quot;, config.init_fn, shape_a)
+            self.w_b = self.param(&quot;lora_b&quot;, config.init_fn, shape_b)
+
+    @nn.compact
+    def __call__(self, eqn: str, x):
+        dtype = x.dtype  # original dtype, could be half-precision
+        result = jnp.einsum(eqn, x, self.w.astype(dtype))
+
+        if config := self.lora_config:
+            eqn_a, eqn_b = self._make_lora_eqns(eqn)
+            lora = jnp.einsum(eqn_a, x, self.w_a.astype(dtype))
+            lora = jnp.einsum(eqn_b, lora, self.w_b.astype(dtype))
+            result = result + lora * config.scaling_value
+
+        return result
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/665513223&quot;&gt;einops实现transformer(这个我也能写)&lt;/a&gt;&lt;/p&gt;
+</content:encoded></item><item><title>geodesic-distance</title><link>https://ny-wakeup.github.io/myblog/posts/geodesic-distance/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/geodesic-distance/</guid><pubDate>Fri, 27 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;中文名字叫测地线，先是在做角度度量的时候了解到的，但是没有详细深究，最近在学习流形的时候，了解到的一个概念，然后看了苏剑林的笔记： &lt;a href=&quot;https://spaces.ac.cn/archives/9368&quot;&gt;从局部到全局：语义相似度的测地线距离&lt;/a&gt;，有了一些认识。
 简单来说就是两点间的最短距离，为什么不是简单的欧氏距离呢？是因为这个信息量的流形未必是平直的，所以这个距离未必是两点之间的欧氏距离。&lt;/p&gt;
 &lt;h1&gt;形象化解释&lt;/h1&gt;
 &lt;p&gt;要从地球的南极走到北极，我们是没有办法穿过地心走直线的，只能沿着地球表面先走到赤道，然后再走到南极，这就是走了一段曲线距离，但是这个在球面的流形空间中，就是最短的距离。&lt;/p&gt;
@@ -53,30 +158,12 @@ $$&lt;/li&gt;
 &lt;li&gt;MSE 的梯度：cosine loss：$L = 1 - \cos(\Delta\theta) \Rightarrow \nabla \sim \sin(\Delta\theta)$，小误差：≈ 线性（很好），大误差：梯度饱和（更稳）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;其实又是大一统思想，&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;我们优化的永远是真实的信息的光滑代理&amp;lt;/mark&amp;gt;&lt;/p&gt;
-</content:encoded></item><item><title>pipreqs</title><link>https://ny-wakeup.github.io/myblog/posts/pipreqs/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pipreqs/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;pipreqs 是一个可以自动生成项目中使用的依赖到 requirements.txt中去的工具。
+</content:encoded></item><item><title>pipreqs</title><link>https://ny-wakeup.github.io/myblog/posts/pipreqs/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pipreqs/</guid><pubDate>Fri, 27 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;pipreqs 是一个可以自动生成项目中使用的依赖到 requirements.txt中去的工具。
 Use：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;pip install pipreqs
 pypreqs .
 &lt;/code&gt;&lt;/pre&gt;
-</content:encoded></item><item><title>score-matching</title><link>https://ny-wakeup.github.io/myblog/posts/score-matching/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/score-matching/</guid><pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;$$
-S(x)=\nabla_{x} \log p(x)
-$$&lt;/p&gt;
-&lt;h1&gt;为什么不直接计算 $\nabla_{x}p(x)$ 呢？&lt;/h1&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;化简计算&lt;/strong&gt;，对于正高斯分布这类指数族分布，取 log 之后可以将指数抵消，就变成了简单的线性或者二次项，简化了后续的求导。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;消除常数&lt;/strong&gt;，这个问题需要更加细节的讨论&lt;/li&gt;
-&lt;/ol&gt;
-</content:encoded></item><item><title>SDE&amp;ODE</title><link>https://ny-wakeup.github.io/myblog/posts/SDE&amp;ODE/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/SDE&amp;ODE/</guid><pubDate>Mon, 06 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;扩散模型中的 SDE&lt;/h1&gt;
-&lt;p&gt;扩散模型（如 DDPM）在连续时间极限下可以被视为一个 Ito SDE
-$$
-dx=f(x,t)dt+g(t)dW_{t}
-$$
-$f(x,t)$ ：漂移项是确定的意图。
-$g(t)$:幅度。决定噪声有多大，如果 $g(t)=0$，SDE 退化成了普通的 ODE。
-$dw$：维纳过程增量/随机扰动/布朗运动。&lt;/p&gt;
-&lt;p&gt;在扩散模型中&lt;/p&gt;
-&lt;h1&gt;Flow 模型中的 ODE&lt;/h1&gt;
-</content:encoded></item><item><title>Manifold-Hypothesis</title><link>https://ny-wakeup.github.io/myblog/posts/Manifold-Hypothesis/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Manifold-Hypothesis/</guid><pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;流形假设&lt;/p&gt;
+</content:encoded></item><item><title>Manifold-Hypothesis</title><link>https://ny-wakeup.github.io/myblog/posts/Manifold-Hypothesis/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Manifold-Hypothesis/</guid><pubDate>Sun, 15 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;流形假设&lt;/p&gt;
 &lt;h1&gt;陈述&lt;/h1&gt;
 &lt;p&gt;虽然现实世界中的数据比如一张图片是由成千上万个维度 $D$（像素）组成，但他们实际上分布在一个内嵌入于高维空间中的低维（维度为 $d$ 且 $d\ll D$ ）的流形上，或其近邻&lt;/p&gt;
 &lt;h1&gt;Example&lt;/h1&gt;
@@ -266,41 +353,37 @@ A:多个&lt;/p&gt;
 &lt;p&gt;如果直接在原始数据空间进行插值，会得到重影，非常不自然的图像，因为&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;简单插值叠加后的数据，离开了流形，走到了高维空间中概率密度非常低的角落（空旷地带）&amp;lt;/mark&amp;gt; ，但是如果使用训练后的 GAN/VAE...等等生成模型，将图片映射到低维的隐空间后，进行插值，再解码回来，则会看到较为平滑的变化。这说明，低维隐空间中数据，确实形成了连续的低维流形，变化的过程是流形上的坐标变化过程，同时自然就发生了数据特征的变化。&lt;/p&gt;
 &lt;h2&gt;对抗样本（adversarial examples）&lt;/h2&gt;
 &lt;p&gt;对抗攻击会在图向上添加微小扰动，这个扰动是随机的，所以一定会包含在流形法向上的位移，使数据越过决策的边界，模型这时候会崩溃，分类错误。这个现象实际上又反向说明了模型学习到的决策边界是紧贴着数据的流形的，&lt;strong&gt;这种紧贴必然会带来在数据流形切向上的健壮性和法向上的脆弱性&lt;/strong&gt;。&lt;/p&gt;
-</content:encoded></item><item><title>海象运算符&amp;einops</title><link>https://ny-wakeup.github.io/myblog/posts/%E6%B5%B7%E8%B1%A1%E8%BF%90%E7%AE%97%E7%AC%A6&amp;einops/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E6%B5%B7%E8%B1%A1%E8%BF%90%E7%AE%97%E7%AC%A6&amp;einops/</guid><pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;pre&gt;&lt;code&gt;class Einsum(nn.Module):
-    &quot;&quot;&quot;Einsum with LoRA support. Can be used as a drop-in replacement for the Gemma Einsum.&quot;&quot;&quot;
-
-    # Shape of the weight.
-    shape: tuple[int, ...]
-    # Initialization function for the weight.
-    init_fn: nn.initializers.Initializer = nn.initializers.zeros
-    # If not None, apply LoRA to the weight.
-    lora_config: LoRAConfig | None = None
-
-    def setup(self):
-        self.w = self.param(&quot;w&quot;, self.init_fn, self.shape)
-
-        if config := self.lora_config:
-            # Setup LoRA parameters.
-            shape_a, shape_b = list(self.shape), list(self.shape)
-            shape_a[config.axes[1]] = config.rank
-            shape_b[config.axes[0]] = config.rank
-            self.w_a = self.param(&quot;lora_a&quot;, config.init_fn, shape_a)
-            self.w_b = self.param(&quot;lora_b&quot;, config.init_fn, shape_b)
-
-    @nn.compact
-    def __call__(self, eqn: str, x):
-        dtype = x.dtype  # original dtype, could be half-precision
-        result = jnp.einsum(eqn, x, self.w.astype(dtype))
-
-        if config := self.lora_config:
-            eqn_a, eqn_b = self._make_lora_eqns(eqn)
-            lora = jnp.einsum(eqn_a, x, self.w_a.astype(dtype))
-            lora = jnp.einsum(eqn_b, lora, self.w_b.astype(dtype))
-            result = result + lora * config.scaling_value
-
-        return result
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/665513223&quot;&gt;einops实现transformer(这个我也能写)&lt;/a&gt;&lt;/p&gt;
+</content:encoded></item><item><title>fisher-information</title><link>https://ny-wakeup.github.io/myblog/posts/fisher-information/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/fisher-information/</guid><pubDate>Sat, 07 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Fisher 信息量&lt;/h1&gt;
+&lt;p&gt;描述的是某参数 $\theta$ 携带信息量的多少，信息量在数学上正是由 &lt;strong&gt;不确定性&lt;/strong&gt;，&lt;strong&gt;敏感度&lt;/strong&gt;，来定义的。&lt;/p&gt;
+&lt;h1&gt;信息量&amp;lt;==&amp;gt;敏感度&lt;/h1&gt;
+&lt;p&gt;如果一个参数 $\theta$ 的微小变动可以引起概率分布 $f(x|\theta)$ 的剧烈变化，则称这个参数 &lt;strong&gt;携带的信息量大&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;证明：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/OYZNdw.png&quot; alt=&quot;OYZNdw&quot; /&gt;
+在标量语境下，这个式子是方差，针对&lt;strong&gt;标量&lt;/strong&gt;随机变量 $X$，定义为 $E(X-E[X])^2$。&lt;/p&gt;
+&lt;p&gt;但是参数 $\theta$ 通常是一个 d 维向量。而 $s(\theta)=\nabla \log p(x|\theta)$ 当然是梯度向量，也是 $score\space function$，其期望为 0。针对&lt;strong&gt;向量&lt;/strong&gt;随机变量 $\vec{s}$，定义为 $Cov(\vec{s})=E[(\vec{s}-E[\vec{s}])(\vec{s}-E[\vec{s}])^T]$。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!note] Score Function为0的意义&lt;/p&gt;
+&lt;p&gt;在真是参数下的梯度为 0，因为对数似然函数的导数反映了似然函数的“坡度”，而在真实参数 $\theta$ 下，这个似然函数达到了极&lt;strong&gt;大&lt;/strong&gt;值（在&lt;strong&gt;最大似然估计&lt;/strong&gt;语境下来说），于是坡度为 0,通过上面的积分就可以得证了（用到了概率归一化的结果）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;得到的是一个协方差矩阵，他的对角线元素表示了每个参数分量的波动（方差），非对角线元素表示了不同参数估计值之间的线性相关性。（ps.线性不相关一定协方差为 0,但是协方差为 0 不一定独立，因为可能非线性相关）。因为 $s(\theta)$ 是列向量，所以这个操作实际上计算的是外积。
+&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/ArCRf6.png&quot; alt=&quot;ArCRf6&quot; /&gt;
+同时，这个矩阵描述了似然函数曲面的曲率。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!note] 从梯度到曲率&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;一阶导数（Score function）&lt;/strong&gt;：描述的是“坡度”（陡峭程度）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;二阶导数（Hessian Matrix）&lt;/strong&gt;：描述的是“坡度的变化”，即&lt;strong&gt;曲率&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;综上，如果一个参数 $\theta$ 的微小变动能引起概率分布 $p(x|\theta)$ 的剧烈变化，那么这个参数携带的信息量大。-&amp;gt;意味着观测数据 $x$ 对参数 $\theta$ 的变化非常敏感-&amp;gt;说明我通过观测 $x$ 来估计 $\theta$ 时，能够获得的确定性越高。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!tip] &lt;strong&gt;Cramér-Rao 不等式&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;对于任何无偏估计量 $\hat{\theta}$，其方差（不确定性）满足：$var(\hat{\theta})=\frac{1}{I(\theta)}$, $I(\theta)$ 就是那个协方差矩阵。Fisher 信息量越大 → 估计量的方差下界越小 → 估计得越准。既然它能让估计变得更准，我们自然称它为“携带的信息量更多。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!tip]&lt;/p&gt;
+&lt;p&gt;同时，开了一个大坑：信息几何-Information Geomotry&lt;/p&gt;
+&lt;/blockquote&gt;
 </content:encoded></item><item><title>常见卷积组合</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</guid><pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;在深度学习（尤其是计算机视觉和机器人感知）中，卷积核大小（Kernel）、填充（Padding）和步长（Stride）的组合通常遵循特定的设计模式。&lt;/p&gt;
 &lt;p&gt;以下是除 $3 \times 3, P=1$ 之外最常用的几类&lt;strong&gt;经典组合&lt;/strong&gt;及其应用场景：&lt;/p&gt;
 &lt;hr /&gt;
