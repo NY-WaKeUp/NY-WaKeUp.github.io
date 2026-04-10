@@ -1,54 +1,154 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>adam&amp;adamw</title><link>https://ny-wakeup.github.io/myblog/posts/Adam&amp;AdamW/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Adam&amp;AdamW/</guid><pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;AdamW 将对 $\theta$ 的 $L_{2}$ 正则化从 Adam 的梯度更新中拿出来，在更新 $\theta$ 的时候直接加上，更像是真正的&lt;strong&gt;权重衰减&lt;/strong&gt;。
-现在基本上是大模型训练的标配
-&lt;a href=&quot;https://zhuanlan.zhihu.com/p/643452086&quot;&gt;知乎讲解&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>vae</title><link>https://ny-wakeup.github.io/myblog/posts/vae/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/vae/</guid><pubDate>Fri, 10 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;思路&lt;/h1&gt;
+&lt;p&gt;$$
+p_{\theta}(z|x)=\frac{p_{\theta}(x|z)p(z)}{p_{\theta(x)}}
+$$&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!note] 我认为的vae思路&lt;/p&gt;
+&lt;p&gt;其实是&lt;strong&gt;因果关系&lt;/strong&gt;：我们认为现实是果，我们想找因，找到这个因我们再弄清楚这个因是怎么产出果的就能随心所欲的创造出果了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这里其实我们是在做推断，我们永远没有办法获得真实的 $p(z|x)$，得到了我们也不知道怎么用，我们用 $\theta$ 来参数化这个推断模型，因为左侧是由右侧得到的，右侧的分子是 $\theta$ 参数化的生成模型（也就是 &amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;Decoder&amp;lt;/mark&amp;gt;）乘以先验（高斯分布）&amp;lt;mark style=&quot;background: #FFF3A3A6;&quot;&amp;gt;可算&amp;lt;/mark&amp;gt;，分母是这个分子对 dz 的积分，自然也受到 $\theta$ 的影响，&amp;lt;mark style=&quot;background: #FFF3A3A6;&quot;&amp;gt;不可算&amp;lt;/mark&amp;gt;。&lt;/p&gt;
+&lt;p&gt;总结一下，我们目前有如下困难：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;我们想要获得真实的后验，并且还得学会怎么用这个后验，所以：我们首先引入隐变量 $z$，并使用 $\theta$ 来参数化推断模型。&lt;/li&gt;
+&lt;li&gt;由于我们没有办法将分子对 $dz$ 进行积分，所以我们其实也没有办法得到 $\theta$ 参数化的左侧。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;对于困难 1&lt;/h2&gt;
+&lt;p&gt;一切的源头都是对一个含有隐变量的分布进行参数估计。在这里，可观察变量是 $x$，隐变量是 $z$，待估计参数是 $\theta$。我们会用最大似然估计（MLE）来做这件事，但是由于有隐变量，所以我们会使用EM算法。EM 算法本质还是 MLE，只不过会在每次迭代中交替进行期望（E）步和最大化（M）步，以逐步优化对数似然的下界。&lt;/p&gt;
+&lt;h3&gt;ELBO&lt;/h3&gt;
+&lt;p&gt;ELBO 的出现，是为了解决无法求得 $\log p_{\theta}(x)$，而我们的目的是使得 $\log p_{\theta}(x)$ 更大，所以转换思路，我们如果可以知道它的某种下界，我们就不断的提升下界即可。于是我们引入证据下界 $Evidence~Lower~BOund$。&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align}
+\text{法1} \
+&amp;amp;\textbf{1.}\ \text{引入高斯分布 }Z\text{，用边缘分布公式} \
+&amp;amp;\quad \log p_{\theta}(X)=\log\int p_{\theta}(X,Z),dZ \
+&amp;amp;\textbf{2.}\ \text{变换一下，乘 }1 \
+&amp;amp;\quad=\log\int q_{\phi}(Z|X),\frac{p_{\theta}(X,Z)}{q_{\phi}(Z|X)},dZ \
+&amp;amp;\textbf{3.}\ \text{符合期望公式，被积函数乘以概率密度函数，可以算任何函数的期望}f(Z)=\frac{p_{\theta(X,Z)}}{q_{\phi}(Z|X)} \
+&amp;amp;\quad=\log E_{q_{\phi}(Z|X)}\left[ \frac{p_{\theta}(X,Z)}{q_{\phi}(Z|X)} \right] \
+&amp;amp;\textbf{4.}\ \text{Jensen inequality } \log E[\cdot]\geq E[\log(\cdot)],\ \text{therefore} \
+&amp;amp;\quad=&amp;gt;\log p_{\theta}(X)\geq E_{q_{\phi}}\left[ \log \frac{p_{\theta}(X,Z)}{q_{\phi}(Z|X)} \right]
+\end{align}
+$$&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align}
+&amp;amp;\text{法2}\ \
+&amp;amp;\log p_{\theta}(x)= \
+&amp;amp;\text{由于乘法公式/边缘分布} \
+&amp;amp;=\log E_{z}[p_{\theta}(x,z)] \
+&amp;amp;=\log E_{z}[p_{\theta}(z|x)p_{\theta}(x)] \
+&amp;amp;p_{\theta}(x)\text{没法儿算，所以才有以下操作，是有原因的} \
+&amp;amp;=\log E_{z}\left[ p_{\theta}(z|x) \frac{p_{\theta}(x,z)}{p_{\theta}(z|x)} \right] \
+&amp;amp;\text{Jensen inequality } \log E[\cdot]\geq E[\log(\cdot)],\ \text{therefore} \
+&amp;amp;=&amp;gt;\log p_{\theta}(x)\geq E_{q_{\phi}(Z|X)}\left[ \log \frac{p_{\theta}(X,Z)}{q_{\phi}(Z|X)} \right]
+\end{align}
+$$&lt;/p&gt;
+&lt;p&gt;右边就定义为ELBO，证据下界。&lt;/p&gt;
+&lt;p&gt;$$
+ELBO = E_{q_{\phi}(Z|X)}\left[ \log \frac{p_{\theta}(X,Z)}{q_{\phi}(Z|X)} \right]=E_{q_{\phi}(Z|X)}\left[ \log p_{\theta}(X,Z) \right]-E_{q_{\phi}(Z|X)}\left[ \log q_{\phi}(Z|X) \right]
+$$&lt;/p&gt;
+&lt;p&gt;一般都会将联合概率写成条件概率的形式，因为条件概率是可算的:&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align}
+&amp;amp;ELBO = E_{q_{\phi}(Z|X)}\left[ \log p_{\theta}(X,Z) \right]-E_{q_{\phi}(Z|X)}\left[ \log q_{\phi}(Z|X) \right] \
+&amp;amp;=E_{q_{\phi}(Z|X)}\left[ \log p_{\theta}(X|Z) \right]+E_{q_{\phi}(Z|X)}\left[ \log p(Z) \right]-E_{q_{\phi}(Z|X)}\left[ \log q_{\phi}(Z|X) \right] \
+&amp;amp;=E_{q_{\phi}(Z|X)}\left[ \log p_{\theta}(X|Z) \right]-KL(q_{\phi}(Z|X)||p(Z))
+\end{align}
+$$&lt;/p&gt;
+&lt;p&gt;第一项就是重构损失，第二项就是先验正则（控制不能离先验分布太远）&lt;/p&gt;
+&lt;h4&gt;关键恒等式&lt;/h4&gt;
+&lt;p&gt;有一个非常重要的等式，把三者连在一起：&lt;/p&gt;
+&lt;p&gt;$$
+\log p_{\theta}(x)=ELBO+KL(q_{\phi}(z|x)||p_{\theta}(z|x))
+$$&lt;/p&gt;
+&lt;p&gt;由于KL散度总是非负的，所以这立刻揭示了为什么ELBO是下界，同时揭示了下界的松紧是由KL散度决定的。当 $q_{\phi}(z|x)=p_{\theta}(z|x)$ 时，等号成立。&lt;/p&gt;
+&lt;h2&gt;对于困难 2&lt;/h2&gt;
+&lt;p&gt;我们又弄了一个 $\phi$ 参数化的 $q_{\phi}(z|x)$ ，来逼近这个 &amp;lt;mark style=&quot;background: #FFF3A3A6;&quot;&amp;gt;不可算&amp;lt;/mark&amp;gt; 的 $\theta$ 参数化的左侧，这个就是&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt; Encoder&amp;lt;/mark&amp;gt;。&lt;/p&gt;
+&lt;p&gt;于是，我们的目标就是最小化 KL 散度，$KL(p_{\phi}(z|x)||p_{\theta}(z|x))$ 即让 $q_{\phi}(z|x)$ 尽可能接近 $p_{\theta}(z|x)$，如果吧 phi 函数看作自变量函数，那这个 KL 散度就是关于他的一个泛函。于是我们现在正是在求一个泛函极值问题，所以叫他变分推断，也就是变分推断的由来，也是我们习惯把证据下界 ELBO 称为变分下界的原因。&lt;/p&gt;
+&lt;p&gt;变分是跟泛函相关的概念，指的是自变量函数的微小变化时，泛函值如何响应。例如变分法所关心的就是泛函极值问题，即找到最优的函数来让泛函取到最优值。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/zCNhvQ.png&quot; alt=&quot;zCNhvQ&quot; /&gt;&lt;/p&gt;
+&lt;h2&gt;具体如何优化的 ？&lt;/h2&gt;
+&lt;p&gt;$\theta$ 在 ELBO 中：$\log p_{\theta(x|z)}$
+$\phi$ 在 ELBO 中：$E_{z\sim q_{\phi}}[.]$ 和 $KL(q_{\phi}(z|x)||p(z))$&lt;/p&gt;
+&lt;p&gt;计算梯度的时候也是分别对两个参数计算上述两个式子的梯度&lt;/p&gt;
+&lt;p&gt;重参数技巧，因为采样的动作是不可求梯度的，使得期望可以反向传播：$z=\mu_\phi(x) + \sigma_\phi(x) \cdot \epsilon, \quad \epsilon \sim \mathcal{N}(0,1)$&lt;/p&gt;
+&lt;p&gt;实际上就是输出两个参数，然后再使用 $\sigma$ 进行高斯噪声的缩放。
+Encoder 实际上学的是均值 $\mu_\phi(x)$--数据中心 和方差 $\sigma_\phi(x)$--不确定性。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!note]高斯分布的构造：&lt;/p&gt;
+&lt;p&gt;If $\epsilon \sim \mathcal{N}(0,1)$，then $z=\mu+\sigma \epsilon \sim\mathcal{N}(\mu,\sigma^2)$&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;为什么可以把目标定为优化 ELBO&lt;/h2&gt;
+&lt;p&gt;上面我们推导了 $MLE\geq ELBO$，所以我们实际上是在最大化似然的下界。实际上因为 $p_{\theta}(x)$ 又叫证据，所以 ELBO 叫作证据下界。&lt;/p&gt;
+&lt;p&gt;那我们直接丢弃后面那个 KL 散度的计算是合理的么？
+是合理的，合理性本质是由 EM 算法保证的。因为我们最大化 ELBO 是在交替迭代的做这两件事：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;估计隐变量分布 $p_{\theta}(z|x)$ 或者是在做变分（式的）推断，因为我们的手段就是用 $q_{\phi}(z|x)$ 来逼近 $p_{\theta}(z|x)$，是在优化编码器，因为此时&lt;strong&gt;要看成&lt;/strong&gt;：$\theta$ 是固定的，我们优化的参数是phi(实际上训练vae不是，而是通过损失的平衡性自适应地调整)。因此，$\log p_{\theta}(x)$是不变的，所以最大化ELBO就等价于最小化KL散度。此时我们对ELBO的优化只涉及到优化$\phi$，所以本质上是给$\log p_{\theta}(x)$找了一个更近的下界（这个下界也是$\theta$的函数，所以我们找了一个更好的函数，正所谓&lt;strong&gt;变分&lt;/strong&gt;）&lt;/li&gt;
+&lt;li&gt;计算似然损失对隐变量 $z$ 的期望，然后再固定 $\phi$，优化 $\theta$，计算最大似然。其中计算似然损失对隐变量 $z$ 的期望和第一件事合起来就对应EM算法的E步（Expectation），对应ELBO中的 $E_{q_{\phi}(Z|X)}\left[ \log p_{\theta}(X|Z) \right]$；而对 $\theta$  的优化（即ELBO）则对应EM算法中的M步（Maximum），可以分成两部分，一部分是作为重建项的条件似然，一部分是正则项，惩罚编码器拟合的后验 $q_{\phi}$ 偏离我们假设先验 $p_{\theta}(z)$（实际上和 $\theta$ 无关，被假设为标准高斯）的程度。此时，$\phi$ 是固定的、即编码器可以看成是固定的，于是我们的优化过程可以看成是在所找到的下界函数上找最大值。
+&lt;a href=&quot;https://pic4.zhimg.com/v2-8cb6c5dcb723623cec454812a60c306f_1440w.jpg&quot;&gt;EM 示意图&lt;/a&gt;
+![[Pasted image 20260410222746.png]]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;为什么用高斯分布来引入 ？&lt;/h2&gt;
+&lt;p&gt;因为是&lt;strong&gt;连续的&lt;/strong&gt;，&lt;strong&gt;实际操作起来是可采样的&lt;/strong&gt;
+&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/6BhYuA.png&quot; alt=&quot;6BhYuA&quot; /&gt;&lt;/p&gt;
+&lt;h2&gt;与复对数似然（NLL）的精确关系&lt;/h2&gt;
+&lt;h1&gt;参考资料&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/685814830&quot;&gt;证据下界（ELBO）、EM算法、变分推断、变分自编码器（VAE）和混合高斯模型（GMM） - 渐行渐远的文章 - 知乎&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Chatgpt&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content:encoded></item><item><title>adam&amp;adamw</title><link>https://ny-wakeup.github.io/myblog/posts/Adam&amp;AdamW/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Adam&amp;AdamW/</guid><pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;他们两个都有 weight decay，主要说一下他们这方面的区别。&lt;/p&gt;
+&lt;p&gt;AdamW 将对 $\theta$ 的 $L_{2}$ 正则化从 Adam 的梯度更新中拿出来，在更新 $\theta$ 的时候直接加上，更像是真正的&lt;strong&gt;权重衰减&lt;/strong&gt;。
+现在基本上是大模型训练的标配。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/643452086&quot;&gt;知乎讲解&lt;/a&gt;&lt;/p&gt;
 </content:encoded></item><item><title>MLE&amp;MAP</title><link>https://ny-wakeup.github.io/myblog/posts/MLE&amp;MAP/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/MLE&amp;MAP/</guid><pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;MAP 是 &lt;strong&gt;极大后验估计&lt;/strong&gt;，MLE 是 &lt;strong&gt;极大似然估计&lt;/strong&gt;。&lt;/p&gt;
 &lt;h1&gt;MLE&lt;/h1&gt;
-&lt;p&gt;数据 $D={x_{1},\dots x_{n}}$，模型参数为 $\theta$，MLE 选择&lt;strong&gt;使数据出现概率最大&lt;/strong&gt;的参数：&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;所谓似然&amp;lt;/mark&amp;gt;
-$$
+&lt;p&gt;数据 $D={x_{1},\dots x_{n}}$，模型参数为 $\theta$，MLE 选择&lt;strong&gt;使数据出现概率最大&lt;/strong&gt;的参数：&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;所谓似然&amp;lt;/mark&amp;gt;&lt;/p&gt;
+&lt;p&gt;$$
 \hat{\theta}&lt;em&gt;{MLE}=\arg \max&lt;/em&gt;{\theta}\sum_{i=1}^n\log p(x_{i}|\theta)
-$$
-用 log 是因为常用 log 转成对数形式，好运算。&lt;/p&gt;
+$$&lt;/p&gt;
+&lt;p&gt;用 log 是因为常用 log 转成对数形式，好运算。&lt;/p&gt;
 &lt;p&gt;哪个参数最能解释已经观察到的数据。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;容易过拟合&lt;/strong&gt;（尤其小数据）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1&gt;MAP&lt;/h1&gt;
-&lt;p&gt;在 MLE 的基础上，引入参数的先验分布 $p(\theta)$，注：$\log p(D \mid \theta) = \sum_{i=1}^n \log p(x_i \mid \theta)$，和上边是一样的
-$$
+&lt;p&gt;在 MLE 的基础上，引入参数的先验分布 $p(\theta)$，注：$\log p(D \mid \theta) = \sum_{i=1}^n \log p(x_i \mid \theta)$，和上边是一样的&lt;/p&gt;
+&lt;p&gt;$$
 \hat{\theta}&lt;em&gt;{\text{MAP}} = \arg\max&lt;/em&gt;{\theta} , p(\theta \mid D)
-$$
-利用贝叶斯公式：
-$$
+$$&lt;/p&gt;
+&lt;p&gt;利用贝叶斯公式：&lt;/p&gt;
+&lt;p&gt;$$
 p(\theta|D)=\frac{p(D|\theta)p(\theta)}{p(D)}
-$$
-去掉与 $\theta$ 无关的参数，比如 D 的分布，他其实只起到一个归一化的作用而已，概率相乘会导致求导非常复杂，于是用 log：单调递增函数
-$$
+$$&lt;/p&gt;
+&lt;p&gt;去掉与 $\theta$ 无关的参数，比如 D 的分布，他其实只起到一个归一化的作用而已，概率相乘会导致求导非常复杂，于是用 log：单调递增函数&lt;/p&gt;
+&lt;p&gt;$$
 \hat{\theta}&lt;em&gt;{MAP}=\arg\max&lt;/em&gt;{\theta}[\log p(D|\theta)+\log p(\theta)]
-$$
-直观的理解就是：&lt;/p&gt;
+$$&lt;/p&gt;
+&lt;p&gt;直观的理解就是：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;不仅看数据，还考虑这个参数本身的合理性&lt;/li&gt;
 &lt;li&gt;在数据少的时候就尤其重要。&lt;/li&gt;
 &lt;li&gt;正则化&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;我们习惯最小化损失，而不是最大化收益。所以我们给整个函数加一个负号，来将 argmax 变为 argmin。
-$$
+&lt;p&gt;我们习惯最小化损失，而不是最大化收益。所以我们给整个函数加一个负号，来将 argmax 变为 argmin。&lt;/p&gt;
+&lt;p&gt;$$
 \hat{\theta}&lt;em&gt;{MAP}=\arg\min&lt;/em&gt;{\theta}[-\log p(x|\theta)-\log p(\theta)]
-$$
-假设 D 内数据是 IID 的，那似然项可以展开为 log 求和：
-$$
+$$&lt;/p&gt;
+&lt;p&gt;假设 D 内数据是 IID 的，那似然项可以展开为 log 求和：&lt;/p&gt;
+&lt;p&gt;$$
 \hat{\theta}&lt;em&gt;{MAP}=\arg\min&lt;/em&gt;{\theta}\left( -\sum_{i=1}^np_{\theta}(x_{i}) \right)+(-\log p(\theta))
-$$
-==前项==：复对数似然（NLL）
+$$&lt;/p&gt;
+&lt;p&gt;==前项==：复对数似然（NLL）
 ==后项==：正则化项&lt;/p&gt;
 &lt;h2&gt;MAP&amp;amp;MLE&lt;/h2&gt;
-&lt;p&gt;MAP=MLE+正则化
-$$
+&lt;p&gt;MAP=MLE+正则化&lt;/p&gt;
+&lt;p&gt;$$
 \begin{align}
-&amp;amp;假如先验是高斯：p_{\theta} \sim N(0,\sigma^2) \
-&amp;amp;则：\log p(\theta)=-\frac{1}{2\sigma^2}||\theta||^2 \
-&amp;amp;MAP变成了\max_\theta \left( \log p(D|\theta) - \lambda |\theta|^2 \right) \
-&amp;amp;正好就是L_{2}正则化
+&amp;amp;\text{假如先验是高斯： } p(\theta) \sim \mathcal{N}(0,\sigma^2) \
+&amp;amp;\text{则： } \log p(\theta)=-\frac{1}{2\sigma^2}|\theta|^2 + C \
+&amp;amp;\text{MAP 变成了 } \max_\theta \left( \log p(D|\theta) - \lambda |\theta|^2 \right) \
+&amp;amp;\text{正好就是 } L_{2}\text{ 正则化}
 \end{align}
 $$&lt;/p&gt;
 &lt;h1&gt;总结&lt;/h1&gt;
@@ -64,15 +164,15 @@ $$&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;现代深度学习几乎都在做 MAP（只是没明说）&lt;/strong&gt;
-MAP：
-$$
+MAP：&lt;/p&gt;
+&lt;p&gt;$$
 \begin{align}
 &amp;amp;\max_\theta ; \log p(D|\theta) + \log p(\theta)\
-&amp;amp;若设先验为各向同性高斯： \
+&amp;amp;\text{若设先验为各向同性高斯： } \
 &amp;amp;p(\theta) = \mathcal{N}(0, \sigma^2 I) \
 &amp;amp;\log p(\theta) = -\frac{1}{2\sigma^2}|\theta|^2 + C \
 &amp;amp;\max_\theta ; \log p(D|\theta) - \lambda |\theta|^2 \quad (\lambda = \tfrac{1}{2\sigma^2}) \
-&amp;amp;正是正则化
+&amp;amp;\text{正是正则化}
 \end{align}
 $$&lt;/p&gt;
 &lt;/li&gt;
@@ -144,7 +244,7 @@ $$&lt;/p&gt;
 &lt;p&gt;基本上只要是非欧空间，都有测地线思想的应用。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;概率分布的空间中，使用 KL/FIsher metric 来做分布间的 geodesic distance&lt;/li&gt;
-&lt;li&gt;角度空间，是 $S^1$ 空间，这就是 MSE 方法不好的原因，因为 MSE 认为 $d(\theta_{1},\theta_{2})=(\theta_{1}-\theta_{2})^2$ ，但是角度空间中，$0^。=360^。$，MSE 会认为这是很大的误差。所以正确的方法应该是用圆弧（单位圆上，弧长=角度 x 半径，而两点间的距离就是沿圆弧的圆上的最短路径）
+&lt;li&gt;角度空间，是 $S^1$ 空间，这就是 MSE 方法不好的原因，因为 MSE 认为 $d(\theta_{1},\theta_{2})=(\theta_{1}-\theta_{2})^2$ ，但是角度空间中，$0^\circ = 360^\circ$，MSE 会认为这是很大的误差。所以正确的方法应该是用圆弧（单位圆上，弧长=角度 x 半径，而两点间的距离就是沿圆弧的圆上的最短路径）
 $$
 d(\theta_1, \theta_2) = \min(|\theta_1 - \theta_2|,; 2\pi - |\theta_1 - \theta_2|)
 $$&lt;/li&gt;
