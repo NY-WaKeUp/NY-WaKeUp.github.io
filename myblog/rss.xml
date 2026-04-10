@@ -58,7 +58,9 @@ $$&lt;/p&gt;
 &lt;h4&gt;关键恒等式&lt;/h4&gt;
 &lt;p&gt;有一个非常重要的等式，把三者连在一起：&lt;/p&gt;
 &lt;p&gt;$$
+\begin{equation}
 \log p_{\theta}(x)=ELBO+KL(q_{\phi}(z|x)||p_{\theta}(z|x))
+\end{equation}
 $$&lt;/p&gt;
 &lt;p&gt;由于KL散度总是非负的，所以这立刻揭示了为什么ELBO是下界，同时揭示了下界的松紧是由KL散度决定的。当 $q_{\phi}(z|x)=p_{\theta}(z|x)$ 时，等号成立。&lt;/p&gt;
 &lt;h2&gt;对于困难 2&lt;/h2&gt;
@@ -77,25 +79,72 @@ Encoder 实际上学的是均值 $\mu_\phi(x)$--数据中心 和方差 $\sigma_\
 &lt;p&gt;[!note]高斯分布的构造：&lt;/p&gt;
 &lt;p&gt;If $\epsilon \sim \mathcal{N}(0,1)$，then $z=\mu+\sigma \epsilon \sim\mathcal{N}(\mu,\sigma^2)$&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;h2&gt;优化 ELBO时到底在做什么？&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;同时优化 $\theta$ 和 $\phi$：我们要最大化 $\mathcal{L}(\theta, \phi)$（或者说最小化 $-\mathcal{L}$）。简单说，就是在优化生成参数 $\theta$ 的同时，用推断参数 $\phi$ 去逼近真实的隐变量 $z$ 的分布。&lt;/li&gt;
+&lt;li&gt;下界松紧性（tightness）：随着 $\phi$ 的优化，$q_\phi$ 会越来越接近真实后验，$\mathrm{KL}(q_\phi(z|x)|p_\theta(z|x))$ 变小，下界（ELBO）会更加紧致，也就是 $-\mathcal{L}$ 会更接近真实的 NLL。&lt;/li&gt;
+&lt;li&gt;EM 视角：E 步如果可行，就是直接用当前 $\theta$ 下的真实后验做推断，M 步最大化期望完全数据对数似然。而在变分 EM 里，我们用 $q_\phi$ 近似 E 步的真实后验，然后用 ELBO 进行联合优化。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2&gt;为什么可以把目标定为优化 ELBO&lt;/h2&gt;
 &lt;p&gt;上面我们推导了 $MLE\geq ELBO$，所以我们实际上是在最大化似然的下界。实际上因为 $p_{\theta}(x)$ 又叫证据，所以 ELBO 叫作证据下界。&lt;/p&gt;
 &lt;p&gt;那我们直接丢弃后面那个 KL 散度的计算是合理的么？
 是合理的，合理性本质是由 EM 算法保证的。因为我们最大化 ELBO 是在交替迭代的做这两件事：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;估计隐变量分布 $p_{\theta}(z|x)$ 或者是在做变分（式的）推断，因为我们的手段就是用 $q_{\phi}(z|x)$ 来逼近 $p_{\theta}(z|x)$，是在优化编码器，因为此时&lt;strong&gt;要看成&lt;/strong&gt;：$\theta$ 是固定的，我们优化的参数是phi(实际上训练vae不是，而是通过损失的平衡性自适应地调整)。因此，$\log p_{\theta}(x)$是不变的，所以最大化ELBO就等价于最小化KL散度。此时我们对ELBO的优化只涉及到优化$\phi$，所以本质上是给$\log p_{\theta}(x)$找了一个更近的下界（这个下界也是$\theta$的函数，所以我们找了一个更好的函数，正所谓&lt;strong&gt;变分&lt;/strong&gt;）&lt;/li&gt;
-&lt;li&gt;计算似然损失对隐变量 $z$ 的期望，然后再固定 $\phi$，优化 $\theta$，计算最大似然。其中计算似然损失对隐变量 $z$ 的期望和第一件事合起来就对应EM算法的E步（Expectation），对应ELBO中的 $E_{q_{\phi}(Z|X)}\left[ \log p_{\theta}(X|Z) \right]$；而对 $\theta$  的优化（即ELBO）则对应EM算法中的M步（Maximum），可以分成两部分，一部分是作为重建项的条件似然，一部分是正则项，惩罚编码器拟合的后验 $q_{\phi}$ 偏离我们假设先验 $p_{\theta}(z)$（实际上和 $\theta$ 无关，被假设为标准高斯）的程度。此时，$\phi$ 是固定的、即编码器可以看成是固定的，于是我们的优化过程可以看成是在所找到的下界函数上找最大值。
-&lt;a href=&quot;https://pic4.zhimg.com/v2-8cb6c5dcb723623cec454812a60c306f_1440w.jpg&quot;&gt;EM 示意图&lt;/a&gt;
-![[Pasted image 20260410222746.png]]&lt;/li&gt;
+&lt;li&gt;计算似然损失对隐变量 $z$ 的期望，然后再固定 $\phi$，优化 $\theta$，计算最大似然。其中计算似然损失对隐变量 $z$ 的期望和第一件事合起来就对应EM算法的E步（Expectation），对应ELBO中的 $E_{q_{\phi}(Z|X)}\left[ \log p_{\theta}(X|Z) \right]$；而对 $\theta$ 的优化（即ELBO）则对应EM算法中的M步（Maximum），可以分成两部分，一部分是作为重建项的条件似然，一部分是正则项，惩罚编码器拟合的后验 $q_{\phi}$ 偏离我们假设先验 $p_{\theta}(z)$（实际上和 $\theta$ 无关，被假设为标准高斯）的程度。此时，$\phi$ 是固定的、即编码器可以看成是固定的，于是我们的优化过程可以看成是在所找到的下界函数上找最大值。
+&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/bn1Cy6.png&quot; alt=&quot;EM 示意图&quot; /&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2&gt;为什么用高斯分布来引入 ？&lt;/h2&gt;
 &lt;p&gt;因为是&lt;strong&gt;连续的&lt;/strong&gt;，&lt;strong&gt;实际操作起来是可采样的&lt;/strong&gt;
 &lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/6BhYuA.png&quot; alt=&quot;6BhYuA&quot; /&gt;&lt;/p&gt;
 &lt;h2&gt;与复对数似然（NLL）的精确关系&lt;/h2&gt;
+&lt;p&gt;$NLL(x) = -\log p_{\theta}(x)$&lt;/p&gt;
+&lt;p&gt;由于 KL 散度 $\geq 0$，可以看出 NLL 的上界为：&lt;/p&gt;
+&lt;p&gt;$$
+NLL(x) \leq - ELBO
+$$&lt;/p&gt;
+&lt;h2&gt;Vae的一些问题&lt;/h2&gt;
+&lt;h3&gt;后验坍塌（posterior collapse）&lt;/h3&gt;
+&lt;p&gt;对于我们的目标函数，是由两项组成的：&lt;strong&gt;重建项&lt;/strong&gt;+&lt;strong&gt;正则项&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;重建：期望 $q_{ϕ}​(z∣x)$ 能够提供足够的信息，使得解码器能精准恢复 $x$。它驱动 $z$ 携带尽可能多的关于 $x$ 的特征。&lt;/li&gt;
+&lt;li&gt;正则：期望后验分布 $q_{ϕ​}(z∣x)$ 接近先验 p(z)（通常是标准正态分布）。它起到正则化作用，防止过拟合，但代价是&lt;strong&gt;可能会抹除 z 中携带的个性化信息&lt;/strong&gt;
+当解码器太强的时候，此时正则项趋近于 0.模型达到了一种虚假/消极的平衡。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自回归解码器的干预&lt;/strong&gt;：如果你的解码器是一个非常强大的模型（例如 PixelCNN 或强力的 RNN/Transformer），它具有极强的&lt;strong&gt;自回归（Autoregressive）能力&lt;/strong&gt;。即 $p_{θ}​(x∣z)$ 在预测当前像素或单词时，仅靠 x 的历史信息就能完成得很好。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;逻辑上的“捷径”&lt;/strong&gt;：对于强解码器而言，去学习如何解析潜变量 z 是有成本的。如果解码器发现不需要 z 也能把重建项 $logp_{θ}​(x∣z)$ 做得很大，那么优化器为了最小化总损失，会倾向于让 KL 项直接归零。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;编码器失效&lt;/strong&gt;：此时编码器被“抛弃”了。无论输入什么 x，编码器都只输出先验分布以满足 KL 项的最小化。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;解决方案&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;strong&gt;策略&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;逻辑原理&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;KL Annealing&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;在训练初期给 $KL$ 项设置极小的权重，强迫编码器先学会提取信息。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Free Bits / KL Budget&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;给 $KL$ 项设置一个阈值，只要 $KL$ 降到一定程度就不再优化它，保留基本的信息容量。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;削弱解码器&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;使用非自回归解码器，强迫模型必须依赖 $z$ 才能完成重建。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;离散向量量化 (VQ-VAE)&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;通过将 $z$ 映射到离散码本，彻底改变后验的形式，从根源上避免 $KL$ 消失。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;h1&gt;参考资料&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/685814830&quot;&gt;证据下界（ELBO）、EM算法、变分推断、变分自编码器（VAE）和混合高斯模型（GMM） - 渐行渐远的文章 - 知乎&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Chatgpt&lt;/li&gt;
-&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/u012327581/article/details/151014838&quot;&gt;基本概念-变分下界(ELBO)&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </content:encoded></item><item><title>adam&amp;adamw</title><link>https://ny-wakeup.github.io/myblog/posts/Adam&amp;AdamW/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Adam&amp;AdamW/</guid><pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;他们两个都有 weight decay，主要说一下他们这方面的区别。&lt;/p&gt;
 &lt;p&gt;AdamW 将对 $\theta$ 的 $L_{2}$ 正则化从 Adam 的梯度更新中拿出来，在更新 $\theta$ 的时候直接加上，更像是真正的&lt;strong&gt;权重衰减&lt;/strong&gt;。
@@ -279,21 +328,6 @@ else if d &amp;gt;&amp;gt; 内在维度：
 	浪费
 	采样噪声大
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;后验坍塌（posterior collapse）&lt;/h2&gt;
-&lt;p&gt;指&lt;strong&gt;近似后验&lt;/strong&gt; $q_\phi(z\mid x)$ &lt;strong&gt;不再随 $x$ 变化&lt;/strong&gt;，实质上接近&lt;strong&gt;先验&lt;/strong&gt; $p(z)$：&lt;/p&gt;
-&lt;p&gt;$$
-q_\phi(z\mid x) \approx p(z) \quad (\text{对很多或所有 } x).
-$$&lt;/p&gt;
-&lt;p&gt;于是 $z$ &lt;strong&gt;几乎不携带&lt;/strong&gt;关于 $x$ 的信息——编码器「形同虚设」，潜变量没用。&lt;/p&gt;
-&lt;h2&gt;KL collapse / KL 消失&lt;/h2&gt;
-&lt;p&gt;指 ELBO 里的 &lt;strong&gt;KL 项&lt;/strong&gt; $\mathrm{KL}\bigl(q_\phi(z\mid x),|,p(z)\bigr)$ &lt;strong&gt;趋近于 0&lt;/strong&gt;（或非常小）。&lt;br /&gt;
-若 $q_\phi(z\mid x)\approx p(z)$，则这项自然接近 0，所以从&lt;strong&gt;优化目标&lt;/strong&gt;角度叫「KL 塌了 / 没了」。&lt;/p&gt;
-&lt;p&gt;因此：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;后验坍塌&lt;/strong&gt;：从&lt;strong&gt;分布&lt;/strong&gt;上说——「$q$ 相对 $x$ 塌成先验」。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;KL collapse&lt;/strong&gt;：从&lt;strong&gt;目标函数&lt;/strong&gt;上说——「那一项 KL 没了」。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;就是说对 z 的观测，无效，z 几乎没有携带 x 的信息，无论面对什么 x 样本，都给出相似的 z&amp;lt;/mark&amp;gt;&lt;/p&gt;
 &lt;h2&gt;容易混淆的另一些东西（不等价）&lt;/h2&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -446,7 +480,7 @@ A:多个&lt;/p&gt;
 &lt;p&gt;生成模型关注的是流形本身的几何形状与概率密度。对 diffusion model 来说，其去噪过程可以视为在高维能量景观中寻找流形的过程。模型学习了一个能够指示“（目前）距离流形有多远”的 score function/gradient field 。生成的过程就像是一个随机落入高维空间的噪点，沿梯度场将轨迹收敛至低维流形表面的过程。
 这个过程要更加细节的分类：&lt;/p&gt;
 &lt;h4&gt;隐变量模型（VAE，GAN）：&lt;/h4&gt;
-&lt;p&gt;引入隐变量 $z$，寻找 $z\to x$ 的映射，本质上是在构造数据的低维流形。&lt;/p&gt;
+&lt;p&gt;引入隐变量 $z$，寻找 $z\to x$ 的映射，本质上是在构造数据的低维流形。详情请看 &lt;a href=&quot;%5Bhttps://ny-wakeup.github.io/myblog/posts/vae/%5D(https://ny-wakeup.github.io/myblog/posts/vae/)&quot;&gt;vae&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;Flow 模型（Normalized Flow）：&lt;/h4&gt;
 &lt;h1&gt;对于流形空间的一些实际的例证&lt;/h1&gt;
 &lt;h2&gt;隐空间插值（latent space interpolation）&lt;/h2&gt;
