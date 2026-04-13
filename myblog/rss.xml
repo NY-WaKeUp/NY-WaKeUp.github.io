@@ -1,4 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>diffusion-policy</title><link>https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>gradient-divergence-curl</title><link>https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>hopfield</title><link>https://ny-wakeup.github.io/myblog/posts/hopfield/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/hopfield/</guid><pubDate>Sat, 11 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>vae</title><link>https://ny-wakeup.github.io/myblog/posts/vae/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/vae/</guid><pubDate>Fri, 10 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;思路&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>diffusion-policy</title><link>https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>gradient-divergence-curl</title><link>https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;梯度-散度-旋度&lt;/h1&gt;
+&lt;p&gt;在场的上下文中去理解。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1GEi4BQEFA/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=4af74cf04f5132f00507fc478dd8cba8&quot;&gt;可视化&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV19s41157Z4/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=4af74cf04f5132f00507fc478dd8cba8&quot;&gt;数学推导&lt;/a&gt;&lt;/p&gt;
+</content:encoded></item><item><title>hopfield</title><link>https://ny-wakeup.github.io/myblog/posts/hopfield/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/hopfield/</guid><pubDate>Sat, 11 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>vae</title><link>https://ny-wakeup.github.io/myblog/posts/vae/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/vae/</guid><pubDate>Fri, 10 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;思路&lt;/h1&gt;
 &lt;p&gt;$$
 p_{\theta}(z|x)=\frac{p_{\theta}(x|z)p(z)}{p_{\theta(x)}}
 $$&lt;/p&gt;
@@ -488,6 +492,62 @@ A:多个&lt;/p&gt;
 &lt;h2&gt;对抗样本（adversarial examples）&lt;/h2&gt;
 &lt;p&gt;对抗攻击会在图向上添加微小扰动，这个扰动是随机的，所以一定会包含在流形法向上的位移，使数据越过决策的边界，模型这时候会崩溃，分类错误。这个现象实际上又反向说明了模型学习到的决策边界是紧贴着数据的流形的，&lt;strong&gt;这种紧贴必然会带来在数据流形切向上的健壮性和法向上的脆弱性&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;$q(x_t|x_0)=\mathcal{N}(x_t;\sqrt{\bar{\alpha}_t}x_0,(1-\bar{\alpha}_t)I)$&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;flowchart TD
+
+A[&quot;Init: DiffusionUnetImagePolicy.__init__&quot;] --&amp;gt; B[&quot;Parse shape_meta: action_dim, obs_feature_dim&quot;]
+B --&amp;gt; C[&quot;Build ConditionalUnet1D&quot;]
+C --&amp;gt; D[&quot;Create LowdimMaskGenerator&quot;]
+D --&amp;gt; E[&quot;Create LinearNormalizer&quot;]
+E --&amp;gt; F[&quot;Store horizon, n_obs_steps, n_action_steps&quot;]
+
+subgraph InferencePath
+I1[&quot;predict_action&quot;] --&amp;gt; I2[&quot;normalize obs&quot;]
+I2 --&amp;gt; I3{&quot;obs_as_global_cond&quot;}
+I3 --&amp;gt;|yes| I4[&quot;encode first To obs -&amp;gt; global_cond&quot;]
+I4 --&amp;gt; I5[&quot;cond_data: zeros B,T,Da; cond_mask: false&quot;]
+I3 --&amp;gt;|no| I6[&quot;encode obs -&amp;gt; features B,To,Do&quot;]
+I6 --&amp;gt; I7[&quot;cond_data: B,T,Da+Do; fill obs and mask&quot;]
+I5 --&amp;gt; I8[&quot;conditional_sample&quot;]
+I7 --&amp;gt; I8
+I8 --&amp;gt; I9[&quot;take nsample first Da dims&quot;]
+I9 --&amp;gt; I10[&quot;unnormalize action&quot;]
+I10 --&amp;gt; I11[&quot;slice action window&quot;]
+I11 --&amp;gt; I12[&quot;return action and action_pred&quot;]
+end
+
+subgraph ConditionalSample
+S1[&quot;trajectory &amp;lt;- random normal&quot;] --&amp;gt; S2[&quot;set timesteps&quot;]
+S2 --&amp;gt; S3[&quot;for each t&quot;]
+S3 --&amp;gt; S4[&quot;apply condition mask&quot;]
+S4 --&amp;gt; S5[&quot;model forward&quot;]
+S5 --&amp;gt; S6[&quot;scheduler step to prev_sample&quot;]
+S6 --&amp;gt; S3
+S3 --&amp;gt; S7[&quot;final condition enforce&quot;]
+S7 --&amp;gt; S8[&quot;return trajectory&quot;]
+end
+
+subgraph TrainingPath
+T1[&quot;compute_loss&quot;] --&amp;gt; T2[&quot;normalize obs and action&quot;]
+T2 --&amp;gt; T3{&quot;obs_as_global_cond&quot;}
+T3 --&amp;gt;|yes| T4[&quot;encode first n_obs_steps -&amp;gt; global_cond&quot;]
+T3 --&amp;gt;|no| T5[&quot;encode all steps; concat action and obs&quot;]
+T4 --&amp;gt; T6[&quot;condition_mask from mask_generator&quot;]
+T5 --&amp;gt; T6
+T6 --&amp;gt; T7[&quot;sample noise and timesteps&quot;]
+T7 --&amp;gt; T8[&quot;add noise to trajectory&quot;]
+T8 --&amp;gt; T9[&quot;apply conditioning on noisy trajectory&quot;]
+T9 --&amp;gt; T10[&quot;predict with model&quot;]
+T10 --&amp;gt; T11{&quot;prediction_type&quot;}
+T11 --&amp;gt;|epsilon| T12[&quot;target = noise&quot;]
+T11 --&amp;gt;|sample| T13[&quot;target = trajectory&quot;]
+T12 --&amp;gt; T14[&quot;masked MSE loss&quot;]
+T13 --&amp;gt; T14
+T14 --&amp;gt; T15[&quot;reduce mean to scalar loss&quot;]
+end
+
+I8 -.-&amp;gt; S1
+
+&lt;/code&gt;&lt;/pre&gt;
 </content:encoded></item><item><title>fisher-information</title><link>https://ny-wakeup.github.io/myblog/posts/fisher-information/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/fisher-information/</guid><pubDate>Sat, 07 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Fisher 信息量&lt;/h1&gt;
 &lt;p&gt;描述的是某参数 $\theta$ 携带信息量的多少，信息量在数学上正是由 &lt;strong&gt;不确定性&lt;/strong&gt;，&lt;strong&gt;敏感度&lt;/strong&gt;，来定义的。&lt;/p&gt;
 &lt;h1&gt;信息量&amp;lt;==&amp;gt;敏感度&lt;/h1&gt;
