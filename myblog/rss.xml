@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>验证触觉可行性.md</title><link>https://ny-wakeup.github.io/myblog/posts/%E9%AA%8C%E8%AF%81%E8%A7%A6%E8%A7%89%E5%8F%AF%E8%A1%8C%E6%80%A7/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E9%AA%8C%E8%AF%81%E8%A7%A6%E8%A7%89%E5%8F%AF%E8%A1%8C%E6%80%A7/</guid><pubDate>Thu, 16 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>Unidex.md</title><link>https://ny-wakeup.github.io/myblog/posts/Unidex/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Unidex/</guid><pubDate>Wed, 15 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>pi0-finetune</title><link>https://ny-wakeup.github.io/myblog/posts/pi0-finetune/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pi0-finetune/</guid><pubDate>Tue, 14 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/FU2RCw.png&quot; alt=&quot;FU2RCw&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>EnergyBasedModel.md</title><link>https://ny-wakeup.github.io/myblog/posts/EnergyBasedModel/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/EnergyBasedModel/</guid><pubDate>Fri, 17 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>验证触觉可行性.md</title><link>https://ny-wakeup.github.io/myblog/posts/%E9%AA%8C%E8%AF%81%E8%A7%A6%E8%A7%89%E5%8F%AF%E8%A1%8C%E6%80%A7/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E9%AA%8C%E8%AF%81%E8%A7%A6%E8%A7%89%E5%8F%AF%E8%A1%8C%E6%80%A7/</guid><pubDate>Thu, 16 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>Unidex.md</title><link>https://ny-wakeup.github.io/myblog/posts/Unidex/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Unidex/</guid><pubDate>Wed, 15 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>pi0-finetune</title><link>https://ny-wakeup.github.io/myblog/posts/pi0-finetune/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pi0-finetune/</guid><pubDate>Tue, 14 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/FU2RCw.png&quot; alt=&quot;FU2RCw&quot; /&gt;&lt;/p&gt;
 </content:encoded></item><item><title>diffusion-policy</title><link>https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>gradient-divergence-curl</title><link>https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;梯度-散度-旋度&lt;/h1&gt;
 &lt;p&gt;在场的上下文中去理解。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1GEi4BQEFA/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=4af74cf04f5132f00507fc478dd8cba8&quot;&gt;可视化&lt;/a&gt;&lt;/p&gt;
@@ -635,6 +635,108 @@ $$&lt;/p&gt;
 &lt;p&gt;非GAN系模型的核心区别，其实就在于&lt;strong&gt;如何处理这个积分&lt;/strong&gt;以及如何定义 $p_{\theta}(x|z)$&lt;/p&gt;
 &lt;h4&gt;变分推断路径（VAE）&lt;/h4&gt;
 &lt;p&gt;具体可见 &lt;a href=&quot;https://ny-wakeup.github.io/myblog/posts/vae/&quot;&gt;vae&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;迭代投影路径（Diffusion / Flow Matching）&lt;/h4&gt;
+&lt;p&gt;逻辑 ：将单一的 $p(x|z)$ 拆解成无数微小的条件概率步&lt;/p&gt;
+&lt;h5&gt;扩散&lt;/h5&gt;
+&lt;p&gt;将&lt;strong&gt;前向加噪&lt;/strong&gt;过程看作一个马尔可夫链。前向每一时间 $t$ 步，加预定义好的噪声。&lt;/p&gt;
+&lt;p&gt;在&lt;strong&gt;逆向去噪生成&lt;/strong&gt;过程，根据贝叶斯公式， $p(x_{t-1}|x_{t},x_{0})$ 这个逆向条件概率可以解析算。&lt;/p&gt;
+&lt;h6&gt;训练时&lt;/h6&gt;
+&lt;p&gt;直接从 $x_0$ 采样出最终时间步 $t$ 的噪声 $\epsilon$，以及添加这个噪声之后的图像 $x_{t}$，然后 $U{-}net$ 接收这两个参数，预测出一个噪声 $\hat{\epsilon}$，与真值做 MSE。
+&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/XSUOYk.png&quot; alt=&quot;XSUOYk&quot; /&gt;&lt;/p&gt;
+&lt;h6&gt;推理时&lt;/h6&gt;
+&lt;p&gt;迭代投影&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;从高斯分布中采样一个纯噪声 $x_{t}\sim N(0,I)$&lt;/li&gt;
+&lt;li&gt;循环迭代 $t=T\dots 1$
+&lt;ol&gt;
+&lt;li&gt;模型预测出噪声 $\hat{\epsilon}$&lt;/li&gt;
+&lt;li&gt;从 $x_{t}$ 中减去预测出的噪声，得到 $x_{t-1}$ 的均值&lt;/li&gt;
+&lt;li&gt;注入随机性：为了最终能拟合出一个分布，每一步按照比例加回一点随机噪声（除了最后一步）
+&lt;ol&gt;
+&lt;li&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/x0IGZK.png&quot; alt=&quot;x0IGZK&quot; /&gt; 权重应该是 $\beta$ 和 $1-\beta$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5&gt;Flow Matching&lt;/h5&gt;
+&lt;p&gt;Flow 的逻辑更像捏橡皮泥，扩散是&lt;strong&gt;拆楼建楼&lt;/strong&gt;，Flow 的是&lt;strong&gt;流形空间的平滑扭曲&lt;/strong&gt;。&lt;/p&gt;
+&lt;h6&gt;核心逻辑&lt;/h6&gt;
+&lt;p&gt;变量代换定理：假如有一个简单分布 $p(z)$ 比如高斯，通过一个&lt;strong&gt;双射可逆&lt;/strong&gt;函数 $x=f(z)$ 变换到 $x$，那么 $x$ 的概率密度是可以计算的。
+$$
+p(x)=p(z)\cdot|\det  \frac{\partial f^{-1}(x)}{\partial x}|
+$$
+&lt;strong&gt;通俗理解&lt;/strong&gt;：如果你把一块橡皮筋（概率质量）从 z 拉伸到 x，某一点的密度会变稀疏或浓缩，而这个&lt;strong&gt;拉伸倍率&lt;/strong&gt;就是雅可比行列式的模。
+这就像是在一个由模型定义的&lt;strong&gt;河流&lt;/strong&gt;中漂流，模型给出了河流每一处的流向和流速，你顺流而下，终点必然是真实数据流形。&lt;/p&gt;
+&lt;h6&gt;具体操作&lt;/h6&gt;
+&lt;p&gt;现代 flow 框架，不在纠结于找复杂的解析函数 $f^{-1}$，而是定义一个速度场 $v_{t}(x)$。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;构造轨迹：
+&lt;ol&gt;
+&lt;li&gt;直接插值定义从噪声 $x_{0}$ 到 数据 $x_{1}$ 的直线路径，或者其他任何平滑路径。
+&lt;ol&gt;
+&lt;li&gt;$x_{t}=(1-t)x_{0}+tx_{1}$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;求速度场
+1. 对时间 $t$ 求导，$(x,t)$ 这一点的速度就是 $v=x_{1}-x_{0}$&lt;/li&gt;
+&lt;li&gt;模型训练：
+&lt;ol&gt;
+&lt;li&gt;$v_{\theta}(x,t)$。假设数据是 1 维的，那么可以把速度场看作一个平面直角坐标系，模型预测在这个时刻应该以什么矢量（方向、速度）移动，才能在 $t=1$ 的时候到达真实数据。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;生成阶段（ODE）
+&lt;ol&gt;
+&lt;li&gt;从 $z\sim N(o,I)$ 出发&lt;/li&gt;
+&lt;li&gt;操作：调用一个 ODE 求解器（如欧拉法（$\pi_{0}$ 用的就是）或者 runge-kutta）&lt;/li&gt;
+&lt;li&gt;逻辑流：$x&apos;=x+v_{\theta}(x,t)\cdot \Delta t$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h6&gt;Diffusion vs Flow-matching&lt;/h6&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;strong&gt;维度&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;扩散模型 (Diffusion)&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;流匹配 (Flow Matching)&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;数学底色&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;统计推断、贝叶斯定理&lt;/td&gt;
+&lt;td&gt;连续介质力学、微分几何&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;生成机制&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;逐步去噪（从混乱中寻找秩序）&lt;/td&gt;
+&lt;td&gt;概率搬运（将质量从 A 移动到 B）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;确定性&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;具有随机性（每步都在采样）&lt;/td&gt;
+&lt;td&gt;高度确定（给定起点，轨迹唯一）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;效率&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;慢（需要极多步迭代）&lt;/td&gt;
+&lt;td&gt;快（轨迹平直，少量步数即可精确积分）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ol&gt;
+&lt;li&gt;DDPM 在逆向生成的时候，数学上是弯曲且有随机性的，但是 FM （基于最优传输）几乎就是直线。
+&lt;ol&gt;
+&lt;li&gt;后果就是只需要 5 步就能得到精确结果，对机器人实时控制至关重要。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;确定性 ODE 映射，产生的动作序列，是会更加丝滑的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h6&gt;Energy Based Model&lt;/h6&gt;
+&lt;p&gt;#坑&lt;/p&gt;
 &lt;p&gt;#坑 人家已经写过了，先看看人家的再写自己的吧&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/611466195&quot;&gt;概率视角下的生成模型 - Hammour Yue 的文章 - 知乎&lt;/a&gt;&lt;/p&gt;
 </content:encoded></item><item><title>常见卷积组合</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</guid><pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;在深度学习（尤其是计算机视觉和机器人感知）中，卷积核大小（Kernel）、填充（Padding）和步长（Stride）的组合通常遵循特定的设计模式。&lt;/p&gt;
