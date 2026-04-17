@@ -634,7 +634,7 @@ $$&lt;/p&gt;
 &lt;h3&gt;3. 框架：三种路径的逻辑收敛&lt;/h3&gt;
 &lt;p&gt;非GAN系模型的核心区别，其实就在于&lt;strong&gt;如何处理这个积分&lt;/strong&gt;以及如何定义 $p_{\theta}(x|z)$&lt;/p&gt;
 &lt;h4&gt;变分推断路径（VAE）&lt;/h4&gt;
-&lt;p&gt;具体可见 &lt;a href=&quot;https://ny-wakeup.github.io/myblog/posts/vae/&quot;&gt;https://ny-wakeup.github.io/myblog/posts/vae/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;具体可见 &lt;a href=&quot;https://ny-wakeup.github.io/myblog/posts/vae/&quot;&gt;vae&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;#坑 人家已经写过了，先看看人家的再写自己的吧&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/611466195&quot;&gt;概率视角下的生成模型 - Hammour Yue 的文章 - 知乎&lt;/a&gt;&lt;/p&gt;
 </content:encoded></item><item><title>常见卷积组合</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</guid><pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;在深度学习（尤其是计算机视觉和机器人感知）中，卷积核大小（Kernel）、填充（Padding）和步长（Stride）的组合通常遵循特定的设计模式。&lt;/p&gt;
