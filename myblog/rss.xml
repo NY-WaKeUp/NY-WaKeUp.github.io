@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>diffusion-policy</title><link>https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>gradient-divergence-curl</title><link>https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;梯度-散度-旋度&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>验证触觉可行性.md</title><link>https://ny-wakeup.github.io/myblog/posts/%E9%AA%8C%E8%AF%81%E8%A7%A6%E8%A7%89%E5%8F%AF%E8%A1%8C%E6%80%A7/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E9%AA%8C%E8%AF%81%E8%A7%A6%E8%A7%89%E5%8F%AF%E8%A1%8C%E6%80%A7/</guid><pubDate>Thu, 16 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>Unidex.md</title><link>https://ny-wakeup.github.io/myblog/posts/Unidex/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Unidex/</guid><pubDate>Wed, 15 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>pi0-finetune</title><link>https://ny-wakeup.github.io/myblog/posts/pi0-finetune/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pi0-finetune/</guid><pubDate>Tue, 14 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/FU2RCw.png&quot; alt=&quot;FU2RCw&quot; /&gt;&lt;/p&gt;
+</content:encoded></item><item><title>diffusion-policy</title><link>https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>gradient-divergence-curl</title><link>https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;梯度-散度-旋度&lt;/h1&gt;
 &lt;p&gt;在场的上下文中去理解。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1GEi4BQEFA/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=4af74cf04f5132f00507fc478dd8cba8&quot;&gt;可视化&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV19s41157Z4/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=4af74cf04f5132f00507fc478dd8cba8&quot;&gt;数学推导&lt;/a&gt;&lt;/p&gt;
@@ -145,6 +146,31 @@ $$&lt;/p&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;h3&gt;单流形的数据假设&lt;/h3&gt;
+&lt;p&gt;比如在 mnist 任务上，假如在 z 空间对 0 到 1 进行插值，会发生奇怪的过渡数字，这个 ugly 的，因为这样的生成结果实际上对我们是没有用的。而发生这个的原因根本上是因为 &lt;strong&gt;模型假设 latent 是连通的，但真实数据不是&lt;/strong&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# encoder: x -&amp;gt; (mu, logvar)
+# decoder: z -&amp;gt; x_hat
+def interpolate(z1, z2, steps=10):
+    ts = torch.linspace(0, 1, steps)
+    zs = [(1 - t) * z1 + t * z2 for t in ts]
+    zs = torch.stack(zs, dim=0)
+    return zs
+x1, _ = dataset[0]   # e.g. digit 0
+x2, _ = dataset[1]   # e.g. digit 1
+
+x1 = x1.unsqueeze(0).to(device)
+x2 = x2.unsqueeze(0).to(device)
+
+mu1, _ = encoder(x1)
+mu2, _ = encoder(x2)
+
+z1 = mu1.squeeze(0)
+z2 = mu2.squeeze(0)
+# 插值生成
+zs = interpolate(z1, z2, steps=10)
+with torch.no_grad():
+    recon = decoder(zs)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h1&gt;参考资料&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/685814830&quot;&gt;证据下界（ELBO）、EM算法、变分推断、变分自编码器（VAE）和混合高斯模型（GMM） - 渐行渐远的文章 - 知乎&lt;/a&gt;&lt;/li&gt;
@@ -577,8 +603,40 @@ I8 -.-&amp;gt; S1
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;[!tip]&lt;/p&gt;
-&lt;p&gt;同时，开了一个大坑：信息几何-Information Geomotry&lt;/p&gt;
+&lt;p&gt;同时，开了一个大坑：信息几何-Information Geomotry #坑&lt;/p&gt;
 &lt;/blockquote&gt;
+</content:encoded></item><item><title>All-about-conditional-distribution</title><link>https://ny-wakeup.github.io/myblog/posts/All-about-conditional-distribution/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/All-about-conditional-distribution/</guid><pubDate>Wed, 04 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;总是阶段性地遗忘这一朴素，智慧，大道至简的思想，所以专门写下来方便以后直接回看自己的思路：&lt;/p&gt;
+&lt;h1&gt;思路概览&lt;/h1&gt;
+&lt;h2&gt;目标&lt;/h2&gt;
+&lt;p&gt;我们要得到一个真实的分布，${p_t}$ 这个分布可能是数据集的分布（cv domain），也可能是某个动作的分布（robotics domain）。&lt;/p&gt;
+&lt;h2&gt;方法：&lt;/h2&gt;
+&lt;p&gt;所有非gan系生成模型的算法：flow matching, ddpm, ae, vae, vq-vae, eq-vae...&lt;/p&gt;
+&lt;h2&gt;问题：&lt;/h2&gt;
+&lt;p&gt;我们永远没有办法获得理想中的完全真实的分布&lt;/p&gt;
+&lt;h2&gt;补救方案：&lt;/h2&gt;
+&lt;p&gt;我们要拟合真实分布，但是他存在于真实空间，高维，孤立，（存在于低维流形上），无法得到具体表达式，并进行似然估计。&lt;/p&gt;
+&lt;h3&gt;1.引入联合分布&lt;/h3&gt;
+&lt;p&gt;既然直接求解不行，我们借助&lt;strong&gt;条件分布&lt;/strong&gt;与&lt;strong&gt;联合分布&lt;/strong&gt;的关系。&lt;/p&gt;
+&lt;p&gt;引入隐变量空间 $z$&lt;/p&gt;
+&lt;p&gt;$$
+p(x,z)=p_{\theta}(x|z)p(z)
+$$&lt;/p&gt;
+&lt;p&gt;其中，$p(z)$ 就是我们完全可以随心所欲定义的（其实肯定是标准高斯）任何简单分布。
+$p_{\theta}(z|x)$，则是我们构建的(Denoising Kernel if model is diffusion, Decoder if model is VAE, （a trajectory parameterized by t(time)） if model is flow and we would learn its 切向量, Generator if model is gan）&lt;/p&gt;
+&lt;h3&gt;2. 通过积分得到边缘分布&lt;/h3&gt;
+&lt;p&gt;$$
+p_{\theta}(x)= \int p(z)p_{\theta}(x|z) dz
+$$&lt;/p&gt;
+&lt;p&gt;其实就是全概率公式，只不过是因为是连续的，所以没有办法得到某一个点的概率（空间中单个点的概率永远是 0）,所以采用积分的方法。
+于是，&amp;lt;mark style=&quot;background: #BBFABBA6;&quot;&amp;gt;边缘分布（宏观流向）其实就是所有条件分布（微观路径）的加权平均&amp;lt;/mark&amp;gt;&lt;/p&gt;
+&lt;p&gt;VAE 的这个过程其实是一步走的，但是 Score matching 另辟蹊径，他不学习概率本身是多少，而是学习预测概率变化的趋势（梯度）。真实的概率分布是一座山的高度，Score function 就是山上每个位置的坡度方向和倾斜程度。当你顺着所有地方的坡度方向往上走，最终就能找到山顶。
+关于 score function #todo&lt;/p&gt;
+&lt;h3&gt;3. 框架：三种路径的逻辑收敛&lt;/h3&gt;
+&lt;p&gt;非GAN系模型的核心区别，其实就在于&lt;strong&gt;如何处理这个积分&lt;/strong&gt;以及如何定义 $p_{\theta}(x|z)$&lt;/p&gt;
+&lt;h4&gt;变分推断路径（VAE）&lt;/h4&gt;
+&lt;p&gt;具体可见 &lt;a href=&quot;https://ny-wakeup.github.io/myblog/posts/vae/&quot;&gt;https://ny-wakeup.github.io/myblog/posts/vae/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;#坑 人家已经写过了，先看看人家的再写自己的吧&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/611466195&quot;&gt;概率视角下的生成模型 - Hammour Yue 的文章 - 知乎&lt;/a&gt;&lt;/p&gt;
 </content:encoded></item><item><title>常见卷积组合</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</guid><pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;在深度学习（尤其是计算机视觉和机器人感知）中，卷积核大小（Kernel）、填充（Padding）和步长（Stride）的组合通常遵循特定的设计模式。&lt;/p&gt;
 &lt;p&gt;以下是除 $3 \times 3, P=1$ 之外最常用的几类&lt;strong&gt;经典组合&lt;/strong&gt;及其应用场景：&lt;/p&gt;
 &lt;hr /&gt;
