@@ -1,9 +1,974 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>EnergyBasedModel.md</title><link>https://ny-wakeup.github.io/myblog/posts/EnergyBasedModel/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/EnergyBasedModel/</guid><pubDate>Fri, 17 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>验证触觉可行性.md</title><link>https://ny-wakeup.github.io/myblog/posts/%E9%AA%8C%E8%AF%81%E8%A7%A6%E8%A7%89%E5%8F%AF%E8%A1%8C%E6%80%A7/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E9%AA%8C%E8%AF%81%E8%A7%A6%E8%A7%89%E5%8F%AF%E8%A1%8C%E6%80%A7/</guid><pubDate>Thu, 16 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>Unidex.md</title><link>https://ny-wakeup.github.io/myblog/posts/Unidex/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Unidex/</guid><pubDate>Wed, 15 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>pi0-finetune</title><link>https://ny-wakeup.github.io/myblog/posts/pi0-finetune/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pi0-finetune/</guid><pubDate>Tue, 14 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/FU2RCw.png&quot; alt=&quot;FU2RCw&quot; /&gt;&lt;/p&gt;
-</content:encoded></item><item><title>diffusion-policy</title><link>https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>gradient-divergence-curl</title><link>https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;梯度-散度-旋度&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>强化学习如何绘图</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%A6%82%E4%BD%95%E7%BB%98%E5%9B%BE/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%A6%82%E4%BD%95%E7%BB%98%E5%9B%BE/</guid><pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;https://zhuanlan.zhihu.com/p/586107118&lt;/p&gt;
+</content:encoded></item><item><title>pyvista</title><link>https://ny-wakeup.github.io/myblog/posts/pyvista/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pyvista/</guid><pubDate>Tue, 16 Jun 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>Pi 0.5 VLA Policy</title><link>https://ny-wakeup.github.io/myblog/posts/PI05/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/PI05/</guid><pubDate>Fri, 12 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;π0.5: Vision-Language-Action Policy with FAST, Knowledge Insulation, System 1/2 and Real-Time Action Chunking - Physical Intelligence 2025&lt;/h1&gt;
+&lt;h2&gt;一句话总结&lt;/h2&gt;
+&lt;p&gt;π0.5 可以理解为在 [[π0]] 基础上，把 [[FAST]] action tokenization、[[Flow Matching]] action expert、[[Knowledge Insulation]]、以及 [[System 1 and System 2]] 式的分层机器人控制统一到一个 VLA 框架中：VLM 负责视觉-语言理解和任务分解，action expert 负责从噪声中生成连续动作 chunk，从而让机器人在开放家庭环境中执行更长、更复杂、更具泛化性的任务。&lt;/p&gt;
+&lt;h2&gt;论文元信息&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;字段&lt;/th&gt;
+&lt;th&gt;内容&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Title&lt;/td&gt;
+&lt;td&gt;π0.5: Vision-Language-Action Model / Policy with Open-World Generalization&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Aliases&lt;/td&gt;
+&lt;td&gt;Pi 0.5, π0.5, Physical Intelligence π0.5, OpenPI π0.5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Authors&lt;/td&gt;
+&lt;td&gt;Physical Intelligence team；具体作者列表待从原论文核对&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Year&lt;/td&gt;
+&lt;td&gt;2025&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Venue&lt;/td&gt;
+&lt;td&gt;Technical report / project paper / blog release，待核对&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;URL&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://www.physicalintelligence.company/&quot;&gt;Physical Intelligence&lt;/a&gt;；&lt;a href=&quot;https://github.com/Physical-Intelligence/openpi&quot;&gt;OpenPI GitHub&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Source&lt;/td&gt;
+&lt;td&gt;当前 Tabbit 侧边栏阅读对话；YouTube 视频《Controlling the robot with VLA policy: Pi0.5 explained》；外部检索资料&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Status&lt;/td&gt;
+&lt;td&gt;已读视频讲解与关键机制；原论文细节、作者列表、实验表格仍需二次核对&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2&gt;研究问题&lt;/h2&gt;
+&lt;p&gt;这篇工作的核心问题是：如何把一个已经具备视觉-语言理解能力的 VLM，扩展成可以直接控制真实机器人的通用 VLA policy，并且让它不仅能完成短程 manipulation，还能在真实家庭环境中处理更长程、更开放、更依赖语义理解的任务。&lt;/p&gt;
+&lt;p&gt;传统机器人策略通常受限于任务、场景或 embodiment。一个策略可能只适合一个机器人、一个实验台、一个任务分布，换到新家庭、新物体、新布局就容易失败。π0.5 试图回答的是：如果我们使用互联网规模预训练 VLM 作为 backbone，再用大规模机器人数据训练 action expert，能否得到一个既懂语言和图像、又能输出连续控制动作的通用机器人策略。&lt;/p&gt;
+&lt;p&gt;更具体地说，它关心三个层面的难题。第一，动作应该如何表示，才能既适合 LLM/VLM 的 token 化训练，又能保留连续机器人动作的精细性。第二，如何训练 action expert，而不破坏 VLM 原本从大规模视觉-语言数据中学到的常识和语义知识。第三，如何让机器人执行长程任务，而不是只对一个短指令输出一小段动作。&lt;/p&gt;
+&lt;h2&gt;背景与动机&lt;/h2&gt;
+&lt;p&gt;π0.5 建立在 [[π0]] 的架构基础上。视频中提到，π0 的 VLM 部分由语言模型 Gemma 和视觉 backbone SigLIP 构成；在动作生成侧，一条路线是让 VLM 自回归地产生 [[FAST]] action tokens，另一条路线是使用 [[Flow Matching]] action expert 从噪声中生成连续 action chunks。π0.5 在高层架构上没有彻底改变 π0，而是把 π0 之后释放出来的几个关键组件组合起来：FAST、OpenPI、Hi Robot、Knowledge Insulation，以及后续的 Real-Time Action Chunking。&lt;/p&gt;
+&lt;p&gt;动机之一是动作表示问题。机器人动作是连续的、高维的、时间相关的序列。如果直接让 LLM 像预测文字 token 一样预测动作，很容易遇到两个问题：一是动作之间高度相关，不像自然语言 token 那样具有明显离散语义；二是连续动作离散化后可能损失精度，尤其在灵巧操作、接触丰富任务中会影响控制质量。&lt;/p&gt;
+&lt;p&gt;动机之二是训练稳定性问题。VLM 已经在大规模视觉-语言数据上学到了物体、场景、语言、常识和视觉语义。如果直接把一个随机初始化的 action expert 接到 VLM 上，并让 flow matching action loss 的梯度回传到 VLM，那么训练早期的 noisy gradient 可能会破坏 VLM 的旧知识，导致 catastrophic forgetting。[[Knowledge Insulation]] 正是为了解决这个问题而引入。&lt;/p&gt;
+&lt;p&gt;动机之三是长程任务问题。一个机器人要“打扫房间”或“整理厨房”，并不是一步动作能完成的任务。它需要先理解场景，再把任务拆成多个子任务，例如拿起袜子、移动到垃圾桶、放入垃圾桶、再寻找下一个物体。π0.5 引入 System 1 / System 2 式的组织方式，让同一个 VLM 既可以作为高层规划器，也可以作为底层 VLA policy 的条件输入来源。&lt;/p&gt;
+&lt;h2&gt;核心直觉&lt;/h2&gt;
+&lt;p&gt;π0.5 的核心直觉是：机器人通用性不应该只来自更大的 action model，而应该来自一个已经具备强视觉-语言语义能力的 VLM backbone，再用适合机器人动作的数据表示和训练机制把它连接到连续控制上。&lt;/p&gt;
+&lt;p&gt;在这个框架里，VLM 不只是“看图编码器”，而是机器人策略的语义中枢。它负责把图像、语言、场景、任务目标压缩成对 action expert 有用的条件表示。action expert 则不需要重新学习所有视觉和语言知识，它只需要学会在这些条件表示下生成合理的动作轨迹。&lt;/p&gt;
+&lt;p&gt;[[FAST]] 的直觉是：真实机器人动作轨迹通常是平滑的，因此可以像 JPEG 压缩图像那样，把动作序列分解到频率空间。低频成分往往已经足够表示动作的大体形状，高频成分很多时候接近零，因此可以通过 DCT、量化和 BPE 得到更紧凑、更适合 token 预测的动作表示。&lt;/p&gt;
+&lt;p&gt;[[Flow Matching]] 的直觉是：不要直接预测最终动作，而是学习一个从随机噪声流向真实动作的速度场。训练时给模型一个 noisy action 和时间 $t$，让它预测此时应该朝哪个方向移动，才能最终到达真实 action chunk。这样 action expert 学到的是条件化的动作生成动力学，而不是简单的 point regression。&lt;/p&gt;
+&lt;p&gt;[[Knowledge Insulation]] 的直觉是：VLM 的旧知识是宝贵资产，不应该被 action expert 训练早期的随机噪声梯度污染。因此，让 FAST token loss 或文本/机器人任务继续更新 VLM，但阻断 flow matching action loss 对 VLM 的反向传播，只让它更新 action expert。&lt;/p&gt;
+&lt;h2&gt;方法机制&lt;/h2&gt;
+&lt;p&gt;π0.5 的模型可以分成三个主要部分：视觉编码器、语言/多模态 backbone、动作生成模块。&lt;/p&gt;
+&lt;p&gt;视觉侧使用 [[SigLIP]] 作为 visual backbone。视频只明确说 π0/π0.5 的 VLM 部分包含 Gemma 和 SigLIP，没有展开为什么选择 SigLIP。结合外部资料，一个合理解释是：π0/π0.5 继承了 PaliGemma 式的 VLM 路线，即 SigLIP 负责视觉编码，Gemma 负责语言建模。SigLIP 的优势在于它经过图文对齐训练，输出的视觉表示天然更适合被语言模型消费。对于 VLA 来说，这比纯视觉 encoder 更方便，因为机器人指令本身就是 language-conditioned 的，例如“拿起红色杯子”或“把袜子放进篮子”。&lt;/p&gt;
+&lt;p&gt;动作侧有两种互补机制。第一种是 FAST token prediction。FAST 先对 action chunk 做归一化，再做离散余弦变换，将时间序列动作转成 cosine coefficients。随后进行量化，并按频率和动作维度重新排列，使主要低频成分靠前，高频接近零的成分靠后。最后使用 BPE 把常见 token pattern 合并，从而得到紧凑的 action token 序列。这样，动作可以像语言 token 一样由 VLM 自回归预测。&lt;/p&gt;
+&lt;p&gt;第二种是 flow matching action expert。它是一个与 LLM/VLM 相连的额外 transformer 模块，用 flow matching 从噪声中生成连续 action chunk。它不是直接预测动作值，而是预测 flow process 的 velocity。训练时真实动作记为 $a$，初始噪声记为 $\epsilon$，随机采样时间 $t \in [0,1]$，构造中间 noisy action：&lt;/p&gt;
+&lt;p&gt;$$
+x_t = (1-t)\epsilon + t a
+$$&lt;/p&gt;
+&lt;p&gt;如果路径是线性插值，那么真实速度目标就是：&lt;/p&gt;
+&lt;p&gt;$$
+v^* = a - \epsilon
+$$&lt;/p&gt;
+&lt;p&gt;action expert 预测：&lt;/p&gt;
+&lt;p&gt;$$
+\hat{v}_\theta(x_t, t, \text{context})
+$$&lt;/p&gt;
+&lt;p&gt;flow matching loss 可以写成：&lt;/p&gt;
+&lt;h1&gt;$$
+\mathcal{L}_{FM}&lt;/h1&gt;
+&lt;p&gt;\left|
+\hat{v}_\theta(x_t, t, \text{context}) - (a - \epsilon)
+\right|^2
+$$&lt;/p&gt;
+&lt;p&gt;这里的 context 来自 VLM，包括图像、语言指令、机器人状态等条件信息。推理时，模型从随机噪声开始，经过若干 flow integration / denoising steps，逐步生成最终 action chunk。&lt;/p&gt;
+&lt;p&gt;Knowledge Insulation 改变的是梯度路径，而不是前向结构。正常情况下，flow matching loss 的梯度会同时更新 action expert 和 VLM/LLM。Knowledge Insulation 则阻断 action expert loss 到 VLM 的梯度，只让该 loss 更新 action expert。与此同时，VLM 仍可通过 FAST token loss、机器人文本任务、任务分解数据等继续训练。&lt;/p&gt;
+&lt;h2&gt;算法流程&lt;/h2&gt;
+&lt;p&gt;训练阶段可以理解为多个目标并行发生。首先，输入包括多视角图像、自然语言指令、机器人状态，以及真实 action chunk。图像经 SigLIP 编码后形成视觉 token，语言指令和机器人状态进入 VLM/LLM backbone，形成条件表示。&lt;/p&gt;
+&lt;p&gt;对于 FAST 路线，真实 action chunk 被归一化、DCT、量化、重排并 BPE tokenized，得到 ground-truth FAST tokens。VLM 自回归预测这些 FAST tokens，并通过 token-level cross entropy 等目标更新 VLM。这一路径类似语言模型训练，因此对 VLM 来说比较自然。&lt;/p&gt;
+&lt;p&gt;对于 flow matching 路线，训练时采样噪声 $\epsilon$ 和时间 $t$，构造 noisy action $x_t$。action expert 读取 VLM context、noisy action 和时间条件，预测 velocity。模型将预测 velocity 与 $a-\epsilon$ 比较，计算 flow matching loss。在 Knowledge Insulation 设置下，这个 loss 的梯度只更新 action expert，不回传污染 VLM。&lt;/p&gt;
+&lt;p&gt;对于 System 2 路线，VLM 还会被训练成高层任务分解器。给定复杂自然语言任务和当前视觉观察，它生成更低层的语言命令或子任务。例如，面对“clean the room”，System 2 可能生成“pick up the white sock from the floor”“move to the bin”“put the sock into the bin”等子步骤。每个子步骤再作为 System 1 VLA policy 的输入，由底层 action expert 执行。&lt;/p&gt;
+&lt;p&gt;推理阶段，System 2 不需要像底层控制一样高频运行。它可以每隔几秒、每个子任务完成后、或用户干预时运行一次，产生新的低层指令。System 1 则高频运行，视频中提到可以以约 50 Hz 的频率预测动作，用 action chunks 控制机器人。&lt;/p&gt;
+&lt;h2&gt;实验设计&lt;/h2&gt;
+&lt;p&gt;根据视频讲解，π0.5 的实验重点不是单一 benchmark 上的离线指标，而是展示真实家庭环境中的泛化能力。模型被带到新房屋、新场景中执行任务，例如洗碗、清理卧室、整理房间等。这类任务需要机器人理解开放环境中的物体、家具、容器和任务语义，也需要能执行多个连续子任务。&lt;/p&gt;
+&lt;p&gt;FAST 的实验或展示重点在于动作压缩和训练效率。视频中用一维 action chunk 的 DCT 示例说明：如果轨迹足够平滑，前几个 cosine components 就能恢复大部分动作形状，后面的高频系数接近零，量化和 BPE 后可以获得很高压缩率。视频还提到，在从头训练 VLA 时，FAST 相比 flow matching 训练可以带来明显速度优势，但在 fine-tune 已经预训练好的 VLA 时，作者个人经验中未必看到同样加速。&lt;/p&gt;
+&lt;p&gt;Knowledge Insulation 的实验重点是比较是否阻断 action expert gradient 对 VLM 的影响。视频转述的核心结论是：action expert 初始化为随机权重，flow matching 早期产生 noisy prediction 和 noisy gradient，如果这些梯度回传到 VLM，会导致 VLM 遗忘预训练知识。Knowledge Insulation 可以缓解这种遗忘，并据称带来明显训练加速。&lt;/p&gt;
+&lt;p&gt;System 1 / System 2 的实验重点是长程任务分解和人机交互。系统可以根据用户的高层请求生成 verbal response 和 low-level language command，再由 VLA policy 根据图像、机器人 joint positions 和低层命令生成动作。用户也可以在任务执行过程中插入新信息，System 2 根据最新观察更新计划。&lt;/p&gt;
+&lt;h2&gt;主要实验结论&lt;/h2&gt;
+&lt;p&gt;π0.5 的主要结论可以概括为：π0、FAST 和 Hi Robot 的组合能够形成一个更强的通用 VLA policy，使机器人在新环境中完成更开放、更长程的家务任务。它不是简单地把短程 manipulation policy 扩大，而是把高层语义分解和底层连续控制连接起来。&lt;/p&gt;
+&lt;p&gt;FAST 的结论是：对于平滑机器人动作，DCT + quantization + BPE 可以得到紧凑而有意义的 action token representation。动作 token 不再只是单个时间步的离散值，而可以隐含表示一段动作曲线的 cosine shape。这样既降低 token 序列复杂度，也让 VLM 更容易学习 action prediction。不过，FAST 的推理是自回归生成 token，因此推理速度可能慢于 flow matching。&lt;/p&gt;
+&lt;p&gt;Flow matching action expert 的结论是：连续动作生成更适合通过生成式 vector field 来建模。模型从噪声开始，经若干步流动生成 action chunk，这比简单离散化动作更适合高维连续控制，也更符合灵巧操作中对平滑轨迹和连续值的需求。&lt;/p&gt;
+&lt;p&gt;Knowledge Insulation 的结论是：训练 VLA 时，VLM 和 action expert 的优化目标需要隔离一部分。VLM 可以通过 FAST token loss 和机器人语言任务学习机器人相关语义，但 action expert 的 noisy flow matching gradient 不应直接破坏 VLM。这个机制使 VLM 保留旧知识，同时让 action expert 学会 attend to VLM representations 并生成动作。&lt;/p&gt;
+&lt;p&gt;System 1 / System 2 的结论是：长程机器人任务需要慢速推理和快速控制并存。System 2 负责理解复杂请求、分解任务、根据用户反馈调整计划；System 1 负责高频执行短程子任务。π0.5 的特点是同一个 VLM 可以在两个角色中复用，只是在高层规划和底层控制时运行频率、输入输出形式不同。&lt;/p&gt;
+&lt;h2&gt;对机器人研究的启发&lt;/h2&gt;
+&lt;p&gt;π0.5 对机器人研究的最大启发是：通用机器人策略的核心瓶颈可能不只是控制算法，而是如何把互联网规模的语义知识、真实机器人动作数据和高频闭环控制统一到一个可训练系统中。&lt;/p&gt;
+&lt;p&gt;对于机器人 scientist 来说，这提示我们不要把 perception、planning、control 完全割裂。传统 pipeline 中，感知模块输出检测框或位姿，规划模块生成轨迹，控制模块执行动作。VLA 路线则倾向于用一个统一 representation 把这些层次粘合起来。虽然这并不意味着传统模块化方法过时，但它说明，在开放环境和语言指令场景中，强语义 backbone 可以显著提升任务泛化。&lt;/p&gt;
+&lt;p&gt;第二个启发是动作表示非常关键。很多机器人学习失败并不只是模型容量不够，而是动作空间表示不适合学习。FAST 把动作序列看成平滑信号，利用频域压缩和 BPE 形成 token；flow matching 则把动作生成看成从噪声到真实轨迹的条件生成过程。这两种方法都不是简单地回归 action，而是在重新设计“什么是可学习的动作表示”。&lt;/p&gt;
+&lt;p&gt;第三个启发是梯度路径本身也是架构设计的一部分。Knowledge Insulation 说明，在大型预训练模型接入随机初始化模块时，是否让某一路 loss 回传到 backbone，是一个非常重要的训练策略。对于机器人模型，这一点尤其关键，因为 action loss 可能非常 noisy，而 VLM 的语义知识又很脆弱、很难通过机器人数据重新学回来。&lt;/p&gt;
+&lt;p&gt;第四个启发是长程任务需要层级时间尺度。System 2 每秒或每几秒运行一次，System 1 以几十 Hz 运行，这比试图让一个模型在同一频率下既做高层推理又做底层控制更合理。机器人系统天然具有多时间尺度：语义任务、子目标、轨迹、控制指令的频率不同，模型架构也应尊重这种差异。&lt;/p&gt;
+&lt;h2&gt;方法的适用条件&lt;/h2&gt;
+&lt;p&gt;FAST 适用于动作轨迹相对平滑的场景。如果真实动作中主要信息集中在低频成分，DCT 后高频系数接近零，那么 FAST 可以获得很好的压缩效果。典型遥操作数据往往满足这个条件，因为人类不会以极高频率做剧烈决策，机器人轨迹通常具有连续性和平滑性。&lt;/p&gt;
+&lt;p&gt;FAST 不适合被破坏平滑性的预处理。如果对每个 timestep 单独做 normalization，或者引入逐步震荡、高频噪声，就会导致 DCT 后高频成分变大，尾部不再接近零，BPE 也难以把长串零合并。视频中特别强调，per-timestep normalization 可能破坏 FAST 的压缩优势。&lt;/p&gt;
+&lt;p&gt;Knowledge Insulation 更适用于从 general-purpose VLM 开始训练 VLA 的场景。如果 action expert 是随机初始化，而 VLM 已经拥有大量预训练知识，那么阻断 action expert gradient 可以保护 VLM。如果模型已经是机器人预训练模型，只是在新机器人或新任务上 fine-tune，Knowledge Insulation 带来的训练加速可能没那么明显。&lt;/p&gt;
+&lt;p&gt;Flow matching 适合需要连续动作、高频控制和 action chunk 生成的机器人任务。它比离散 action token 更自然地表示连续动作，也比逐 token 自回归生成更适合实时控制。但它也引入了额外推理步骤，例如多步 flow integration，因此工程上要权衡 action quality 和 latency。&lt;/p&gt;
+&lt;p&gt;System 1 / System 2 适合长程、多子任务、可交互任务。如果任务只是一个短程 pick-and-place，System 2 的优势可能不明显；但如果任务需要开放环境理解、动态修正、用户介入和任务分解，那么高层 VLM planner 的价值就会显著增加。&lt;/p&gt;
+&lt;h2&gt;局限性&lt;/h2&gt;
+&lt;p&gt;π0.5 仍然依赖大量高质量机器人数据。虽然它借助 VLM 继承了互联网规模的视觉-语言知识，但动作生成能力仍需要真实或高质量机器人轨迹训练。对于新 embodiment、新末端执行器、新传感器配置，仍然可能需要额外 fine-tuning。&lt;/p&gt;
+&lt;p&gt;SigLIP 作为视觉 backbone 的优势主要是图文语义对齐，但它未必是最强的空间/几何编码器。机器人 manipulation 常常需要精确理解物体位姿、遮挡、接触点、深度和局部几何。相比 DINOv2、depth encoder、3D encoder 或 point cloud encoder，SigLIP 可能在 fine-grained spatial grounding 上存在短板。OpenVLA 等路线使用 SigLIP + DINOv2 的双 encoder，正是为了同时获得语义和空间特征。&lt;/p&gt;
+&lt;p&gt;FAST 的压缩能力依赖轨迹平滑假设。如果任务包含高频震荡、快速接触切换、复杂动态操作，或者数据预处理破坏了时间连续性，FAST 的优势会下降。它的自回归推理也可能比 &lt;strong&gt;flow&lt;/strong&gt; matching 慢。&lt;/p&gt;
+&lt;p&gt;Knowledge Insulation 虽然优雅，但视频作者也提出一个重要疑问：论文是否充分比较了更传统的多阶段训练方案。例如，第一阶段只训练 FAST tokens，第二阶段冻结 VLM 训练 action expert，第三阶段再联合微调。缺少这类 ablation 时，很难判断 Knowledge Insulation 相比 staged training 的真实优势来自哪里。&lt;/p&gt;
+&lt;p&gt;System 1 / System 2 的长程任务分解依赖高层 VLM 的可靠性。如果 System 2 生成错误子任务，System 1 即使执行得很好，也可能把错误计划执行到底。开放环境中的任务完成检测、失败恢复、状态估计和安全约束仍然是难题。&lt;/p&gt;
+&lt;h2&gt;和相关概念的关系&lt;/h2&gt;
+&lt;p&gt;π0.5 与 [[π0]] 的关系是增量式增强，而不是彻底重构。视频中明确说，从高层 schema 看，π0.5 与 π0 基本相同，仍然是 VLM backbone + action generation。区别在于 π0.5 结合了 π0 之后发展出的 FAST、Hi Robot、Knowledge Insulation 等组件，并在训练和长程任务能力上更完整。&lt;/p&gt;
+&lt;p&gt;π0.5 与 [[FAST]] 的关系是动作 tokenization。FAST 让机器人动作可以被 VLM 当作 token 序列预测，从而复用语言模型训练机制。它把连续动作转成频域系数，再量化和 BPE，使动作序列更短、更稳定、更适合自回归训练。&lt;/p&gt;
+&lt;p&gt;π0.5 与 [[Flow Matching]] 的关系是连续动作生成。Flow matching action expert 不预测离散 token，而是预测从噪声到真实动作的速度场。它使模型可以生成连续 action chunk，更适合高频控制和灵巧 manipulation。&lt;/p&gt;
+&lt;p&gt;π0.5 与 [[Knowledge Insulation]] 的关系是训练稳定性。Knowledge Insulation 通过阻断 action expert loss 到 VLM 的梯度，防止随机初始化 action expert 的 noisy gradient 破坏 VLM 的预训练知识。&lt;/p&gt;
+&lt;p&gt;π0.5 与 [[System 1 and System 2]] 的关系是层级控制。System 2 负责慢速推理和任务分解，System 1 负责快速动作生成。π0.5 中同一个 VLM 可以承担高层分解角色，同时也为底层 action expert 提供条件表示。&lt;/p&gt;
+&lt;p&gt;π0.5 与 [[PaliGemma]] / [[Gemma]] / [[SigLIP]] 的关系是 VLM backbone。SigLIP 提供视觉编码，Gemma 提供语言建模。这个组合让模型拥有较强的图文语义对齐能力，但也可能不如专门的空间视觉 encoder 适合精细几何理解。&lt;/p&gt;
+&lt;p&gt;π0.5 与 [[OpenVLA]] 的关系是同属 VLA 路线，但动作生成范式不同。OpenVLA 类方法常把动作离散化成 token 并自回归预测，而 π0/π0.5 强调 flow matching 连续 action expert。OpenVLA/Prismatic 还常用 SigLIP + DINOv2 双视觉 encoder，而 π0/π0.5 主要沿用 PaliGemma/SigLIP 单视觉 backbone。&lt;/p&gt;
+&lt;h2&gt;可复现线索&lt;/h2&gt;
+&lt;p&gt;复现 π0.5 需要先明确模型组成。视觉侧需要 SigLIP 或 PaliGemma-compatible visual encoder，语言侧需要 Gemma 类 decoder-only LLM，多模态连接方式需要遵循 PaliGemma / OpenPI 的输入 token 组织方式。动作侧需要实现 flow matching action expert，并让它能够 attend to 或连接到 LLM/VLM 的层级表示。&lt;/p&gt;
+&lt;p&gt;数据侧至少需要包含多视角图像、语言指令、机器人状态和 action chunk。对于 FAST，需要对 action chunk 做归一化、DCT、量化、维度-频率重排和 BPE tokenizer 训练。复现时必须特别注意 normalization 方式，避免 per-timestep normalization 破坏轨迹平滑性。&lt;/p&gt;
+&lt;p&gt;训练侧需要同时实现两个 loss。FAST token loss 用于训练 VLM 预测 action tokens；flow matching loss 用于训练 action expert 预测 velocity。若使用 Knowledge Insulation，需要在计算 flow matching loss 后阻断其到 VLM 的梯度，只保留 action expert 参数更新。工程上可以通过 detach VLM context、stop-gradient 或更明确的参数分组实现。&lt;/p&gt;
+&lt;p&gt;推理侧需要实现 action chunk generation。FAST 路线需要自回归生成 FAST tokens，再 decode 回连续动作。Flow matching 路线需要从噪声初始化 action chunk，通过若干 integration steps 使用 action expert 预测 velocity 并更新动作。实时部署还需要 action chunk scheduling、receding horizon execution、以及可能的 real-time chunking 机制。&lt;/p&gt;
+&lt;p&gt;系统侧需要实现 System 2 到 System 1 的接口。System 2 输入当前图像和高层用户指令，输出低层语言命令或子任务；System 1 输入低层命令、图像、机器人状态，输出连续 action chunk。长程任务还需要任务完成判定、用户干预接口和失败恢复策略。&lt;/p&gt;
+&lt;h2&gt;我的思考&lt;/h2&gt;
+&lt;p&gt;我认为 π0.5 最值得关注的不是某一个单点技术，而是它对 VLA 系统边界的重新划分。它没有把机器人控制看成单纯的 policy learning，而是把语言理解、视觉语义、动作生成、任务分解和训练稳定性统一考虑。这个方向很符合真实机器人系统的需求，因为真实任务从来不是单一模块能解决的。&lt;/p&gt;
+&lt;p&gt;FAST 的设计很有启发。把 action chunk 当作时间信号，并利用 DCT 压缩，是一个非常自然但容易被忽略的思路。机器人动作通常不是任意序列，而是有物理连续性和人类操作平滑性的信号。这个先验如果用得好，可以显著降低学习难度。但我也会担心它对复杂 contact-rich manipulation 的适应性。例如，在接触瞬间，动作或力控信号可能出现高频变化，此时 FAST 是否仍然保持优势需要具体实验验证。&lt;/p&gt;
+&lt;p&gt;Knowledge Insulation 是一个很漂亮的工程化训练思想。大模型时代的机器人学习不再只是设计网络结构，还要设计梯度如何流动。action expert 早期随机、VLM 已经有知识，这两者的训练状态并不对称。如果把所有 loss 都无差别地反传到所有参数，反而可能破坏最有价值的部分。这个想法可以推广到其他机器人 foundation model，例如 tactile encoder、world model、language planner 和 low-level controller 的联合训练。&lt;/p&gt;
+&lt;p&gt;关于 SigLIP，我的判断是它是一个非常合理的默认选择，但不是机器人视觉的最终答案。SigLIP 强在语义对齐，适合语言指令驱动的任务；但机器人还需要 3D、几何、接触和局部精细空间关系。未来更强的 VLA 很可能不是单一 SigLIP，而是语义 encoder、空间 encoder、depth/3D encoder、多尺度局部特征的组合，同时通过 token pruning 或 sparse attention 控制计算成本。&lt;/p&gt;
+&lt;p&gt;我也认为 System 1 / System 2 的分工非常重要。很多失败案例可能不是 action expert 不会抓，而是高层任务分解不可靠、状态更新不及时、失败后不会恢复。真实家务场景中，任务是动态的，环境是不完整可观测的，人也可能随时插入新要求。因此，VLA policy 必须从“单次 instruction following”走向“持续交互式任务执行”。&lt;/p&gt;
+&lt;h2&gt;后续问题&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;π0.5 原论文中是否有 SigLIP 与其他视觉 encoder 的 ablation？如果没有，使用 SigLIP 主要是继承 PaliGemma 架构，还是在内部实验中验证过？&lt;/li&gt;
+&lt;li&gt;Knowledge Insulation 与传统 staged training 相比，是否真的更优？例如先训练 FAST，再冻结 VLM 训练 action expert，最后联合微调的 baseline 表现如何？&lt;/li&gt;
+&lt;li&gt;FAST 在 contact-rich、高频控制、力控或动态操作任务上是否仍然有效？高频动作成分是否会被压缩过程损失？&lt;/li&gt;
+&lt;li&gt;Flow matching action expert 的 integration steps 数量如何影响实时性和成功率？是否存在任务相关的 adaptive step scheduling？&lt;/li&gt;
+&lt;li&gt;System 2 的子任务完成检测是如何实现的？是 VLM 自己判断，还是依赖外部 termination classifier？&lt;/li&gt;
+&lt;li&gt;π0.5 在新 embodiment 上 fine-tune 时，需要多少 demonstration？哪些层应该冻结，哪些层应该 LoRA 或全量更新？&lt;/li&gt;
+&lt;li&gt;多相机输入在 SigLIP token 中如何组织？不同 camera view 之间是否显式建模空间关系？&lt;/li&gt;
+&lt;li&gt;Knowledge Insulation 是否会限制 action expert 对 VLM 表示的反向塑形能力？完全阻断梯度是否可能让 VLM 缺少低层控制相关 grounding？&lt;/li&gt;
+&lt;li&gt;Real-Time Action Chunking 与普通 receding horizon control 的关键区别是什么？它如何处理 chunk 边界不连续问题？&lt;/li&gt;
+&lt;li&gt;π0.5 的失败模式主要来自视觉识别、任务分解、动作生成，还是闭环反馈不足？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;可以拆出的永久笔记&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;[[Vision-Language-Action Model]]&lt;/li&gt;
+&lt;li&gt;[[π0]]&lt;/li&gt;
+&lt;li&gt;[[π0.5]]&lt;/li&gt;
+&lt;li&gt;[[OpenPI]]&lt;/li&gt;
+&lt;li&gt;[[FAST Action Tokenization]]&lt;/li&gt;
+&lt;li&gt;[[Discrete Cosine Transform for Robot Actions]]&lt;/li&gt;
+&lt;li&gt;[[Flow Matching for Action Generation]]&lt;/li&gt;
+&lt;li&gt;[[Knowledge Insulation]]&lt;/li&gt;
+&lt;li&gt;[[System 1 and System 2 in Robotics]]&lt;/li&gt;
+&lt;li&gt;[[Action Chunking]]&lt;/li&gt;
+&lt;li&gt;[[Real-Time Action Chunking]]&lt;/li&gt;
+&lt;li&gt;[[SigLIP]]&lt;/li&gt;
+&lt;li&gt;[[PaliGemma]]&lt;/li&gt;
+&lt;li&gt;[[Gemma]]&lt;/li&gt;
+&lt;li&gt;[[VLM Backbone for Robotics]]&lt;/li&gt;
+&lt;li&gt;[[Gradient Isolation in Foundation Model Fine-tuning]]&lt;/li&gt;
+&lt;li&gt;[[Robot Action Representation]]&lt;/li&gt;
+&lt;li&gt;[[Language-Conditioned Robot Control]]&lt;/li&gt;
+&lt;li&gt;[[Hierarchical Robot Policy]]&lt;/li&gt;
+&lt;li&gt;[[Catastrophic Forgetting in VLA Training]]&lt;/li&gt;
+&lt;li&gt;[[DINOv2 vs SigLIP for Robotics]]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;相关双链&lt;/h2&gt;
+&lt;p&gt;[[Robotics Foundation Models]]&lt;/p&gt;
+&lt;p&gt;[[Embodied AI]]&lt;/p&gt;
+&lt;p&gt;[[Robot Learning]]&lt;/p&gt;
+&lt;p&gt;[[Imitation Learning]]&lt;/p&gt;
+&lt;p&gt;[[Behavior Cloning]]&lt;/p&gt;
+&lt;p&gt;[[Diffusion Policy]]&lt;/p&gt;
+&lt;p&gt;[[Flow Matching]]&lt;/p&gt;
+&lt;p&gt;[[Action Chunking with Transformers]]&lt;/p&gt;
+&lt;p&gt;[[Open X-Embodiment]]&lt;/p&gt;
+&lt;p&gt;[[DROID Dataset]]&lt;/p&gt;
+&lt;p&gt;[[Language Conditioned Manipulation]]&lt;/p&gt;
+&lt;p&gt;[[Long-Horizon Manipulation]]&lt;/p&gt;
+&lt;p&gt;[[Task and Motion Planning]]&lt;/p&gt;
+&lt;p&gt;[[Visual Grounding]]&lt;/p&gt;
+&lt;p&gt;[[Multimodal Representation Learning]]&lt;/p&gt;
+&lt;h2&gt;后续阅读&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.physicalintelligence.company/&quot;&gt;Physical Intelligence&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Physical-Intelligence/openpi&quot;&gt;OpenPI GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2303.15343&quot;&gt;SigLIP: Sigmoid Loss for Language Image Pre-Training&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://openvla.github.io/&quot;&gt;OpenVLA&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2304.07193&quot;&gt;DINOv2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://ai.google.dev/gemma/docs/paligemma&quot;&gt;PaliGemma&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://arxiv.org/html/2507.10672v1&quot;&gt;Vision-Language-Action Models in Robotic Manipulation: A Systematic Review&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;原始对话索引&lt;/h2&gt;
+&lt;p&gt;本轮 Tabbit 侧边栏阅读围绕 YouTube 视频《Controlling the robot with VLA policy: Pi0.5 explained (FAST, System 1/2, KI, RTC) (VLA Series Ep.3)》展开，主要讨论了 π0.5 与 π0 的关系、FAST tokenization、flow matching action expert、Knowledge Insulation、System 1 / System 2、以及为什么视觉 backbone 使用 SigLIP。&lt;/p&gt;
+&lt;p&gt;关于 flow matching loss 的讨论中，已明确：action expert 不直接预测最终动作，而是预测 flow process 的 velocity。训练时将模型预测速度与真实速度目标 $a-\epsilon$ 比较，得到 loss。这个 loss 原本会产生回传到 action expert 和 LLM/VLM 的梯度，因此后续引出 Knowledge Insulation。&lt;/p&gt;
+&lt;p&gt;关于 Knowledge Insulation 的讨论中，已明确：action expert 初始通常是随机权重，flow matching 训练早期会产生 noisy gradients。如果这些梯度传回预训练 VLM，会导致 VLM 遗忘原有知识。Knowledge Insulation 的做法是阻断 action expert loss 到 VLM 的梯度，让 flow matching action loss 只更新 action expert，而 VLM 仍可通过 FAST token loss 或机器人文本任务继续训练。&lt;/p&gt;
+&lt;p&gt;关于 FAST 的讨论中，已明确：FAST 使用 DCT 将动作 chunk 分解为 cosine coefficients，再量化并通过 BPE 压缩。其有效性依赖机器人动作轨迹的平滑性。如果人为引入高频震荡或 per-timestep normalization，会破坏尾部系数接近零的结构，从而降低压缩率。&lt;/p&gt;
+&lt;p&gt;关于 SigLIP 的讨论中，已明确：视频只提到 π0/π0.5 的 VLM 由 Gemma 和 SigLIP 组成，没有说明为什么不用其他视觉 encoder。外部资料补充后，较合理的判断是：SigLIP 是 PaliGemma/Gemma VLM 路线的自然组成部分，强在图文语义对齐和工程复用；但它不一定是机器人空间几何表示的最优选择。DINOv2 等 encoder 可能在空间细节上更强，OpenVLA 等路线使用 SigLIP + DINOv2 的双 encoder 也体现了语义与空间特征互补的趋势。&lt;/p&gt;
+&lt;h2&gt;我的一句话评价&lt;/h2&gt;
+&lt;p&gt;π0.5 的价值不只是提出一个更强的机器人策略，而是展示了一条清晰路线：用 VLM 保存开放世界语义，用 FAST 和 flow matching 解决动作表示与连续控制，用 Knowledge Insulation 保护预训练知识，再用 System 1 / System 2 把短程控制扩展到长程任务执行。&lt;/p&gt;
+</content:encoded></item><item><title>HER</title><link>https://ny-wakeup.github.io/myblog/posts/HER/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/HER/</guid><description>Hindsight Experience Replay 论文阅读笔记：一种将失败轨迹重标注为 achieved goal 训练数据的稀疏奖励强化学习方法。</description><pubDate>Tue, 09 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Hindsight Experience Replay - Andrychowicz et al. 2017&lt;/h1&gt;
+&lt;h2&gt;一句话总结&lt;/h2&gt;
+&lt;p&gt;[[Hindsight Experience Replay]] 的核心思想是：在 [[Sparse Reward]] 下，智能体即使没有完成原始目标，也通常达成了某个别的结果；HER 将失败轨迹重新标注为“以实际达成状态为目标”的经验，从而把原本无信息的失败样本转化为可学习的监督信号。&lt;/p&gt;
+&lt;h2&gt;论文元信息&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;字段&lt;/th&gt;
+&lt;th&gt;内容&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Title&lt;/td&gt;
+&lt;td&gt;Hindsight Experience Replay&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Aliases&lt;/td&gt;
+&lt;td&gt;HER, 事后经验回放, hindsight goal relabeling&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Authors&lt;/td&gt;
+&lt;td&gt;Marcin Andrychowicz, Filip Wolski, Alex Ray, Jonas Schneider, Rachel Fong, Peter Welinder, Bob McGrew, Josh Tobin, Pieter Abbeel, Wojciech Zaremba&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Year&lt;/td&gt;
+&lt;td&gt;2017&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Venue&lt;/td&gt;
+&lt;td&gt;NeurIPS 2017&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;URL&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://arxiv.org/pdf/1707.01495&quot;&gt;arXiv PDF&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Source&lt;/td&gt;
+&lt;td&gt;Tabbit sidebar paper reading&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Status&lt;/td&gt;
+&lt;td&gt;processed&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2&gt;研究问题&lt;/h2&gt;
+&lt;p&gt;论文要解决的问题是：在奖励极其稀疏且只有成功/失败信号的情况下，如何让 [[Reinforcement Learning]] 算法仍然能够有效学习？&lt;/p&gt;
+&lt;p&gt;在机器人操作任务中，随机探索几乎不可能直接完成目标。例如机械臂随机动作很难刚好把物体推到目标位置、滑到指定区域，或者抓起并放到空中目标。因此普通 RL 算法在 replay buffer 中看到的几乎全是失败样本，奖励长期为 $-1$，critic 很难学习出有意义的价值差异。&lt;/p&gt;
+&lt;p&gt;论文关心的不是“如何让探索访问更多状态”，而是“如何从已经访问过但看似失败的轨迹中提取学习信号”。这一区别很关键：在高维连续控制任务中，探索本身固然重要，但如果所有探索结果都被原始目标评价为失败，那么数据利用效率仍然极低。&lt;/p&gt;
+&lt;h2&gt;背景与动机&lt;/h2&gt;
+&lt;p&gt;传统机器人强化学习常依赖 [[Reward Shaping]]。例如为了训练机械臂完成复杂操作，研究者往往需要设计包含多个项的 cost function，并手工调整权重。这限制了 RL 在真实世界中的适用性，因为它需要同时具备 RL 专业知识和任务领域知识。&lt;/p&gt;
+&lt;p&gt;HER 的动机来自人类的事后学习能力。比如一个人打冰球时本来想射门，但球偏到了球门右侧。普通 RL 会把这条轨迹视为失败；但人类可以意识到：如果球门本来就在右侧，那么这次击球就是成功的。HER 将这种“事后重新解释目标”的思想形式化为经验回放机制。&lt;/p&gt;
+&lt;p&gt;论文中的 bit-flipping toy example 清楚说明了问题本质。在 $n$ 个 bit 的环境中，随机达到目标状态的概率随 $n$ 指数下降。普通 DQN 在较大 $n$ 下几乎永远看不到非 $-1$ 的奖励，因此无法学习。但 DQN + HER 可以把实际到达的 bit 状态当成 hindsight goal，使轨迹产生正确信号，从而解决更大规模的问题。&lt;/p&gt;
+&lt;h2&gt;核心直觉&lt;/h2&gt;
+&lt;p&gt;HER 的核心直觉是：&lt;strong&gt;失败只是在原目标下失败；在另一个目标视角下，同一条轨迹可能是成功的。​&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果 episode 中真实轨迹为：&lt;/p&gt;
+&lt;p&gt;$$
+s_0, s_1, \dots, s_T
+$$&lt;/p&gt;
+&lt;p&gt;原始目标为 $g$，但智能体没有达成 $g$。普通 experience replay 会存储：&lt;/p&gt;
+&lt;p&gt;$$
+(s_t, a_t, r_t, s_{t+1}, g)
+$$&lt;/p&gt;
+&lt;p&gt;其中大部分 $r_t=-1$。&lt;/p&gt;
+&lt;p&gt;HER 额外选择一个 hindsight goal $g&apos;$，例如最终状态 $s_T$ 对应的目标：&lt;/p&gt;
+&lt;p&gt;$$
+g&apos; = m(s_T)
+$$&lt;/p&gt;
+&lt;p&gt;然后重新计算奖励：&lt;/p&gt;
+&lt;p&gt;$$
+r&apos;_t = r(s_t, a_t, g&apos;)
+$$&lt;/p&gt;
+&lt;p&gt;并把同一条 transition 存成：&lt;/p&gt;
+&lt;p&gt;$$
+(s_t \Vert g&apos;, a_t, r&apos;&lt;em&gt;t, s&lt;/em&gt;{t+1} \Vert g&apos;)
+$$&lt;/p&gt;
+&lt;p&gt;这样，原本关于目标 $g$ 的失败轨迹，就变成了关于目标 $g&apos;$ 的有效经验。&lt;/p&gt;
+&lt;p&gt;这个思想依赖一个关键事实：&lt;strong&gt;目标会影响智能体当时为什么选择某个动作，但不会改变环境动力学本身。​&lt;/strong&gt; 因此只要使用 [[Off-Policy Reinforcement Learning]]，就可以用不同目标重新解释同一条真实发生过的轨迹。&lt;/p&gt;
+&lt;h2&gt;方法机制&lt;/h2&gt;
+&lt;p&gt;HER 建立在 [[Goal-Conditioned Reinforcement Learning]] 和 [[Universal Value Function Approximators]] 的框架上。策略和值函数不仅输入状态，还输入目标：&lt;/p&gt;
+&lt;p&gt;$$
+a = \pi(s, g)
+$$&lt;/p&gt;
+&lt;p&gt;$$
+Q = Q(s, a, g)
+$$&lt;/p&gt;
+&lt;p&gt;其中 $g$ 是目标，通常表示希望物体达到的位置。在机器人操作实验中，目标空间为：&lt;/p&gt;
+&lt;p&gt;$$
+G = \mathbb{R}^3
+$$&lt;/p&gt;
+&lt;p&gt;目标谓词为：&lt;/p&gt;
+&lt;p&gt;$$
+f_g(s) = [|g - s_{\text{object}}| \le \epsilon]
+$$&lt;/p&gt;
+&lt;p&gt;也就是说，当物体位置 $s_{\text{object}}$ 距离目标位置 $g$ 不超过容差 $\epsilon$ 时，目标达成。&lt;/p&gt;
+&lt;p&gt;奖励函数为稀疏二值形式：&lt;/p&gt;
+&lt;p&gt;$$
+r(s,a,g) = -[f_g(s&apos;)=0]
+$$&lt;/p&gt;
+&lt;p&gt;其中 $s&apos;$ 是执行动作后的状态。若目标未达成，奖励为 $-1$；若目标达成，奖励为 $0$。&lt;/p&gt;
+&lt;p&gt;HER 需要一个从状态到目标的映射：&lt;/p&gt;
+&lt;p&gt;$$
+m:S \to G
+$$&lt;/p&gt;
+&lt;p&gt;使得：&lt;/p&gt;
+&lt;p&gt;$$
+f_{m(s)}(s)=1
+$$&lt;/p&gt;
+&lt;p&gt;在机器人操作中，这个映射很自然：&lt;/p&gt;
+&lt;p&gt;$$
+m(s)=s_{\text{object}}
+$$&lt;/p&gt;
+&lt;p&gt;即某个状态下物体实际所在的位置，就可以被看作该状态已经达成的目标。&lt;/p&gt;
+&lt;h2&gt;算法流程&lt;/h2&gt;
+&lt;p&gt;HER 的算法流程可以理解为在普通 [[Experience Replay]] 外加了一步 goal relabeling。&lt;/p&gt;
+&lt;p&gt;首先，在每个 episode 开始时采样原始目标 $g$ 和初始状态 $s_0$。智能体根据 goal-conditioned behavior policy 执行动作：&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;a_t \leftarrow \pi_b(s_t \Vert g)&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;其中 $\Vert$ 表示把状态和目标拼接后作为网络输入。&lt;/p&gt;
+&lt;p&gt;采集完整 episode 后，对于每个 transition，先按普通 replay 方式存入：&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;(s_t \Vert g,\ a_t,\ r_t,\ s_{t+1} \Vert g)&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;然后 HER 根据当前 episode 采样若干额外目标 $g&apos;$，例如未来状态、最终状态或 episode 中其他状态所对应的目标。对每个 $g&apos;$，重新计算奖励：&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;r&apos;_t = r(s_t,a_t,g&apos;)&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;再额外存入：&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;(s_t \Vert g&apos;,\ a_t,\ r&apos;&lt;em&gt;t,\ s&lt;/em&gt;{t+1} \Vert g&apos;)&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;最后，从 replay buffer 中采样 minibatch，用原 off-policy RL 算法更新 actor 和 critic。&lt;/p&gt;
+&lt;p&gt;在 DDPG + HER 中：&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;\pi_\theta(s,g)&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;是 actor，负责根据状态和目标输出连续动作；&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;Q_\phi(s,a,g)&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;是 critic，负责评估在目标 $g$ 下执行动作 $a$ 的长期价值。&lt;/p&gt;
+&lt;p&gt;HER 并不替代 DDPG，而是改变 replay buffer 中训练数据的构造方式。&lt;/p&gt;
+&lt;h2&gt;实验设计&lt;/h2&gt;
+&lt;p&gt;论文主要实验使用 Fetch 机械臂在 MuJoCo 中完成三个机器人操作任务。&lt;/p&gt;
+&lt;h3&gt;Pushing&lt;/h3&gt;
+&lt;p&gt;盒子放在桌面上，目标是把盒子移动到桌面上的目标位置。机器人夹爪手指被锁住，不能抓取，只能推动或滚动物体。该任务测试机械臂是否能通过接触控制物体在平面上的位置。&lt;/p&gt;
+&lt;h3&gt;Sliding&lt;/h3&gt;
+&lt;p&gt;puck 放在长而光滑的桌子上，目标位置在机器人可达范围之外。机器人必须击打 puck，使其滑行并最终因摩擦停在目标附近。这要求策略学习非准静态操作，需要预测击打力度和滑行动力学。&lt;/p&gt;
+&lt;h3&gt;Pick-and-place&lt;/h3&gt;
+&lt;p&gt;任务类似 pushing，但目标位置在空中，夹爪可以开合。机器人需要学会抓取、抬升并放置物体。为了降低探索难度，作者在训练中让一半 episode 从一个物体已被抓住的 demonstration state 开始。论文脚注指出，后来发现如果目标位置有时在桌面、有时在空中，则不一定需要这个技巧。&lt;/p&gt;
+&lt;h3&gt;状态、目标与动作&lt;/h3&gt;
+&lt;p&gt;仿真内部状态包括机器人关节角度与速度、物体位置、旋转、线速度和角速度。但策略网络输入经过限制，以便更接近真实机器人可获得的信息。策略输入包括夹爪绝对位置、物体相对于夹爪的位置、目标相对于物体的位置，以及夹爪两指距离。critic 额外使用速度信息。&lt;/p&gt;
+&lt;p&gt;动作空间为 4 维：前三维指定下一时间步期望的相对夹爪位置，第四维指定两指间距。夹爪旋转保持固定。&lt;/p&gt;
+&lt;h3&gt;对比方法&lt;/h3&gt;
+&lt;p&gt;论文比较了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;DDPG&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DDPG + count-based exploration&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DDPG + HER&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不同 HER goal sampling strategy&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;HER 默认版本使用 final strategy，即用 episode 最终状态对应的目标作为额外 hindsight goal。后续消融实验比较 final、future、episode 和 random 等策略。&lt;/p&gt;
+&lt;h2&gt;主要实验结论&lt;/h2&gt;
+&lt;p&gt;第一，在多目标设置下，普通 DDPG 无法解决 pushing、sliding 和 pick-and-place 三个任务。加入 count-based exploration 的 DDPG 只在 sliding 上取得一些进展，但不能稳定解决任务。DDPG + HER 几乎完美解决全部任务。这说明 HER 的作用不是简单提高训练速度，而是让原本在稀疏奖励下不可学习的问题变得可学习。&lt;/p&gt;
+&lt;p&gt;第二，即使只有一个原始目标，HER 仍然显著优于普通 DDPG。单目标设置中，每个 episode 的 desired goal 固定，但 HER 仍可把失败轨迹 relabel 为 achieved goals，因此 replay buffer 中仍然产生多目标训练信号。&lt;/p&gt;
+&lt;p&gt;第三，多目标训练比单目标训练学得更快。即使最终只关心一个目标，训练时使用多样化目标也更有利。多目标分布诱导更丰富的行为数据，使 actor 和 critic 学到更一般的目标条件控制结构。&lt;/p&gt;
+&lt;p&gt;第四，简单 reward shaping 在实验中失败。作者测试了基于距离的 shaped reward，例如鼓励物体靠近目标，但 DDPG 和 DDPG + HER 都未能成功解决任务。论文认为原因可能是 shaped reward 优化目标与最终成功指标不一致，并且 shaped reward 可能惩罚早期不精确但必要的探索行为，使智能体学会“不碰物体”。&lt;/p&gt;
+&lt;p&gt;第五，future strategy 是表现最好的 hindsight goal 采样策略之一。future strategy 对每个 transition 采样同一 episode 中该 transition 之后的状态作为 hindsight goal。实验显示 $k=4$ 或 $k=8$ 时表现最好，尤其是 sliding 任务中，future strategy 是唯一几乎完美解决任务的策略。过大的 $k$ 会降低普通 replay 数据比例，反而损害性能。&lt;/p&gt;
+&lt;p&gt;第六，仿真训练策略可以迁移到真实机器人。作者将仿真中训练的 pick-and-place 策略部署到真实 Fetch 机器人上，初始成功率为 2/5。加入 1 cm 标准差的观测高斯噪声重新训练后，真实机器人成功率提升到 5/5。这说明 HER 可用于 sim-to-real，但对感知误差鲁棒性需要在训练中显式考虑。&lt;/p&gt;
+&lt;h2&gt;对机器人研究的启发&lt;/h2&gt;
+&lt;p&gt;HER 对机器人学习的最大启发是：在机器人操作中，数据并不只是“成功/失败”的记录，而是可以从多个目标视角重新解释的交互轨迹。一次失败试验如果只用原任务目标评价，可能毫无信息；但如果用 achieved goal 评价，它可以成为成功样本。这对真实机器人尤其重要，因为真实机器人采样昂贵，任何提高数据复用率的方法都具有很高价值。&lt;/p&gt;
+&lt;p&gt;对于 [[Robot Manipulation]]，HER 提供了一种避免复杂 reward engineering 的路径。许多机器人任务的真实目标本来就是二值的：物体是否到达位置、门是否打开、插头是否插入、零件是否装配成功。相比手工设计 dense reward，HER 更接近任务真实评价标准。&lt;/p&gt;
+&lt;p&gt;HER 也提示：机器人学习中的“目标分布设计”本身是一种重要建模选择。论文显示多目标训练比单目标训练更有效，这意味着即使最终任务是单一目标，也可以通过构造目标族来获得更丰富的训练信号。对机器人研究而言，可以把一个任务重新表述为 goal-conditioned family，而不是固定目标的单一 MDP。&lt;/p&gt;
+&lt;p&gt;这次阅读中重点讨论了 [[Epsilon-Greedy Policy]]。选中的核心句子是：智能体以概率 $\epsilon$ 随机选择动作，以概率 $1-\epsilon$ 选择当前 $Q$ 函数认为最好的动作。这个机制的研究启发是：&lt;strong&gt;有效学习需要在 exploitation 和 exploration 之间保持张力；HER 进一步说明，探索产生的“偏离原目标”的轨迹不应被浪费，而应通过目标重标注转化为训练资源。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;对于 [[Sim-to-Real]]，论文的启发是：策略训练不能只追求仿真中完美状态下的最优表现，还要考虑真实部署中的观测噪声。加入观测噪声后真实机器人成功率提升，说明 robustness 不是部署后的补丁，而应该成为训练分布的一部分。&lt;/p&gt;
+&lt;h2&gt;方法的适用条件&lt;/h2&gt;
+&lt;p&gt;HER 适用于可以定义多个目标的任务，尤其是目标可以由状态中的某些量表示的任务。例如物体位置、末端执行器位置、关节配置、门角度、抽屉开合程度等。&lt;/p&gt;
+&lt;p&gt;HER 需要能够从状态中提取 achieved goal，即存在映射：&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;m:S \to G&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;对于机器人操作，这通常可行，因为物体实际位置天然就是一个 achieved goal。但对于目标不容易从状态中提取的任务，HER 的使用会更困难。&lt;/p&gt;
+&lt;p&gt;HER 依赖 [[Off-Policy Reinforcement Learning]]。因为 relabel 后的目标不是行为策略当时真正追求的目标，必须使用 off-policy 算法才能合法地从这些重标注经验中学习。&lt;/p&gt;
+&lt;p&gt;HER 尤其适合 [[Sparse Reward]] 和 [[Binary Reward]] 场景。如果任务本来已经有高质量 dense reward，HER 的边际收益可能较小。但论文也显示，简单 dense reward 未必可靠，因此不能简单认为 shaped reward 一定优于 sparse reward + HER。&lt;/p&gt;
+&lt;p&gt;HER 要求目标不会改变环境动力学。目标可以影响智能体动作选择，但不能改变同一动作在环境中的物理后果。如果目标本身改变环境 dynamics，则同一轨迹不能随意 relabel。&lt;/p&gt;
+&lt;h2&gt;局限性&lt;/h2&gt;
+&lt;p&gt;HER 不能直接解决探索完全无法覆盖有意义状态的问题。HER 可以把已经达到的状态转化为目标，但如果智能体从未接触物体、从未移动关键对象、从未进入任务相关状态空间，那么 HER 也缺乏可利用的 achieved goals。&lt;/p&gt;
+&lt;p&gt;在 pick-and-place 中，作者一开始需要 demonstration state 来帮助探索抓取状态。这说明 HER 虽然能缓解稀疏奖励问题，但对长时程、强前置技能依赖的任务仍可能需要辅助探索机制、演示、课程学习或更合理的目标分布。&lt;/p&gt;
+&lt;p&gt;HER 对 goal representation 敏感。如果目标表示不合适，或者 achieved goal 与任务成功标准之间存在偏差，relabel 可能产生弱监督甚至误导性监督。&lt;/p&gt;
+&lt;p&gt;HER 的 performance 与 hindsight goal sampling strategy 有关。论文中 future strategy 明显优于 random strategy，说明不是任意 relabel 都同样有效。目标需要与当前 transition 有一定因果相关性。&lt;/p&gt;
+&lt;p&gt;HER 主要解决目标达成类任务。对于没有明显 goal state 或成功谓词难定义的任务，例如开放式技能学习、交互式语言任务、复杂长期规划任务，需要额外抽象才能使用 HER。&lt;/p&gt;
+&lt;h2&gt;和相关概念的关系&lt;/h2&gt;
+&lt;p&gt;[[Experience Replay]] 是 HER 的基础。普通 replay 复用过去 transition，但目标保持不变；HER 则在 replay 时额外改变目标并重算奖励。&lt;/p&gt;
+&lt;p&gt;[[Goal-Conditioned Reinforcement Learning]] 是 HER 的表示前提。策略和值函数必须接受目标输入，否则无法学习一个可根据目标变化而改变行为的 universal policy。&lt;/p&gt;
+&lt;p&gt;[[Universal Value Function Approximators]] 与 HER 紧密相关。UVFA 学习 $Q(s,a,g)$，HER 则提供一种高效构造多目标训练数据的方法。&lt;/p&gt;
+&lt;p&gt;[[Reward Shaping]] 与 HER 是两种处理 sparse reward 的不同路线。Reward shaping 通过引入 dense signal 指导学习，但可能引入与真实目标不一致的优化偏差。HER 保留 sparse binary reward，通过 relabel 增加有效样本。&lt;/p&gt;
+&lt;p&gt;[[Curriculum Learning]] 与 HER 有相似性。HER 可以被看作一种隐式课程学习：早期智能体只能达到简单目标，HER 就用简单 achieved goals 训练；随着能力增强，能达到的目标自然变难。&lt;/p&gt;
+&lt;p&gt;[[Exploration]] 与 HER 是互补关系。探索决定智能体能产生哪些轨迹，HER 决定这些轨迹如何被更高效利用。HER 不是探索算法本身，但能放大探索数据的训练价值。&lt;/p&gt;
+&lt;p&gt;[[Sim-to-Real]] 中，HER 证明了 sparse reward 训练出的策略可以迁移到真实机器人，但部署成功依赖对观测噪声的鲁棒训练。&lt;/p&gt;
+&lt;h2&gt;可复现线索&lt;/h2&gt;
+&lt;p&gt;实验环境为 Fetch 机械臂操作任务，仿真使用 MuJoCo。任务包括 pushing、sliding 和 pick-and-place。&lt;/p&gt;
+&lt;p&gt;强化学习算法为 DDPG，策略和价值函数使用 MLP，激活函数为 ReLU，优化器为 Adam。训练使用 8 个 workers，并在每次更新后平均参数。&lt;/p&gt;
+&lt;p&gt;奖励采用 sparse binary reward，未达成目标为 $-1$，达成目标为 $0$。&lt;/p&gt;
+&lt;p&gt;目标表示为物体目标位置 $g \in \mathbb{R}^3$，目标达成条件是物体位置与目标位置距离小于阈值。pushing 和 pick-and-place 成功阈值为 7 cm，sliding 成功阈值为 20 cm。&lt;/p&gt;
+&lt;p&gt;HER replay strategy 包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;final：使用 episode 最终状态作为 hindsight goal&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;future：使用当前 transition 之后的若干未来状态作为 hindsight goals&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;episode：使用同一 episode 中随机状态作为 hindsight goals&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;random：使用训练过程中任意已访问状态作为 hindsight goals&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;论文结果显示 future strategy with $k=4$ or $k=8$ 效果最好。过大 $k$ 会降低普通 replay 占比，导致性能下降。&lt;/p&gt;
+&lt;p&gt;真实机器人部署中，物体位置由 CNN 从机器人头部相机图像估计。加入 1 cm 标准差观测噪声训练后，pick-and-place 真实机器人成功率从 2/5 提升到 5/5。&lt;/p&gt;
+&lt;h2&gt;我的思考&lt;/h2&gt;
+&lt;p&gt;HER 的关键价值不只是“从失败中学习”，而是改变了机器人数据的语义结构。普通 RL 中，一条 trajectory 的意义由原始 goal 唯一决定；HER 中，同一 trajectory 可以在多个 goal 条件下具有不同意义。这本质上是一种 data augmentation，但增强对象不是图像或状态，而是任务语义。&lt;/p&gt;
+&lt;p&gt;对机器人操作来说，HER 适合与自动目标生成、对象中心表示、技能发现和离线数据复用结合。特别是在真实机器人采样昂贵的场景中，可以把大量未完成任务的数据转化为“完成了某个替代目标”的训练材料。&lt;/p&gt;
+&lt;p&gt;我需要特别注意 HER 和 exploration 的边界。HER 不能凭空产生未访问区域的经验，它只能重解释已经发生的轨迹。因此在 contact-rich manipulation 或需要精确前置技能的任务中，HER 可能仍需要 demonstration、curriculum、reset distribution design 或 intrinsic exploration 配合。&lt;/p&gt;
+&lt;p&gt;多目标与多任务需要严格区分。论文中的 multi-goal 主要不是指一个 actor 同时学 pushing、sliding、pick-and-place，而是指同一个任务内目标位置变化。一个 goal-conditioned actor 学的是 $\pi(s,g)$，通过输入不同目标位置产生不同行为。三个任务在论文中通常是分别训练策略，而不是一个 actor 统一完成所有任务。&lt;/p&gt;
+&lt;p&gt;这次对话中我对 $\epsilon$-greedy 的理解也可以保留：探索不是“做错误动作”，而是有意保留对当前价值估计的不信任。HER 的贡献在于，即使探索没有命中原目标，只要它到达了某个可描述状态，这段探索仍可能被转化为有效训练信号。&lt;/p&gt;
+&lt;h2&gt;后续问题&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;HER 在 contact-rich manipulation 中与 demonstration、reset distribution、curriculum learning 的最佳组合方式是什么？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对于目标不是物体位置而是关系、约束或语言描述的任务，如何定义 achieved goal 和 relabeling？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HER 的 hindsight goal sampling 是否可以由 learned value、uncertainty 或 causal relevance 自动选择，而不是手工使用 future strategy？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HER 是否适合离线机器人数据集？如果数据中的行为策略没有 goal annotation，能否通过 hindsight relabel 构造 goal-conditioned offline RL 数据？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在 sim-to-real 中，除了 observation noise，HER 是否需要 dynamics randomization 或 perception uncertainty-aware critic？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HER 与 modern diffusion policy、behavior cloning、offline RL 结合时，goal relabeling 应该发生在 trajectory level、transition level 还是 skill level？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对长时程 manipulation，是否可以分层使用 HER：低层 relabel object pose，高层 relabel subgoal sequence？&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;可以拆出的永久笔记&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;[[Hindsight Experience Replay]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Goal Relabeling]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Sparse Reward]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Goal-Conditioned Reinforcement Learning]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Universal Value Function Approximators]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Experience Replay]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Off-Policy Reinforcement Learning]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Reward Shaping]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Implicit Curriculum Learning]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Sim-to-Real]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Epsilon-Greedy Policy]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Exploration vs Exploitation]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;相关双链&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;[[Reinforcement Learning]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Robot Manipulation]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Robot Learning]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[DDPG]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[DQN]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Experience Replay]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Sparse Reward]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Binary Reward]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Goal-Conditioned Policy]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Multi-Goal Reinforcement Learning]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Reward Engineering]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[MuJoCo]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Fetch Robot]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Pick-and-Place]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Pushing]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Sliding]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Sim-to-Real Transfer]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;后续阅读&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;[[Universal Value Function Approximators]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Deep Deterministic Policy Gradient]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Deep Q-Network]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Prioritized Experience Replay]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Curriculum Learning]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Automatic Goal Generation]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Count-Based Exploration]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[VIME]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Offline Goal-Conditioned Reinforcement Learning]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;原始对话索引&lt;/h2&gt;
+&lt;p&gt;这篇笔记来自一次 Tabbit 侧边栏论文阅读会话。对话重点包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;翻译并解释论文题目、摘要、引言和背景部分。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;梳理论文中的 DQN、DDPG、UVFA 和 HER 基本机制。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重点解释 $\epsilon$-greedy policy：以概率 $\epsilon$ 随机探索，以概率 $1-\epsilon$ 选择当前 $Q$ 函数认为最优的动作。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;解释 HER 如何把失败轨迹重新标注为 achieved goal 下的成功经验。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;翻译并讨论 4.1 到 4.6 节实验，包括 pushing、sliding、pick-and-place、reward shaping、goal sampling strategy 和真实机器人部署。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;讨论 multi-goal 与 single-goal 的区别：multi-goal 指同一任务中目标 $g$ 变化，通常训练一个 goal-conditioned actor $\pi(s,g)$；论文中的三个机器人任务不是同一个 actor 同时完成的三个目标，而是三个不同实验任务。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;形成的关键理解：HER 的价值在于提高机器人交互数据的语义复用率，而不仅是提高普通 replay 的样本效率。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;我的一句话评价&lt;/h2&gt;
+&lt;p&gt;HER 最值得保留的洞见是：&lt;strong&gt;在机器人学习中，失败轨迹不应被视为无效数据；只要能从状态中提取 achieved goal，它就可以被重新解释为另一个目标下的成功经验，从而把稀疏奖励问题转化为目标条件数据复用问题。&lt;/strong&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h1&gt;HER：把失败轨迹变成目标条件训练数据&lt;/h1&gt;
+&lt;p&gt;[[Hindsight Experience Replay]] 认为，机器人没有完成原始目标并不等于这条轨迹没有价值；它通常达成了某个别的状态。通过把实际达成的状态重新标注为 hindsight goal，HER 将 sparse reward 下的失败经验转化为 [[Goal-Conditioned Reinforcement Learning]] 的训练样本。&lt;/p&gt;
+&lt;p&gt;核心机制是：同一条 transition 可以从原目标 $g$ 的视角存一次，也可以从 achieved goal $g&apos;$ 的视角再存一次，并重新计算奖励。只要使用 [[Off-Policy Reinforcement Learning]]，这种 relabeling 就可以用于训练 $Q(s,a,g)$ 和 $\pi(s,g)$。&lt;/p&gt;
+&lt;p&gt;对机器人研究的启发是：真实机器人数据昂贵，关键不是只收集更多成功数据，而是提高每条交互轨迹的语义复用率。HER 让“失败”成为可检索、可复用、可训练的多目标数据。&lt;/p&gt;
+&lt;p&gt;相关链接：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;[[Sparse Reward]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Goal-Conditioned Reinforcement Learning]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Experience Replay]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Off-Policy Reinforcement Learning]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Robot Manipulation]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[[Sim-to-Real]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;来自论文：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[[Hindsight Experience Replay - Andrychowicz et al. 2017]]&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded></item><item><title>jax</title><link>https://ny-wakeup.github.io/myblog/posts/jax/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/jax/</guid><pubDate>Mon, 08 Jun 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>Seaborn</title><link>https://ny-wakeup.github.io/myblog/posts/Seaborn/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Seaborn/</guid><pubDate>Mon, 08 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;&lt;strong&gt;Seaborn 是一个基于 Matplotlib 构建的 Python 数据可视化库，它提供了高级接口来绘制极具吸引力且信息丰富的统计图形，非常适合用于探索复杂数据、分析传感器误差分布以及对比不同机器人算法的性能。&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;作为一名机器人科学家，你日常的工作中必然会接触到大量的多维数据，例如随时间变化的关节力矩、传感器噪声分布、不同控制策略下的误差对比等。Matplotlib 虽然功能强大，但代码往往过于繁琐；而 Seaborn 的核心优势在于它&lt;strong&gt;高度集成了 Pandas DataFrame&lt;/strong&gt;，能够用极少的代码实现复杂的统计可视化，并默认提供符合学术审美的图表样式。&lt;/p&gt;
+&lt;p&gt;为了帮助你系统、深入地掌握 Seaborn，我为你整理了一份结构化的学习指南和核心知识点。&lt;/p&gt;
+&lt;h3&gt;&lt;strong&gt;1. Seaborn 的核心设计逻辑&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;在正式写代码之前，理解 Seaborn 的设计哲学至关重要。Seaborn 的 API 主要分为两个层级，这也是初学者最容易混淆的地方：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Axes-level（轴级）函数&lt;/strong&gt;：例如 &lt;code&gt;sns.scatterplot()&lt;/code&gt;、&lt;code&gt;sns.histplot()&lt;/code&gt;。它们就像 Matplotlib 的基础绘图指令，直接在你指定的（或当前的）坐标系（Axes）上画图。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Figure-level（图级）函数&lt;/strong&gt;：例如 &lt;code&gt;sns.relplot()&lt;/code&gt;、&lt;code&gt;sns.displot()&lt;/code&gt;、&lt;code&gt;sns.catplot()&lt;/code&gt;。它们是更高级的封装，会自动创建一个新的画布（Figure），并支持通过 &lt;code&gt;col&lt;/code&gt; 或 &lt;code&gt;row&lt;/code&gt; 参数轻松实现&lt;strong&gt;分面绘图（FacetGrid）&lt;/strong&gt;，即根据某个变量将数据拆分到多个子图中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;学习建议&lt;/strong&gt;：在日常科研探索中，优先使用 Figure-level 函数（&lt;code&gt;relplot&lt;/code&gt;, &lt;code&gt;displot&lt;/code&gt;, &lt;code&gt;catplot&lt;/code&gt;），因为它们更具灵活性；当需要将 Seaborn 图表嵌入到复杂的 Matplotlib 多图布局中时，再使用 Axes-level 函数。&lt;/p&gt;
+&lt;h3&gt;&lt;strong&gt;2. 环境准备与基础导入&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;首先确保安装了相关库：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pip install seaborn pandas matplotlib
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在 Python 脚本或 Jupyter Notebook 中，标准导入方式如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 应用 Seaborn 的默认主题，这会立刻让图表看起来更现代
+sns.set_theme() 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;&lt;strong&gt;3. 核心图表模块（结合机器人科研场景）&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Seaborn 将图表分为几个主要家族，对应不同的分析目的。&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;3.1 关系型数据可视化 (Relational)&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;用于观察两个连续变量之间的关系。在机器人领域，常用于分析轨迹跟踪误差随时间的变化，或者功耗与负载的关系。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心函数&lt;/strong&gt;：&lt;code&gt;sns.relplot()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;底层函数&lt;/strong&gt;：&lt;code&gt;scatterplot()&lt;/code&gt; (散点图), &lt;code&gt;lineplot()&lt;/code&gt; (折线图)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;# 示例：假设 df 包含 &apos;time&apos;, &apos;position_error&apos;, &apos;control_algorithm&apos; 列
+# 使用折线图对比不同控制算法随时间的误差变化，Seaborn 会自动计算多次实验的均值并绘制置信区间（阴影部分）
+sns.relplot(
+    data=df, 
+    x=&quot;time&quot;, 
+    y=&quot;position_error&quot;, 
+    hue=&quot;control_algorithm&quot;, # 按算法分类着色
+    kind=&quot;line&quot;,             # 指定为折线图
+    height=5, 
+    aspect=1.5
+)
+plt.show()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;&lt;strong&gt;3.2 数据分布可视化 (Distribution)&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;用于分析变量的概率分布。非常适合评估传感器噪声特性（如高斯分布）、定位算法的协方差等。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心函数&lt;/strong&gt;：&lt;code&gt;sns.displot()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;底层函数&lt;/strong&gt;：&lt;code&gt;histplot()&lt;/code&gt; (直方图), &lt;code&gt;kdeplot()&lt;/code&gt; (核密度估计), &lt;code&gt;ecdfplot()&lt;/code&gt; (经验累积分布)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;# 示例：分析 LiDAR 传感器的测量偏差分布
+sns.displot(
+    data=df, 
+    x=&quot;lidar_bias&quot;, 
+    hue=&quot;sensor_model&quot;, 
+    kind=&quot;kde&quot;,      # 核密度估计，呈现平滑的概率密度曲线
+    fill=True,       # 曲线下方填充颜色
+    alpha=0.5
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;&lt;strong&gt;3.3 分类数据可视化 (Categorical)&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;当你的数据中包含离散的类别（如不同的机械臂型号、不同的测试地形）时使用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心函数&lt;/strong&gt;：&lt;code&gt;sns.catplot()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;底层函数&lt;/strong&gt;：&lt;code&gt;boxplot()&lt;/code&gt; (箱线图), &lt;code&gt;violinplot()&lt;/code&gt; (小提琴图), &lt;code&gt;barplot()&lt;/code&gt; (柱状图)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;# 示例：使用箱线图展示三种不同路径规划算法的计算耗时分布，可以清晰看到中位数和异常值（Outliers）
+sns.catplot(
+    data=df, 
+    x=&quot;algorithm&quot;, 
+    y=&quot;computation_time&quot;, 
+    kind=&quot;box&quot;
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;&lt;strong&gt;4. 进阶多维探索工具&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;作为科学家，面对未知的高维数据集时，Seaborn 提供了两个极其强大的“一键式”探索工具：&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;联合分布图 (Jointplot)&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;同时展示两个变量的二元关系以及它们各自的边缘分布。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# 观察平移误差与旋转误差的相关性及各自的分布
+sns.jointplot(data=df, x=&quot;translation_error&quot;, y=&quot;rotation_error&quot;, kind=&quot;hex&quot;) # hex 表示六边形二维直方图
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;&lt;strong&gt;成对关系图 (Pairplot)&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;当你有一个包含多个数值变量的数据集（例如机器人的 6 个关节角度），&lt;code&gt;pairplot&lt;/code&gt; 可以一次性画出所有变量两两之间的散点图，以及对角线上的单变量分布图。这是特征工程和初步数据探索的绝佳起点。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sns.pairplot(df[[&quot;joint1&quot;, &quot;joint2&quot;, &quot;joint3&quot;, &quot;status&quot;]], hue=&quot;status&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;&lt;strong&gt;热力图 (Heatmap)&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;在机器学习或系统辨识中，常用于可视化特征之间的相关性矩阵，或者分类任务的混淆矩阵。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;correlation_matrix = df.corr()
+sns.heatmap(correlation_matrix, annot=True, cmap=&quot;coolwarm&quot;, center=0)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;&lt;strong&gt;5. 学术图表美化与定制&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;在撰写科研论文时，图表的规范性和美观度非常重要。Seaborn 提供了便捷的上下文和样式控制：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;控制图表用途 (Context)&lt;/strong&gt;：&lt;code&gt;sns.set_context(&quot;paper&quot;)&lt;/code&gt; 会自动缩小字体和线条以适应双栏论文；如果用于 PPT 汇报，可以使用 &lt;code&gt;sns.set_context(&quot;talk&quot;)&lt;/code&gt; 或 &lt;code&gt;&quot;poster&quot;&lt;/code&gt; 放大元素。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;控制背景风格 (Style)&lt;/strong&gt;：&lt;code&gt;sns.set_style(&quot;whitegrid&quot;)&lt;/code&gt; 是科研中最常用的风格之一，带有浅色网格线，便于读者对齐数据；&lt;code&gt;&quot;ticks&quot;&lt;/code&gt; 风格则更传统。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;调色板 (Palette)&lt;/strong&gt;：Seaborn 提供了丰富的色彩科学调色板。例如，对于连续数据可以使用 &lt;code&gt;&quot;viridis&quot;&lt;/code&gt;，对于对比数据可以使用 &lt;code&gt;&quot;Set2&quot;&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;strong&gt;6. 建议的学习路径&lt;/strong&gt;&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;快速过一遍官方教程&lt;/strong&gt;：Seaborn 的官方文档编写得非常有逻辑。建议阅读 &lt;a href=&quot;https://seaborn.pydata.org/tutorial.html&quot;&gt;Seaborn User Guide and Tutorial&lt;/a&gt;，特别是 &lt;em&gt;Introduction&lt;/em&gt;, &lt;em&gt;Data structures&lt;/em&gt;, 和 &lt;em&gt;Function interface&lt;/em&gt; 这三章。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在实际数据上练习&lt;/strong&gt;：不要仅仅使用内置的 &lt;code&gt;tips&lt;/code&gt; 或 &lt;code&gt;iris&lt;/code&gt; 数据集。把你最近一次机器人实验的 CSV 日志加载到 Pandas 中，尝试用 &lt;code&gt;relplot&lt;/code&gt; 画出轨迹，用 &lt;code&gt;boxplot&lt;/code&gt; 比较不同参数下的成功率。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;结合 Matplotlib 查漏补缺&lt;/strong&gt;：Seaborn 并不是要取代 Matplotlib，而是它的高级补充。当你需要修改图例位置、添加复杂的文本注释或调整坐标轴刻度时，依然需要调用 &lt;code&gt;plt.legend()&lt;/code&gt; 或 &lt;code&gt;ax.set_xlim()&lt;/code&gt; 等 Matplotlib 函数。理解两者如何协同工作是进阶的关键。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1&gt;如何学习这类东西&lt;/h1&gt;
+&lt;h3&gt;&lt;strong&gt;绝对不需要死记硬背，学习这类数据科学工具的正确方式是“建立心智模型，细节随用随查”。&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;作为一名机器人科学家，你的核心价值和认知带宽应当保留给数学推导、物理建模、控制理论以及算法逻辑的创新，而不是用来记忆某个绘图库的 API 参数。编程工具的更新迭代非常快，死记硬背不仅效率低下，而且会产生不必要的认知负担。&lt;/p&gt;
+&lt;p&gt;面对 Seaborn（以及 Pandas、Matplotlib 等任何数据科学工具），最高效的学习和使用策略可以总结为：&lt;strong&gt;内化底层逻辑，外包语法细节。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;为了让你更清晰地掌握这种学习方式，我将其拆解为以下几个层面：&lt;/p&gt;
+&lt;h3&gt;&lt;strong&gt;1. 你必须“内化”的底层逻辑（心智模型）&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;虽然不需要背诵代码，但你需要对工具的设计哲学有深刻的理解。当遇到问题时，这能决定你是否知道“该往哪个方向查”。对于 Seaborn，你需要建立以下三个心智模型：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;数据结构的预期（Tidy Data / 长格式数据）&lt;/strong&gt;
+这是科学家使用 Seaborn 时最常踩的坑。机器人实验数据往往是宽格式（Wide-form）的矩阵，例如每一列代表一个关节的角度。但 Seaborn 的设计理念基于“整洁数据（Tidy Data）”：&lt;strong&gt;每一列是一个变量，每一行是一个观测值&lt;/strong&gt;。
+你需要理解，在使用 Seaborn 绘图前，经常需要使用 Pandas 的 &lt;code&gt;melt()&lt;/code&gt; 函数将宽表转换为长表。理解了这一点，你就能解决 80% 的绘图报错。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;视觉映射的概念（Visual Encoding）&lt;/strong&gt;
+你需要建立一种直觉：图表只是数据的视觉映射。在 Seaborn 中，你不是在“画线”或“画点”，你是在把数据特征映射到视觉通道上。例如，将“时间”映射到 X 轴，将“误差”映射到 Y 轴，将“算法种类”映射到颜色（&lt;code&gt;hue&lt;/code&gt;），将“负载重量”映射到点的大小（&lt;code&gt;size&lt;/code&gt;）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;API 的层级架构&lt;/strong&gt;
+正如我们之前提到的，深刻理解图级函数（Figure-level，自带分面网格）与轴级函数（Axes-level，依附于现有坐标系）的区别。知道什么时候该用哪个，就能避免图表布局混乱。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;strong&gt;2. 你应该“随用随查”的语法细节&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;一旦你理解了上述逻辑，剩下的所有东西都应该交由搜索引擎、官方文档或 AI 来处理。具体包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;函数名与参数拼写&lt;/strong&gt;：到底是 &lt;code&gt;kind=&quot;hist&quot;&lt;/code&gt; 还是 &lt;code&gt;kind=&quot;histogram&quot;&lt;/code&gt;？是 &lt;code&gt;palette&lt;/code&gt; 还是 &lt;code&gt;color&lt;/code&gt;？这些完全不需要记。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;具体的调色板名称&lt;/strong&gt;：不需要记住 &lt;code&gt;&quot;viridis&quot;&lt;/code&gt; 或 &lt;code&gt;&quot;husl&quot;&lt;/code&gt;，需要时直接查阅 Seaborn 的调色板图谱。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;底层的 Matplotlib 调整&lt;/strong&gt;：如何旋转 X 轴的标签？如何修改图例的字体大小？这些细节极度繁琐，每次需要调整时直接查阅即可。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;strong&gt;3. 科学家的高效“查阅”工作流&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;为了将“随用随查”的效率最大化，建议你建立以下工作流：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第一步：明确分析目标（你负责）&lt;/strong&gt;
+在写代码前，先在脑海中或纸上明确：“我想看不同控制算法在不同地形下的稳态误差分布”。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第二步：视觉模式匹配（查阅官方画廊）&lt;/strong&gt;
+打开 &lt;a href=&quot;https://seaborn.pydata.org/examples/index.html&quot;&gt;Seaborn Example Gallery&lt;/a&gt;。这是你最好的字典。不要通过文字去搜，直接用眼睛扫，找到那个最符合你脑海中构想的图表。点击进去，复制它的基础代码模板。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第三步：借助 AI 进行语法翻译（AI 负责）&lt;/strong&gt;
+现在你只需要用自然语言描述你的需求。例如，你可以直接对我说：“我有一个 DataFrame，包含 &lt;code&gt;time&lt;/code&gt;, &lt;code&gt;torque&lt;/code&gt;, &lt;code&gt;joint_name&lt;/code&gt;，请帮我用 Seaborn 画一个折线图，X 轴是时间，Y 轴是力矩，不同的关节用不同的颜色，并且按照 2x3 的网格分面显示。” AI 会瞬间为你生成准确的代码。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第四步：沉淀个人的“代码片段库”（Snippet Library）&lt;/strong&gt;
+虽然不背代码，但你应该保存自己写过的高质量代码。作为科研工作者，你最终发表论文的图表风格往往是固定的。建议你维护一个 Jupyter Notebook 或 Python 脚本，里面保存你精心调整过的、符合 IEEE 或其他顶会出版规范的“绘图模板”。下次写论文时，直接复制模板，替换数据源即可。&lt;/p&gt;
+&lt;p&gt;总结来说，把 Seaborn 当作你的机械臂：你不需要记住伺服电机内部的每一根接线方式，你只需要理解它的运动学模型（底层逻辑），并知道如何发送正确的指令（随用随查）来让它完成任务。&lt;/p&gt;
+</content:encoded></item><item><title>基于lerobot的vla模型复现微调全记录</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%9F%BA%E4%BA%8Elerobot%E7%9A%84vla%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E5%BE%AE%E8%B0%83%E5%85%A8%E8%AE%B0%E5%BD%95/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%9F%BA%E4%BA%8Elerobot%E7%9A%84vla%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E5%BE%AE%E8%B0%83%E5%85%A8%E8%AE%B0%E5%BD%95/</guid><pubDate>Mon, 08 Jun 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>触觉残差学习</title><link>https://ny-wakeup.github.io/myblog/posts/%E8%A7%A6%E8%A7%89%E6%AE%8B%E5%B7%AE%E5%AD%A6%E4%B9%A0/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E8%A7%A6%E8%A7%89%E6%AE%8B%E5%B7%AE%E5%AD%A6%E4%B9%A0/</guid><pubDate>Mon, 08 Jun 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>FlowMatching-VS-Diffusion</title><link>https://ny-wakeup.github.io/myblog/posts/FlowMatching-VS-Diffusion/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/FlowMatching-VS-Diffusion/</guid><pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://alechelbling.com/blog/rectified-flow/&quot;&gt;1&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;异&lt;/h1&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;数学理论背景&lt;/th&gt;
+&lt;th&gt;数据生成&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Diffusion&lt;/td&gt;
+&lt;td&gt;SDE&lt;/td&gt;
+&lt;td&gt;多样性高，但速度慢&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;FM&lt;/td&gt;
+&lt;td&gt;ODE&lt;/td&gt;
+&lt;td&gt;多样性相对较低，但是速度极快&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[[SDE&amp;amp;ODE]]&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1&gt;同&lt;/h1&gt;
+&lt;p&gt;都是 score-based model&lt;/p&gt;
+</content:encoded></item><item><title>linuxrt</title><link>https://ny-wakeup.github.io/myblog/posts/linuxrt/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/linuxrt/</guid><pubDate>Mon, 27 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;https://blog.csdn.net/qq_42241500/article/details/136167651?fromshare=blogdetail&amp;amp;sharetype=blogdetail&amp;amp;sharerId=136167651&amp;amp;sharerefer=PC&amp;amp;sharesource=apple_52036831&amp;amp;sharefrom=from_link&lt;/p&gt;
+</content:encoded></item><item><title>zmq</title><link>https://ny-wakeup.github.io/myblog/posts/zmq/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/zmq/</guid><pubDate>Sun, 26 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;https://zeromq.cn/languages/python/&lt;/p&gt;
+</content:encoded></item><item><title>openvla</title><link>https://ny-wakeup.github.io/myblog/posts/openvla/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/openvla/</guid><pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;动机&lt;/h1&gt;
+&lt;p&gt;在 vlm 大模型上看到了一个成功的公式：tons of data 的预训练以及对下游任务的微调
+并且大规模训练的大模型，甚至比专门任务的一个模型还要好。&lt;/p&gt;
+</content:encoded></item><item><title>var-function</title><link>https://ny-wakeup.github.io/myblog/posts/var-function/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/var-function/</guid><pubDate>Mon, 20 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;ul&gt;
+&lt;li&gt;如果你在代码里用点取值（如 &lt;code&gt;args.lr&lt;/code&gt;），那就不需要 &lt;code&gt;vars()&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;vars()&lt;/code&gt; 主要是把对象的属性视图拿出来（通常是 &lt;code&gt;__dict__&lt;/code&gt;），变成“字典式访问/传参”更方便。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;你可以这样记：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;args = parser.parse_args()&lt;/code&gt; 得到 &lt;code&gt;Namespace&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;args.lr&lt;/code&gt;：点号访问（对象风格）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;vars(args)[&apos;lr&apos;]&lt;/code&gt;：字典访问（mapping 风格）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;code&gt;vars&lt;/code&gt; 是 Python 内置函数，常见用法有两个：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;vars(obj)&lt;/code&gt;&lt;br /&gt;
+返回对象的属性字典（本质上通常是 &lt;code&gt;obj.__dict__&lt;/code&gt;）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;vars()&lt;/code&gt;（不传参数）&lt;br /&gt;
+在函数里等价于 &lt;code&gt;locals()&lt;/code&gt;，返回当前局部符号表。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr /&gt;
+&lt;p&gt;为什么很多脚本写 &lt;code&gt;vars(parser.parse_args())&lt;/code&gt;？&lt;/p&gt;
+&lt;p&gt;因为后续函数可能想要 &lt;code&gt;dict&lt;/code&gt;，比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;方便 &lt;code&gt;config.update(...)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;方便序列化成 json/yaml&lt;/li&gt;
+&lt;li&gt;方便 &lt;code&gt;some_func(**config_dict)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;典型流程：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;args = parser.parse_args() # args 是 Namespace
+
+print(args.lr) # 像属性一样取值
+
+cfg = vars(args) # 转成 dict
+
+main(cfg)
+
+&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>EnergyBasedModel.md</title><link>https://ny-wakeup.github.io/myblog/posts/EnergyBasedModel/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/EnergyBasedModel/</guid><pubDate>Fri, 17 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>OptimalTransport.md</title><link>https://ny-wakeup.github.io/myblog/posts/OptimalTransport/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/OptimalTransport/</guid><pubDate>Fri, 17 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>验证触觉可行性.md</title><link>https://ny-wakeup.github.io/myblog/posts/%E9%AA%8C%E8%AF%81%E8%A7%A6%E8%A7%89%E5%8F%AF%E8%A1%8C%E6%80%A7/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E9%AA%8C%E8%AF%81%E8%A7%A6%E8%A7%89%E5%8F%AF%E8%A1%8C%E6%80%A7/</guid><pubDate>Thu, 16 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Sensor&lt;/h1&gt;
+&lt;p&gt;将触觉传感器数据使用 ros 节点进行发布（100 HZ），然后使用 zmq 实现 server-client 架构的消息通信&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Machine&lt;/th&gt;
+&lt;th&gt;Role&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Mac&lt;/td&gt;
+&lt;td&gt;Client&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Manjaro&lt;/td&gt;
+&lt;td&gt;Server&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1&gt;Qpos&lt;/h1&gt;
+&lt;p&gt;利用 shadowhand自带的 ros实现，同样使用 zmq 实现server-client架构的消息通信&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Machine&lt;/th&gt;
+&lt;th&gt;Role&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Manjaro&lt;/td&gt;
+&lt;td&gt;Client&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ShadowHand NUC&lt;/td&gt;
+&lt;td&gt;Server&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1&gt;Visualization&lt;/h1&gt;
+&lt;p&gt;利用 mujoco，重写渲染管线，实现数据的可视化&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/9zO1Xg.png&quot; alt=&quot;9zO1Xg&quot; /&gt;&lt;/p&gt;
+</content:encoded></item><item><title>Unidex.md</title><link>https://ny-wakeup.github.io/myblog/posts/Unidex/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Unidex/</guid><pubDate>Wed, 15 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>pi0-finetune</title><link>https://ny-wakeup.github.io/myblog/posts/pi0-finetune/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pi0-finetune/</guid><pubDate>Tue, 14 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/NY-WaKeUp/pics@master/uPic/FU2RCw.png&quot; alt=&quot;FU2RCw&quot; /&gt;&lt;/p&gt;
+</content:encoded></item><item><title>diffusion-policy</title><link>https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/diffusion-policy/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;pre&gt;&lt;code&gt;flowchart TD
+
+A[&quot;Init: DiffusionUnetImagePolicy.__init__&quot;] --&amp;gt; B[&quot;Parse shape_meta: action_dim, obs_feature_dim&quot;]
+B --&amp;gt; C[&quot;Build ConditionalUnet1D&quot;]
+C --&amp;gt; D[&quot;Create LowdimMaskGenerator&quot;]
+D --&amp;gt; E[&quot;Create LinearNormalizer&quot;]
+E --&amp;gt; F[&quot;Store horizon, n_obs_steps, n_action_steps&quot;]
+
+subgraph InferencePath
+I1[&quot;predict_action&quot;] --&amp;gt; I2[&quot;normalize obs&quot;]
+I2 --&amp;gt; I3{&quot;obs_as_global_cond&quot;}
+I3 --&amp;gt;|yes| I4[&quot;encode first To obs -&amp;gt; global_cond&quot;]
+I4 --&amp;gt; I5[&quot;cond_data: zeros B,T,Da; cond_mask: false&quot;]
+I3 --&amp;gt;|no| I6[&quot;encode obs -&amp;gt; features B,To,Do&quot;]
+I6 --&amp;gt; I7[&quot;cond_data: B,T,Da+Do; fill obs and mask&quot;]
+I5 --&amp;gt; I8[&quot;conditional_sample&quot;]
+I7 --&amp;gt; I8
+I8 --&amp;gt; I9[&quot;take nsample first Da dims&quot;]
+I9 --&amp;gt; I10[&quot;unnormalize action&quot;]
+I10 --&amp;gt; I11[&quot;slice action window&quot;]
+I11 --&amp;gt; I12[&quot;return action and action_pred&quot;]
+end
+
+subgraph ConditionalSample
+S1[&quot;trajectory &amp;lt;- random normal&quot;] --&amp;gt; S2[&quot;set timesteps&quot;]
+S2 --&amp;gt; S3[&quot;for each t&quot;]
+S3 --&amp;gt; S4[&quot;apply condition mask&quot;]
+S4 --&amp;gt; S5[&quot;model forward&quot;]
+S5 --&amp;gt; S6[&quot;scheduler step to prev_sample&quot;]
+S6 --&amp;gt; S3
+S3 --&amp;gt; S7[&quot;final condition enforce&quot;]
+S7 --&amp;gt; S8[&quot;return trajectory&quot;]
+end
+
+subgraph TrainingPath
+T1[&quot;compute_loss&quot;] --&amp;gt; T2[&quot;normalize obs and action&quot;]
+T2 --&amp;gt; T3{&quot;obs_as_global_cond&quot;}
+T3 --&amp;gt;|yes| T4[&quot;encode first n_obs_steps -&amp;gt; global_cond&quot;]
+T3 --&amp;gt;|no| T5[&quot;encode all steps; concat action and obs&quot;]
+T4 --&amp;gt; T6[&quot;condition_mask from mask_generator&quot;]
+T5 --&amp;gt; T6
+T6 --&amp;gt; T7[&quot;sample noise and timesteps&quot;]
+T7 --&amp;gt; T8[&quot;add noise to trajectory&quot;]
+T8 --&amp;gt; T9[&quot;apply conditioning on noisy trajectory&quot;]
+T9 --&amp;gt; T10[&quot;predict with model&quot;]
+T10 --&amp;gt; T11{&quot;prediction_type&quot;}
+T11 --&amp;gt;|epsilon| T12[&quot;target = noise&quot;]
+T11 --&amp;gt;|sample| T13[&quot;target = trajectory&quot;]
+T12 --&amp;gt; T14[&quot;masked MSE loss&quot;]
+T13 --&amp;gt; T14
+T14 --&amp;gt; T15[&quot;reduce mean to scalar loss&quot;]
+end
+
+I8 -.-&amp;gt; S1
+
+&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>gradient-divergence-curl</title><link>https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/gradient-divergence-curl/</guid><pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;梯度-散度-旋度&lt;/h1&gt;
 &lt;p&gt;在场的上下文中去理解。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1GEi4BQEFA/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=4af74cf04f5132f00507fc478dd8cba8&quot;&gt;可视化&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV19s41157Z4/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=4af74cf04f5132f00507fc478dd8cba8&quot;&gt;数学推导&lt;/a&gt;&lt;/p&gt;
-</content:encoded></item><item><title>hopfield</title><link>https://ny-wakeup.github.io/myblog/posts/hopfield/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/hopfield/</guid><pubDate>Sat, 11 Apr 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>vae</title><link>https://ny-wakeup.github.io/myblog/posts/vae/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/vae/</guid><pubDate>Fri, 10 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;思路&lt;/h1&gt;
+</content:encoded></item><item><title>hopfield</title><link>https://ny-wakeup.github.io/myblog/posts/hopfield/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/hopfield/</guid><pubDate>Sat, 11 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;https://www.bilibili.com/video/BV1UB4y1M7q5/?spm_id_from=333.1387.upload.video_card.click&lt;/p&gt;
+</content:encoded></item><item><title>vae</title><link>https://ny-wakeup.github.io/myblog/posts/vae/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/vae/</guid><pubDate>Fri, 10 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;思路&lt;/h1&gt;
 &lt;p&gt;$$
 p_{\theta}(z|x)=\frac{p_{\theta}(x|z)p(z)}{p_{\theta(x)}}
 $$&lt;/p&gt;
@@ -266,6 +1231,7 @@ $g(t)$:幅度。决定噪声有多大，如果 $g(t)=0$，SDE 退化成了普通
 $dw$：维纳过程增量/随机扰动/布朗运动。&lt;/p&gt;
 &lt;p&gt;在扩散模型中&lt;/p&gt;
 &lt;h1&gt;Flow 模型中的 ODE&lt;/h1&gt;
+&lt;p&gt;去掉了后面的维纳过程，也即去掉了随机噪声项，转而直接利用 &lt;strong&gt;现在流形与目标流形之间的法向方向&lt;/strong&gt; &amp;lt;mark style=&quot;background: #FFB86CA6;&quot;&amp;gt;直接更新现在流形&amp;lt;/mark&amp;gt;。&lt;/p&gt;
 </content:encoded></item><item><title>score-matching</title><link>https://ny-wakeup.github.io/myblog/posts/score-matching/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/score-matching/</guid><pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;$$
 S(x)=\nabla_{x} \log p(x)
 $$&lt;/p&gt;
@@ -340,7 +1306,7 @@ $$&lt;/li&gt;
 </content:encoded></item><item><title>pipreqs</title><link>https://ny-wakeup.github.io/myblog/posts/pipreqs/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pipreqs/</guid><pubDate>Fri, 27 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;pipreqs 是一个可以自动生成项目中使用的依赖到 requirements.txt中去的工具。
 Use：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;pip install pipreqs
-pypreqs .
+pipreqs .
 &lt;/code&gt;&lt;/pre&gt;
 </content:encoded></item><item><title>Manifold-Hypothesis</title><link>https://ny-wakeup.github.io/myblog/posts/Manifold-Hypothesis/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/Manifold-Hypothesis/</guid><pubDate>Sun, 15 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;流形假设&lt;/p&gt;
 &lt;h1&gt;陈述&lt;/h1&gt;
@@ -387,7 +1353,7 @@ A:多个&lt;/p&gt;
 &lt;p&gt;对于任意一个具体数字，比如 3,我们可以连续地改变：笔画的粗细，倾斜角度，大小等等。这种连续变化一位着：对于任意两种&lt;strong&gt;合理&lt;/strong&gt;的 写法 $x_{1}$ 和 $x_{2}$ ，有一条连续路径 $\gamma (t),t\in[0,1],$ 使得 $\gamma(0)=x_{1},\gamma(1)=x_{2}$,路径上的每一个 t 都属于数字 3 的低维流形分布&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1&gt;在深度学习语境下的几个推论&lt;/h1&gt;
-&lt;h2&gt;流形的存在 说明了&lt;/h2&gt;
+&lt;h2&gt;流形的存在说明了&lt;/h2&gt;
 &lt;p&gt;数据的表观存在的维度虽然庞大 ，但是受现实条件的约束，数据的&lt;strong&gt;自由度&lt;/strong&gt;很低&amp;lt;==&amp;gt;流形的存在&lt;/p&gt;
 &lt;h2&gt;神经网络的作用其实是展开流形&lt;/h2&gt;
 &lt;p&gt;在原始数据的高维空间中，各种特征的分布的流形可能复杂纠缠。深度学习实际上就是用深层网络+非线性变换的手段，找到特征空间的映射，这个映射可以做到在流形空间中，&lt;strong&gt;类内连续，类间可分&lt;/strong&gt;。&lt;/p&gt;
@@ -518,62 +1484,6 @@ A:多个&lt;/p&gt;
 &lt;h2&gt;对抗样本（adversarial examples）&lt;/h2&gt;
 &lt;p&gt;对抗攻击会在图向上添加微小扰动，这个扰动是随机的，所以一定会包含在流形法向上的位移，使数据越过决策的边界，模型这时候会崩溃，分类错误。这个现象实际上又反向说明了模型学习到的决策边界是紧贴着数据的流形的，&lt;strong&gt;这种紧贴必然会带来在数据流形切向上的健壮性和法向上的脆弱性&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;$q(x_t|x_0)=\mathcal{N}(x_t;\sqrt{\bar{\alpha}_t}x_0,(1-\bar{\alpha}_t)I)$&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;flowchart TD
-
-A[&quot;Init: DiffusionUnetImagePolicy.__init__&quot;] --&amp;gt; B[&quot;Parse shape_meta: action_dim, obs_feature_dim&quot;]
-B --&amp;gt; C[&quot;Build ConditionalUnet1D&quot;]
-C --&amp;gt; D[&quot;Create LowdimMaskGenerator&quot;]
-D --&amp;gt; E[&quot;Create LinearNormalizer&quot;]
-E --&amp;gt; F[&quot;Store horizon, n_obs_steps, n_action_steps&quot;]
-
-subgraph InferencePath
-I1[&quot;predict_action&quot;] --&amp;gt; I2[&quot;normalize obs&quot;]
-I2 --&amp;gt; I3{&quot;obs_as_global_cond&quot;}
-I3 --&amp;gt;|yes| I4[&quot;encode first To obs -&amp;gt; global_cond&quot;]
-I4 --&amp;gt; I5[&quot;cond_data: zeros B,T,Da; cond_mask: false&quot;]
-I3 --&amp;gt;|no| I6[&quot;encode obs -&amp;gt; features B,To,Do&quot;]
-I6 --&amp;gt; I7[&quot;cond_data: B,T,Da+Do; fill obs and mask&quot;]
-I5 --&amp;gt; I8[&quot;conditional_sample&quot;]
-I7 --&amp;gt; I8
-I8 --&amp;gt; I9[&quot;take nsample first Da dims&quot;]
-I9 --&amp;gt; I10[&quot;unnormalize action&quot;]
-I10 --&amp;gt; I11[&quot;slice action window&quot;]
-I11 --&amp;gt; I12[&quot;return action and action_pred&quot;]
-end
-
-subgraph ConditionalSample
-S1[&quot;trajectory &amp;lt;- random normal&quot;] --&amp;gt; S2[&quot;set timesteps&quot;]
-S2 --&amp;gt; S3[&quot;for each t&quot;]
-S3 --&amp;gt; S4[&quot;apply condition mask&quot;]
-S4 --&amp;gt; S5[&quot;model forward&quot;]
-S5 --&amp;gt; S6[&quot;scheduler step to prev_sample&quot;]
-S6 --&amp;gt; S3
-S3 --&amp;gt; S7[&quot;final condition enforce&quot;]
-S7 --&amp;gt; S8[&quot;return trajectory&quot;]
-end
-
-subgraph TrainingPath
-T1[&quot;compute_loss&quot;] --&amp;gt; T2[&quot;normalize obs and action&quot;]
-T2 --&amp;gt; T3{&quot;obs_as_global_cond&quot;}
-T3 --&amp;gt;|yes| T4[&quot;encode first n_obs_steps -&amp;gt; global_cond&quot;]
-T3 --&amp;gt;|no| T5[&quot;encode all steps; concat action and obs&quot;]
-T4 --&amp;gt; T6[&quot;condition_mask from mask_generator&quot;]
-T5 --&amp;gt; T6
-T6 --&amp;gt; T7[&quot;sample noise and timesteps&quot;]
-T7 --&amp;gt; T8[&quot;add noise to trajectory&quot;]
-T8 --&amp;gt; T9[&quot;apply conditioning on noisy trajectory&quot;]
-T9 --&amp;gt; T10[&quot;predict with model&quot;]
-T10 --&amp;gt; T11{&quot;prediction_type&quot;}
-T11 --&amp;gt;|epsilon| T12[&quot;target = noise&quot;]
-T11 --&amp;gt;|sample| T13[&quot;target = trajectory&quot;]
-T12 --&amp;gt; T14[&quot;masked MSE loss&quot;]
-T13 --&amp;gt; T14
-T14 --&amp;gt; T15[&quot;reduce mean to scalar loss&quot;]
-end
-
-I8 -.-&amp;gt; S1
-
-&lt;/code&gt;&lt;/pre&gt;
 </content:encoded></item><item><title>fisher-information</title><link>https://ny-wakeup.github.io/myblog/posts/fisher-information/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/fisher-information/</guid><pubDate>Sat, 07 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Fisher 信息量&lt;/h1&gt;
 &lt;p&gt;描述的是某参数 $\theta$ 携带信息量的多少，信息量在数学上正是由 &lt;strong&gt;不确定性&lt;/strong&gt;，&lt;strong&gt;敏感度&lt;/strong&gt;，来定义的。&lt;/p&gt;
 &lt;h1&gt;信息量&amp;lt;==&amp;gt;敏感度&lt;/h1&gt;
@@ -736,7 +1646,7 @@ $$
 &lt;li&gt;确定性 ODE 映射，产生的动作序列，是会更加丝滑的&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h6&gt;Energy Based Model&lt;/h6&gt;
-&lt;p&gt;#坑&lt;/p&gt;
+&lt;p&gt;#坑 https://gemini.google.com/share/a37889f577d4&lt;/p&gt;
 &lt;p&gt;#坑 人家已经写过了，先看看人家的再写自己的吧&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/611466195&quot;&gt;概率视角下的生成模型 - Hammour Yue 的文章 - 知乎&lt;/a&gt;&lt;/p&gt;
 </content:encoded></item><item><title>常见卷积组合</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%B8%B8%E8%A7%81%E5%8D%B7%E7%A7%AF/</guid><pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;在深度学习（尤其是计算机视觉和机器人感知）中，卷积核大小（Kernel）、填充（Padding）和步长（Stride）的组合通常遵循特定的设计模式。&lt;/p&gt;
