@@ -1,26 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>worklog</title><link>https://ny-wakeup.github.io/myblog/posts/worklog/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/worklog/</guid><pubDate>Tue, 23 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;转多圈&lt;/h1&gt;
-&lt;p&gt;&amp;lt;video controls width=&quot;100%&quot; src=&quot;https://raw.githubusercontent.com/NY-WaKeUp/pics/master/TouchMulti_TouchMulti_envs-14919-11850-7490-4136_ep131.mp4&quot;&amp;gt;&amp;lt;/video&amp;gt;
-目前进度：
-1   首先修改奖励函数，增加目标圈数这一项，并设置了每步的奖励配置。若是hold模式，则在整个episode前5/6完成指定旋转度数，之后时间去学hold动作。
-2 已在仿真中进行了simple(只管转) hard（转指定圈数后hold）模式的seeds实验
-3 现实中正在部署&lt;/p&gt;
-&lt;h1&gt;真机强化学习&lt;/h1&gt;
-&lt;p&gt;目前进度：
-1. sim中已闭环完毕
-遇到的问题与解决方案：
-1. 尺度过拟合/鱼眼相机的适配：
-根据 https://arxiv.org/abs/2603.02139 这篇论文，引入RSA数据增强
-2. 控制器的适配
-与franka不同，我用的机械臂只有位置控制，没有力矩控制，所以复用了一部分之前sim中的控制器部分，同时对齐hil-serl的末端tcp坐标系的控制要求。
-2. 真机
-遇到的问题与解决方案：
-1. 机器之前的通讯问题，hil-serl模型侧运行在服务器上，无法与真机直接连接
-1. 机械臂的控制：真机与个人主机相连，运行在8899端口，使用ssh隧道端口转发到服务器上
-2. 图像的获取：我的相机一个是zed2i，一个是鱼眼，和franka不一样(RS)，为不安装ros2环境，使用opencv将图像压成字节流，用tcp传输
-2. 昨天（6.23），机械臂出现故障，急停之后恢复，没有任何力，机械臂直接掉下来，把夹爪砸坏了，真机实验暂停&lt;/p&gt;
-&lt;h1&gt;触觉分层模块化&lt;/h1&gt;
-&lt;p&gt;目前进度：
-1.AT-VLA论文学习中&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>worklog</title><link>https://ny-wakeup.github.io/myblog/posts/worklog/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/worklog/</guid><description>转多圈、真机 RL、触觉分层模块化等项目进度记录</description><pubDate>Tue, 23 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;转多圈&lt;/h2&gt;
+&lt;p&gt;&amp;lt;video controls width=&quot;100%&quot; src=&quot;https://raw.githubusercontent.com/NY-WaKeUp/pics/master/TouchMulti_TouchMulti_envs-14919-11850-7490-4136_ep131.mp4&quot;&amp;gt;&amp;lt;/video&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;目前进度：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;首先修改奖励函数，增加目标圈数这一项，并设置了每步的奖励配置。若是 hold 模式，则在整个 episode 前 5/6 完成指定旋转度数，之后时间去学 hold 动作。&lt;/li&gt;
+&lt;li&gt;已在仿真中进行了 simple（只管转）、hard（转指定圈数后 hold）模式的 seeds 实验。&lt;/li&gt;
+&lt;li&gt;现实中正在部署。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;真机强化学习&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;目前进度：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Sim 中已闭环完毕&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;遇到的问题与解决方案：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;尺度过拟合 / 鱼眼相机的适配&lt;/strong&gt;&lt;br /&gt;
+根据 &lt;a href=&quot;https://arxiv.org/abs/2603.02139&quot;&gt;Scale-aware Data Augmentation for Sim-to-Real Transfer&lt;/a&gt; 引入 RSA 数据增强。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;控制器的适配&lt;/strong&gt;&lt;br /&gt;
+与 Franka 不同，我用的机械臂只有位置控制、没有力矩控制，所以复用了一部分之前 sim 中的控制器部分，同时对齐 HIL-SERL 的末端 TCP 坐标系控制要求。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;真机&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;遇到的问题与解决方案：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;机器之前的通讯问题&lt;/strong&gt; — HIL-SERL 模型侧运行在服务器上，无法与真机直接连接
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;机械臂控制&lt;/strong&gt;：真机与个人主机相连，运行在 8899 端口，使用 SSH 隧道端口转发到服务器上。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;图像获取&lt;/strong&gt;：相机一个是 ZED2i、一个是鱼眼，和 Franka 不一样（RS）；为不安装 ROS2 环境，使用 OpenCV 将图像压成字节流，用 TCP 传输。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;6.23 机械臂故障&lt;/strong&gt; — 急停之后恢复，没有任何力，机械臂直接掉下来，把夹爪砸坏了，真机实验暂停。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;触觉分层模块化&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;目前进度：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;AT-VLA 论文学习中。&lt;/li&gt;
+&lt;/ol&gt;
 </content:encoded></item><item><title>SERL：样本高效机器人强化学习软件套件</title><link>https://ny-wakeup.github.io/myblog/posts/SERL/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/SERL/</guid><pubDate>Mon, 22 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;SERL: A Software Suite for Sample-Efficient Robotic Reinforcement Learning — Luo, Hu, et al. 2024&lt;/h1&gt;
 &lt;h2&gt;一句话总结&lt;/h2&gt;
 &lt;p&gt;SERL 把样本高效的离策略 RL（[[RLPD]]）、基于分类器与 [[VICE]] 的奖励设定、由[[Forward-Backward Controller]]驱动的无重置训练，以及一个带「实时层参考限幅」的[[Impedance Control]]器，精心整合为一个开箱即用的全栈软件套件，论证了一个核心命题——真实世界机器人 RL 的瓶颈往往在工程实现而非算法创新：在单张 RTX 4090 上、每个策略 15~60 分钟训练内，即可在 PCB 插装、线缆布线、物体重定位等富接触任务上取得近乎完美的成功率。&lt;/p&gt;
