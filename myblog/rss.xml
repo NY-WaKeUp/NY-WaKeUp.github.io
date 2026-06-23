@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>worklog</title><link>https://ny-wakeup.github.io/myblog/posts/worklog/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/worklog/</guid><description>转多圈、真机 RL、触觉分层模块化等项目进度记录</description><pubDate>Tue, 23 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;转多圈&lt;/h2&gt;
-&lt;p&gt;&amp;lt;video controls width=&quot;100%&quot; src=&quot;https://raw.githubusercontent.com/NY-WaKeUp/pics/master/TouchMulti_TouchMulti_envs-14919-11850-7490-4136_ep131.mp4&quot;&amp;gt;&amp;lt;/video&amp;gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;video autoplay loop muted playsinline controls width=&quot;100%&quot; src=&quot;https://raw.githubusercontent.com/NY-WaKeUp/pics/master/TouchMulti_TouchMulti_envs-14919-11850-7490-4136_ep131.mp4&quot;&amp;gt;&amp;lt;/video&amp;gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;目前进度：&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;首先修改奖励函数，增加目标圈数这一项，并设置了每步的奖励配置。若是 hold 模式，则在整个 episode 前 5/6 完成指定旋转度数，之后时间去学 hold 动作。&lt;/li&gt;
@@ -11,7 +11,7 @@
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Sim 中已闭环完毕&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&amp;lt;video controls width=&quot;100%&quot; src=&quot;https://raw.githubusercontent.com/NY-WaKeUp/pics/master/sim-rl-sim-closed-loop-2026-06-23.mp4&quot;&amp;gt;&amp;lt;/video&amp;gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;video autoplay loop muted playsinline controls width=&quot;100%&quot; src=&quot;https://raw.githubusercontent.com/NY-WaKeUp/pics/master/sim-rl-sim-closed-loop-2026-06-23.mp4&quot;&amp;gt;&amp;lt;/video&amp;gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;遇到的问题与解决方案：&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;尺度过拟合 / 鱼眼相机的适配&lt;/strong&gt;&lt;br /&gt;
