@@ -1,4 +1,306 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>强化学习如何绘图</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%A6%82%E4%BD%95%E7%BB%98%E5%9B%BE/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%A6%82%E4%BD%95%E7%BB%98%E5%9B%BE/</guid><pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;https://zhuanlan.zhihu.com/p/586107118&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>worklog</title><link>https://ny-wakeup.github.io/myblog/posts/worklog/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/worklog/</guid><pubDate>Tue, 23 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;转多圈&lt;/h1&gt;
+&lt;p&gt;&amp;lt;video controls width=&quot;100%&quot; src=&quot;https://raw.githubusercontent.com/NY-WaKeUp/pics/master/TouchMulti_TouchMulti_envs-14919-11850-7490-4136_ep131.mp4&quot;&amp;gt;&amp;lt;/video&amp;gt;
+目前进度：
+1   首先修改奖励函数，增加目标圈数这一项，并设置了每步的奖励配置。若是hold模式，则在整个episode前5/6完成指定旋转度数，之后时间去学hold动作。
+2 已在仿真中进行了simple(只管转) hard（转指定圈数后hold）模式的seeds实验
+3 现实中正在部署&lt;/p&gt;
+&lt;h1&gt;真机强化学习&lt;/h1&gt;
+&lt;p&gt;目前进度：
+1. sim中已闭环完毕
+遇到的问题与解决方案：
+1. 尺度过拟合/鱼眼相机的适配：
+根据 https://arxiv.org/abs/2603.02139 这篇论文，引入RSA数据增强
+2. 控制器的适配
+与franka不同，我用的机械臂只有位置控制，没有力矩控制，所以复用了一部分之前sim中的控制器部分，同时对齐hil-serl的末端tcp坐标系的控制要求。
+2. 真机
+遇到的问题与解决方案：
+1. 机器之前的通讯问题，hil-serl模型侧运行在服务器上，无法与真机直接连接
+1. 机械臂的控制：真机与个人主机相连，运行在8899端口，使用ssh隧道端口转发到服务器上
+2. 图像的获取：我的相机一个是zed2i，一个是鱼眼，和franka不一样(RS)，为不安装ros2环境，使用opencv将图像压成字节流，用tcp传输
+2. 昨天（6.23），机械臂出现故障，急停之后恢复，没有任何力，机械臂直接掉下来，把夹爪砸坏了，真机实验暂停&lt;/p&gt;
+&lt;h1&gt;触觉分层模块化&lt;/h1&gt;
+&lt;p&gt;目前进度：
+1.AT-VLA论文学习中&lt;/p&gt;
+</content:encoded></item><item><title>SERL：样本高效机器人强化学习软件套件</title><link>https://ny-wakeup.github.io/myblog/posts/SERL/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/SERL/</guid><pubDate>Mon, 22 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;SERL: A Software Suite for Sample-Efficient Robotic Reinforcement Learning — Luo, Hu, et al. 2024&lt;/h1&gt;
+&lt;h2&gt;一句话总结&lt;/h2&gt;
+&lt;p&gt;SERL 把样本高效的离策略 RL（[[RLPD]]）、基于分类器与 [[VICE]] 的奖励设定、由[[Forward-Backward Controller]]驱动的无重置训练，以及一个带「实时层参考限幅」的[[Impedance Control]]器，精心整合为一个开箱即用的全栈软件套件，论证了一个核心命题——真实世界机器人 RL 的瓶颈往往在工程实现而非算法创新：在单张 RTX 4090 上、每个策略 15~60 分钟训练内，即可在 PCB 插装、线缆布线、物体重定位等富接触任务上取得近乎完美的成功率。&lt;/p&gt;
+&lt;h2&gt;论文元信息&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;字段&lt;/th&gt;
+&lt;th&gt;内容&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Title&lt;/td&gt;
+&lt;td&gt;SERL: A Software Suite for Sample-Efficient Robotic Reinforcement Learning&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Aliases&lt;/td&gt;
+&lt;td&gt;SERL；Sample-Efficient Robotic reinforcement Learning&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Authors&lt;/td&gt;
+&lt;td&gt;Jianlan Luo*, Zheyuan Hu*, Charles Xu, You Liang Tan, Jacob Berg, Archit Sharma, Stefan Schaal, Chelsea Finn, Abhishek Gupta, Sergey Levine（* 同等贡献）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Year&lt;/td&gt;
+&lt;td&gt;2024（arXiv v1：2024-01；精读版本 v4：2025-03-20）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Venue&lt;/td&gt;
+&lt;td&gt;ICRA 2024&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;URL&lt;/td&gt;
+&lt;td&gt;https://arxiv.org/abs/2401.16013 ；项目页 https://serl-robot.github.io/&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Source&lt;/td&gt;
+&lt;td&gt;Tabbit 侧边栏阅读（本地 PDF：post_RL 目录 / arXiv）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Status&lt;/td&gt;
+&lt;td&gt;已精读（核心机制 + 控制器细节）；2026-06-22 按笔记规范 v1.2 重整&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;机构：UC Berkeley（EECS / BAIR）、University of Washington、Stanford、Intrinsic Innovation LLC。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;研究问题&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;为什么机器人 RL 在算法层面已取得令人印象深刻的进展，在真实世界中的实际采用却依然受限？&lt;/li&gt;
+&lt;li&gt;真实世界机器人 RL 的「不可用性」究竟卡在哪里——是算法能力不足，还是实现与系统工程的门槛过高？&lt;/li&gt;
+&lt;li&gt;能否提供一套全栈、开箱即用的软件，让非专家也能在真实机器人上高效跑通 RL？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;背景与动机&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;实现细节 ≥ 算法选择&lt;/strong&gt;：从业者普遍承认，RL 算法的实现细节对性能的影响，往往不亚于（甚至超过）算法本身的选择。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;真实世界的额外负担&lt;/strong&gt;：奖励设定（图像观测下难以手写）、环境重置（机械操作必须自动化）、样本效率（每分钟训练都有真实成本）、柔顺与安全控制（接触任务不能压坏硬件）共同放大了实现难度。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;软件生态缺口&lt;/strong&gt;：已有 RL 库（d3rlpy、rlkit、stable-baselines、TF-Agents 等）几乎都面向仿真，缺乏专门面向真实世界机器人 RL 的「垂直整合」全栈方案。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;核心直觉&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;真实世界机器人 RL 的采用瓶颈在于&lt;strong&gt;驾驭庞大的实现设计空间&lt;/strong&gt;，而非算法本身的局限。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;把现有成熟技术（RLPD/SAC、分类器奖励、forward-backward 重置）以&lt;strong&gt;正确的工程方式&lt;/strong&gt;组合，再配上&lt;strong&gt;合适的控制器&lt;/strong&gt;与&lt;strong&gt;精心挑选的奖励/重置组件&lt;/strong&gt;，所得系统的效率就足以满足真实世界使用——这直接挑战了「深度 RL + 图像输入必然低效」的固有假设。&lt;/p&gt;
+&lt;h2&gt;方法机制&lt;/h2&gt;
+&lt;p&gt;SERL 由五大组件 + 一个动作空间技巧构成：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;核心 RL 算法 [[RLPD]]&lt;/strong&gt;：基于 [[Soft Actor-Critic]] 的离策略 actor-critic，可把先验数据（次优数据或演示）对称纳入回放缓冲区。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;奖励设定&lt;/strong&gt;：手写奖励（状态足以判定成功时，如 PCB）、二元分类器、对抗式 [[VICE]]（把策略访问过的状态作为负样本持续更新分类器，类比 GAN，缓解奖励利用）。其中分类器奖励为成功事件 $e$ 的对数似然，记当前状态观测为 $\mathbf{s}$，则 $r(\mathbf{s}) = \log p(e \mid \mathbf{s})$。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;无重置训练（[[Reset-Free Reinforcement Learning]]）&lt;/strong&gt;：同时训练两个独立 agent——前向 agent 学执行任务，后向 agent 学回到初始状态，把「重置」本身也变成被学会并自动完成的任务。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;通用机器人适配器&lt;/strong&gt;：只要环境是类 Gym 接口即可接入，提供 Franka 臂环境包装器作为起点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[[Impedance Control]]器 + [[Reference Limiting]]&lt;/strong&gt;：面向富接触任务的核心工程贡献（见下）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;此外，&lt;strong&gt;相对坐标系动作空间（[[Relative Frame Action Space]]）&lt;/strong&gt;：观测与动作以末端执行器初始位姿坐标系表达，等价于在相对视角下「移动目标」，使策略对物体移动 / 中途扰动具备泛化与恢复能力。&lt;/p&gt;
+&lt;p&gt;无重置训练的自我闭环可表示为：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;graph LR
+    A[&quot;初始状态&amp;lt;br/&amp;gt;物体在起始箱&quot;] --&amp;gt;|&quot;前向 agent&amp;lt;br/&amp;gt;(学习执行任务)&quot;| B[&quot;目标状态&amp;lt;br/&amp;gt;物体在目标箱&quot;]
+    B --&amp;gt;|&quot;后向 agent&amp;lt;br/&amp;gt;(学习复位环境)&quot;| A
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;关键机制 A：实时层参考限幅（[[Reference Limiting]]）&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;两层控制：高层 RL 策略约 10 Hz 输出目标位姿 $p_{ref}$，底层阻抗控制器约 1 kHz 跟踪，一个 RL 步对应底层步数 $M \approx 100$。&lt;/li&gt;
+&lt;li&gt;阻抗控制律表现为弹簧-阻尼系统，记测得位姿为 $p$、目标位姿为 $p_{ref}$、位姿误差为 $e = p - p_{ref}$、误差变化率为 $\dot{e}$、刚度系数为 $k_p$、阻尼系数为 $k_d$、前馈力为 $F_{ff}$、科里奥利力为 $F_{cor}$：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+F = k_p,e + k_d,\dot{e} + F_{ff} + F_{cor}, \quad e = p - p_{ref}
+$$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;危险来源：若 $p_{ref}$ 远离当前位姿，则 $e$ 大、$F$ 大，接触时易硬碰撞 / 压坏工件（如 PCB 引脚）。&lt;/li&gt;
+&lt;li&gt;解法：不调软增益（会损精度），而是约束 $|e| \le \Delta$，使接触力上界（其中 $f$ 为控制频率）被限制为：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+F_{\max} \le k_p,|\Delta| + 2k_d,|\Delta|,f
+$$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心洞见——在哪一层裁剪&lt;/strong&gt;：若直接裁剪 RL 动作，$\Delta$ 为微米级会迫使策略「微米级挪动」，自由空间移动需海量步、训练极慢；若在&lt;strong&gt;实时层&lt;/strong&gt;裁剪，则自由空间单 RL 步可移动约 $M\cdot\Delta$，只要满足 $M\cdot|\Delta| \ge |a|&lt;em&gt;{\max}$（$|a|&lt;/em&gt;{\max}$ 为 RL 单步最大动作幅度）即不阻碍快速运动，同时接触时严格钳制。&lt;strong&gt;同一安全力上界下，移动效率提升约 $M$ 倍。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;不用外置力/力矩传感器：噪声大、标定难、运动设计非平凡。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;关键机制 B：熵正则化（[[Entropy Regularization]]）&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;记策略为 $\pi_\theta$、Q 函数为 $Q_\phi$、策略香农熵为 $\mathcal{H}$、温度（正则强度）为 $\alpha$，actor 损失为：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+\mathcal{L}&lt;em&gt;\pi(\theta) = -\mathbb{E}&lt;/em&gt;{\mathbf{s}}\Big[\mathbb{E}&lt;em&gt;{\mathbf{a}\sim\pi&lt;/em&gt;\theta}\big[Q_\phi(\mathbf{s},\mathbf{a})\big] + \alpha,\mathcal{H}\big(\pi_\theta(\cdot\mid\mathbf{s})\big)\Big]
+$$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;称「正则化」的理由：结构上是「主目标 + 系数 × 附加项」（$\alpha$ 对应 L2 的 $\lambda$）；作用上&lt;strong&gt;惩罚策略坍缩为确定性 argmax&lt;/strong&gt;（类比过拟合），表达最大熵先验，把 hard argmax 软化为 soft softmax：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+\pi^*(\mathbf{a}\mid\mathbf{s}) \propto \exp\big(Q(\mathbf{s},\mathbf{a})/\alpha\big)
+$$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\alpha$ 为温度 / 正则强度，且可&lt;strong&gt;自动调节&lt;/strong&gt;（设定目标熵）——再次呼应「实现细节决定成败」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;关键概念：[[Coriolis Force]]（$F_{cor}$ 的来源）&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;物理本义：旋转参考系中的惯性虚拟力，记质量为 $m$、参考系角速度为 $\boldsymbol{\omega}$、物体在该系中速度为 $\mathbf{v}$，则 $\mathbf{F}_{cor} = -2m,(\boldsymbol{\omega} \times \mathbf{v})$，方向垂直于速度与转轴。&lt;/li&gt;
+&lt;li&gt;机器人语境：多连杆动力学中，记关节角为 $q$、惯性矩阵为 $M(q)$、科里奥利/离心矩阵为 $C(q,\dot{q})$、重力项为 $G(q)$、关节力矩为 $\tau$：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+M(q),\ddot{q} + C(q,\dot{q}),\dot{q} + G(q) = \tau
+$$&lt;/p&gt;
+&lt;p&gt;其中 $C(q,\dot{q}),\dot{q}$ 即科里奥利与离心力项（含离心项 $\dot{q}_i^2$ 与科里奥利项 $\dot{q}_i\dot{q}&lt;em&gt;j$），映射到操作空间（[[Operational Space Control]]）即末端的 $F&lt;/em&gt;{cor}$。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;补偿动机：该力随速度平方增长，高速时显著；主动抵消可实现动力学解耦/线性化，让末端呈现干净的弹簧-阻尼行为，是参考限幅安全机制成立的前提。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;算法流程&lt;/h2&gt;
+&lt;p&gt;[[RLPD]] 相对 [[Soft Actor-Critic]] 的三处关键改动：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;高 UTD（[[Update-to-Data Ratio]]）&lt;/strong&gt;：每个环境步执行多次梯度更新。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;对称采样&lt;/strong&gt;：每个 batch 一半来自先验数据（演示），一半来自在线回放缓冲区。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Layer-Norm 正则化&lt;/strong&gt;：对 critic 做层归一化，支撑更高 UTD 比、稳定训练。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;critic 更新目标，记目标网络为 $\bar{Q}_\phi$、折扣因子为 $\gamma$、即时奖励为 $r$：&lt;/p&gt;
+&lt;p&gt;$$
+\mathcal{L}&lt;em&gt;Q(\phi) = \mathbb{E}&lt;/em&gt;{\mathbf{s},\mathbf{a},\mathbf{s}&apos;}\Big[\big(Q_\phi(\mathbf{s},\mathbf{a}) - (r + \gamma,\mathbb{E}&lt;em&gt;{\mathbf{a}&apos;\sim\pi&lt;/em&gt;\theta}[\bar{Q}_\phi(\mathbf{s}&apos;,\mathbf{a}&apos;)])\big)^2\Big]
+$$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;工程上&lt;/strong&gt;：actor 与 learner 分置不同线程并行，既保持固定控制频率（富接触任务所需的即时反馈），又压缩真实世界总墙钟时间。&lt;/p&gt;
+&lt;h2&gt;实验设计&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;硬件&lt;/strong&gt;：Franka Panda 臂 + 2 个腕部相机（物体重定位用 1 腕 + 1 侧）；单张 Nvidia RTX 4090。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络&lt;/strong&gt;：ImageNet 预训练 ResNet-10 视觉骨干 + 2 层 MLP；观测含图像与本体感知（位姿/旋量/力/力矩）；输出 6D 末端增量位姿。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据&lt;/strong&gt;：每任务 20 次 Space Mouse 遥操作演示初始化；BC 基线用 100 次高质量演示（5× 于 RL）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;任务&lt;/th&gt;
+&lt;th&gt;演示数&lt;/th&gt;
+&lt;th&gt;相机&lt;/th&gt;
+&lt;th&gt;随机重置&lt;/th&gt;
+&lt;th&gt;奖励设定&lt;/th&gt;
+&lt;th&gt;箱体&lt;/th&gt;
+&lt;th&gt;训练时间&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;PCB 元件插装&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;2 腕部&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;Ground Truth&lt;/td&gt;
+&lt;td&gt;10×10 cm&lt;/td&gt;
+&lt;td&gt;20 min&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;线缆布线&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;2 腕部&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;二元分类器&lt;/td&gt;
+&lt;td&gt;20×20 cm&lt;/td&gt;
+&lt;td&gt;31 min&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;物体重定位（前向-后向）&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;1 腕 + 1 侧&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;二元分类器&lt;/td&gt;
+&lt;td&gt;20×30 cm&lt;/td&gt;
+&lt;td&gt;105 min&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2&gt;主要实验结论&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;成功率&lt;/strong&gt;：三项任务在 100 次试验中均达到完美/近完美成功率（RL 全 100%）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练时间&lt;/strong&gt;：PCB / 线缆均 &amp;lt; 30 min 收敛；物体重定位前后向合计每策略 &amp;lt; 1 小时。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;碾压 BC&lt;/strong&gt;：成功率上 RL 优于 BC 最高达 10×（PCB）、5×（线缆）、1.7×（重定位）；周期时间至少快 2×、最高改善 3×——且 RL 仅用 1/5 的演示量，说明仅靠演示不足以解决任务。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;与既有系统对比（PCB 类插装）&lt;/strong&gt;：无需 shaped reward，成功率更高、训练更短；最接近的 InsertionNet 含大量插装专用归纳偏置，而 SERL 通用、任务特定假设极少。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可复现性&lt;/strong&gt;：UW 用 FMB 的 3D 打印件搭建 peg insertion，全部软硬件准备 &amp;lt; 3 小时，&lt;strong&gt;19 分钟收敛、100/100 成功率&lt;/strong&gt;，成功复现。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;对机器人研究的启发&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;「实现即贡献」&lt;/strong&gt;：在真实世界 RL 中，一个高质量、垂直整合的工程实现，其科学价值不亚于新算法。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;安全探索的工程支点&lt;/strong&gt;：实时层参考限幅是让 RL 敢于在真实硬件上用随机动作探索富接触任务的关键基础设施，值得迁移到其他力控平台。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重置自动化即任务化&lt;/strong&gt;：把 reset 当作可学习的 backward 任务，是降低人力、实现长程自主训练的低成本范式。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;样本效率的「可达性」&lt;/strong&gt;：image-based RL 并非天然低效，UTD + 对称采样 + layer-norm + 少量演示的组合，能把真实世界训练压到分钟级。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;方法的适用条件&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;力矩可控（torque-controlled）机器人，可实现高频阻抗控制与实时层限幅。&lt;/li&gt;
+&lt;li&gt;任务为操作类、回合制，可定义成功事件以训练分类器或手写奖励。&lt;/li&gt;
+&lt;li&gt;可提供少量（约 20 条）遥操作演示用于 bootstrap。&lt;/li&gt;
+&lt;li&gt;存在双层控制结构且高低频比 $M$ 足够大（如 100），使参考限幅不牺牲自由空间速度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;局限性&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;不追求「全量算法库」：非操作类任务（如导航 / locomotion）可能超出框架范围。&lt;/li&gt;
+&lt;li&gt;奖励设定与无重置学习仍是开放问题：分类器奖励 + forward-backward 并非对所有场景适用。&lt;/li&gt;
+&lt;li&gt;分类器奖励存在被利用（reward exploitation）风险，VICE 缓解但未根除。&lt;/li&gt;
+&lt;li&gt;实验任务集中于桌面级精密插装/抓取，更大工作空间、更长程任务的扩展性待验证。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;和相关概念的关系&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;[[RLPD]] ← 基于 → [[Soft Actor-Critic]] ← 属于 → [[Off-Policy Reinforcement Learning]]&lt;/li&gt;
+&lt;li&gt;[[Entropy Regularization]] ← 是 → [[Maximum Entropy Reinforcement Learning]] 的核心，决定 soft softmax 策略与「Soft」命名&lt;/li&gt;
+&lt;li&gt;[[Forward-Backward Controller]] ← 实现 → [[Reset-Free Reinforcement Learning]]&lt;/li&gt;
+&lt;li&gt;[[Impedance Control]] + [[Reference Limiting]] ← 依赖 → [[Coriolis Force]] 补偿以保证弹簧-阻尼行为干净&lt;/li&gt;
+&lt;li&gt;[[VICE]] ← 类比 → GAN（策略=生成器，奖励分类器=判别器）&lt;/li&gt;
+&lt;li&gt;[[Relative Frame Action Space]] ← 支撑 → 测试时对扰动的泛化与恢复&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;可复现线索&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;代码 / 文档 / 视频：https://serl-robot.github.io/&lt;/li&gt;
+&lt;li&gt;关键超参轴线：UTD 比、对称采样比例（50/50）、layer-norm、$\alpha$ 自动调温、限幅阈值 $\Delta$、高低频比 $M \approx 100$。&lt;/li&gt;
+&lt;li&gt;复现参照：UW peg insertion（FMB 3D 打印件，&amp;lt; 3h 搭建，19 min 收敛）。&lt;/li&gt;
+&lt;li&gt;硬件最小集：Franka Panda + 腕部相机 + 单张消费级 GPU（RTX 4090）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;我的思考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;参考限幅的精妙在于「把约束放到正确的抽象层」：同一物理安全界限，作用在底层即得到 $M$ 倍探索自由度，本质是一种「频率域的杠杆」，可推广到任何双速率分层控制系统。&lt;/li&gt;
+&lt;li&gt;「重置任务化」与「奖励分类器化」本质都是把人类劳动转写为可学习目标，符合自主化方向；但二者都引入新失败模式（分布外重置、奖励欺骗），需要监控。&lt;/li&gt;
+&lt;li&gt;论文把 SAC 的熵项明确定位为正则化，提醒我在写作中区分「探索机制」与「正则化机制」两种叙事——数学同源但动机表述不同。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;后续问题&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;参考限幅的 $\Delta$ 是否可随接触状态自适应（接触时收紧、自由空间放宽），进一步压缩训练时间？&lt;/li&gt;
+&lt;li&gt;forward-backward 在更长程、多阶段任务中是否需要超过两个 agent 的课程式重置？&lt;/li&gt;
+&lt;li&gt;VICE 的对抗式奖励在 image 分布漂移较大的任务上稳定性如何，是否需要正则或早停？&lt;/li&gt;
+&lt;li&gt;把 ResNet-10 换成预训练视觉基础模型，样本效率与泛化的边际收益有多大？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;可以拆出的永久笔记&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;[[Reference Limiting：在底层实时层裁剪而非动作层裁剪]]&lt;/li&gt;
+&lt;li&gt;[[Entropy Regularization 为何称为正则化（结构同构 + 防坍缩 + 软化 argmax）]]&lt;/li&gt;
+&lt;li&gt;[[Forward-Backward 无重置训练范式]]&lt;/li&gt;
+&lt;li&gt;[[Coriolis Force 与机器人逆动力学补偿]]&lt;/li&gt;
+&lt;li&gt;[[RLPD 三要素：高 UTD + 对称采样 + LayerNorm]]&lt;/li&gt;
+&lt;li&gt;[[VICE 与 GAN 的对偶关系]]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;相关双链&lt;/h2&gt;
+&lt;p&gt;[[Soft Actor-Critic]] · [[RLPD]] · [[Off-Policy Reinforcement Learning]] · [[Maximum Entropy Reinforcement Learning]] · [[Impedance Control]] · [[Operational Space Control]] · [[Reset-Free Reinforcement Learning]] · [[VICE]] · [[Functional Manipulation Benchmark]] · [[Contact-Rich Manipulation]]&lt;/p&gt;
+&lt;h2&gt;后续阅读&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Ball et al., 2023 — RLPD（Efficient online RL with offline data）&lt;/li&gt;
+&lt;li&gt;Haarnoja et al., 2018 — Soft Actor-Critic&lt;/li&gt;
+&lt;li&gt;Fu et al., 2018 — VICE&lt;/li&gt;
+&lt;li&gt;Sharma et al., 2021 — Autonomous RL：Benchmarking and Formalism（forward-backward 形式化）&lt;/li&gt;
+&lt;li&gt;Gupta et al., 2021 — Reset-free RL via multi-task learning&lt;/li&gt;
+&lt;li&gt;Luo et al., 2024 — FMB（功能操作基准）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;原始对话索引&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本节按时间顺序逐条登记本会话中我提出的每一个问题（含翻译、追问、格式修正与 Skill 维护类），一问一条，不作合并。共 10 条。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;「翻译」&lt;/strong&gt; —— 请求将当前论文（arXiv:2401.16013 PDF）全文翻译为中文。产出：含摘要、引言、相关工作、预备知识、方法（4.1–4.6）、实验、讨论、附录的完整中文译稿，公式与图表说明一并保留。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;「在学习回合制任务时，机器人必须在两次任务尝试之间重置环境……这是啥意思？」&lt;/strong&gt; —— 询问 4.3 节「无重置训练 / 前向-后向控制器」段落含义。产出：解释回合制任务为何需要重置、人工重置的痛点，以及 SERL 把「重置」本身任务化（前向 agent 执行、后向 agent 复位）的自我闭环思路。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;「随后，该目标将通过乘以雅可比矩阵的转置……只要满足 $M\cdot|\Delta|\ge|a|_{\max}$……这是啥意思？」&lt;/strong&gt; —— 与上一问同属一条消息的第二个子问，询问 4.5 节「阻抗控制器参考限幅」含义。产出：拆解两层控制与 10 Hz/1 kHz 频率差、弹簧-阻尼力来源、为何不调软增益，以及「动作层裁剪 vs 实时层裁剪」的 $M$ 倍效率差这一核心洞见。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;「为什么这里叫作熵『正则化』？」&lt;/strong&gt; —— 选中 target network / 熵正则化句子追问命名缘由。产出：从结构同构（主目标 + 系数 × 附加项）、防止策略坍缩为确定性 argmax（类比过拟合）、软化为 soft softmax、$\alpha$ 自动调温四个角度论证「正则化」之名的严谨性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;「这是啥意思？啥叫科里奥利力？」&lt;/strong&gt; —— 选中阻抗控制律 $F = k_p e + k_d \dot{e} + F_{ff} + F_{cor}$ 追问公式含义与科里奥利力定义。产出：逐项拆解四个力项；讲清科里奥利力作为旋转系惯性虚拟力的物理本义及其在多连杆动力学 $C(q,\dot{q})\dot{q}$ 中的形态与补偿动机。&lt;/li&gt;
+&lt;li&gt;**「请把本轮……整理成可直接存入 Obsidian/博客系&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr /&gt;
+</content:encoded></item><item><title>强化学习如何绘图</title><link>https://ny-wakeup.github.io/myblog/posts/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%A6%82%E4%BD%95%E7%BB%98%E5%9B%BE/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%A6%82%E4%BD%95%E7%BB%98%E5%9B%BE/</guid><pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;https://zhuanlan.zhihu.com/p/586107118&lt;/p&gt;
 </content:encoded></item><item><title>pyvista</title><link>https://ny-wakeup.github.io/myblog/posts/pyvista/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/pyvista/</guid><pubDate>Tue, 16 Jun 2026 00:00:00 GMT</pubDate><content:encoded/></item><item><title>Pi 0.5 VLA Policy</title><link>https://ny-wakeup.github.io/myblog/posts/PI05/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/PI05/</guid><pubDate>Fri, 12 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;π0.5: Vision-Language-Action Policy with FAST, Knowledge Insulation, System 1/2 and Real-Time Action Chunking - Physical Intelligence 2025&lt;/h1&gt;
 &lt;h2&gt;一句话总结&lt;/h2&gt;
 &lt;p&gt;π0.5 可以理解为在 [[π0]] 基础上，把 [[FAST]] action tokenization、[[Flow Matching]] action expert、[[Knowledge Insulation]]、以及 [[System 1 and System 2]] 式的分层机器人控制统一到一个 VLA 框架中：VLM 负责视觉-语言理解和任务分解，action expert 负责从噪声中生成连续动作 chunk，从而让机器人在开放家庭环境中执行更长、更复杂、更具泛化性的任务。&lt;/p&gt;
@@ -116,7 +418,7 @@ $$&lt;/p&gt;
 &lt;p&gt;System 1 / System 2 适合长程、多子任务、可交互任务。如果任务只是一个短程 pick-and-place，System 2 的优势可能不明显；但如果任务需要开放环境理解、动态修正、用户介入和任务分解，那么高层 VLM planner 的价值就会显著增加。&lt;/p&gt;
 &lt;h2&gt;局限性&lt;/h2&gt;
 &lt;p&gt;π0.5 仍然依赖大量高质量机器人数据。虽然它借助 VLM 继承了互联网规模的视觉-语言知识，但动作生成能力仍需要真实或高质量机器人轨迹训练。对于新 embodiment、新末端执行器、新传感器配置，仍然可能需要额外 fine-tuning。&lt;/p&gt;
-&lt;p&gt;SigLIP 作为视觉 backbone 的优势主要是图文语义对齐，但它未必是最强的空间/几何编码器。机器人 manipulation 常常需要精确理解物体位姿、遮挡、接触点、深度和局部几何。相比 DINOv2、depth encoder、3D encoder 或 point cloud encoder，SigLIP 可能在 fine-grained spatial grounding 上存在短板。OpenVLA 等路线使用 SigLIP + DINOv2 的双 encoder，正是为了同时获得语义和空间特征。&lt;/p&gt;
+&lt;p&gt;SigLIP 作为视觉 backbone 的优势主要是图文语义对齐，但它未必是最强的空间/几何编码器。机器人 manipulation 常常需要精确理解物体位姿、遮挡、接触点、深度和局部几何。相比 DINOv2、depth encoder、3D encoder 或 point cloud encoder，SigLIP 可能在 fine-grained spatial grounding 上存在短板。OpenVLA &lt;strong&gt;等路线使用&lt;/strong&gt; SigLIP + DINOv2 的双 encoder，正是为了同时获得语义和空间特征。&lt;/p&gt;
 &lt;p&gt;FAST 的压缩能力依赖轨迹平滑假设。如果任务包含高频震荡、快速接触切换、复杂动态操作，或者数据预处理破坏了时间连续性，FAST 的优势会下降。它的自回归推理也可能比 &lt;strong&gt;flow&lt;/strong&gt; matching 慢。&lt;/p&gt;
 &lt;p&gt;Knowledge Insulation 虽然优雅，但视频作者也提出一个重要疑问：论文是否充分比较了更传统的多阶段训练方案。例如，第一阶段只训练 FAST tokens，第二阶段冻结 VLM 训练 action expert，第三阶段再联合微调。缺少这类 ablation 时，很难判断 Knowledge Insulation 相比 staged training 的真实优势来自哪里。&lt;/p&gt;
 &lt;p&gt;System 1 / System 2 的长程任务分解依赖高层 VLM 的可靠性。如果 System 2 生成错误子任务，System 1 即使执行得很好，也可能把错误计划执行到底。开放环境中的任务完成检测、失败恢复、状态估计和安全约束仍然是难题。&lt;/p&gt;
