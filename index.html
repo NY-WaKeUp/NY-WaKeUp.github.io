@@ -4,91 +4,94 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ning Yu · CV / 宁予 · 简历</title>
-<meta name="description" content="Ning Yu — M.S. in Computer Science at Dalian University of Technology. Embodied AI, dexterous-hand tactile perception, reinforcement and imitation learning.">
+<meta name="description" content="宁予（Ning Yu）— 大连理工大学计算机硕士，具身智能、灵巧手触觉感知、强化学习与模仿学习。">
 <style>
   :root{
-    --page:#ececec; --paper:#ffffff; --ink:#141416; --ink-soft:#3f4247;
-    --ink-mute:#8c8f95; --rule:#dedede;
+    --page:#f4f4f2; --paper:#ffffff; --ink:#1b1d21; --ink-soft:#585c63;
+    --ink-mute:#8a8f97; --rule:#e7e7e4; --link:#2b4a6f;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --page:#0c0e11; --paper:#1a1d22; --ink:#e8eaed; --ink-soft:#a8adb5;
+      --ink-mute:#7d838c; --rule:#282d34; --link:#9dc0e6;
+    }
   }
   *{box-sizing:border-box}
   body{
     margin:0; background:var(--page); color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-    -webkit-font-smoothing:antialiased;
-    display:flex; justify-content:center; padding:26px 12px 46px;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   }
   a{color:inherit; text-decoration:none}
-  a:hover{text-decoration:underline; text-underline-offset:2px}
+  a:hover{color:var(--link)}
 
   .lang{
-    position:fixed; top:14px; right:14px; z-index:10;
+    position:fixed; top:16px; right:16px; z-index:10;
     display:flex; gap:2px; padding:3px; border-radius:999px;
-    background:rgba(255,255,255,.9);
-    border:1px solid #dcdcdc;
+    background:color-mix(in srgb, var(--paper) 86%, transparent);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    border:1px solid var(--rule);
   }
   .lang button{
     appearance:none; border:0; background:none; margin:0; cursor:pointer;
-    font:inherit; font-size:11.5px; line-height:1; padding:6px 11px; border-radius:999px;
-    color:#6f7379;
+    font:inherit; font-size:12px; line-height:1; padding:7px 12px; border-radius:999px;
+    color:var(--ink-mute); transition:background .16s ease, color .16s ease;
   }
-  .lang button[aria-pressed="true"]{background:#1b1c1e; color:#fff}
+  .lang button:hover{color:var(--ink)}
+  .lang button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+  .lang button[aria-pressed="true"]:hover{color:var(--paper)}
 
   .sheet{
-    width:794px; min-height:1123px; background:var(--paper); color:var(--ink);
-    padding:42px 46px 40px; box-shadow:0 1px 2px rgba(0,0,0,.10), 0 8px 22px rgba(0,0,0,.06);
+    max-width:840px; margin:36px auto 56px; padding:54px 60px 58px;
+    background:var(--paper); border-radius:8px;
+    box-shadow:0 1px 2px rgba(17,19,21,.04), 0 12px 40px rgba(17,19,21,.045);
   }
+  .head{margin-bottom:6px}
+  .head h1{margin:0; font-size:30px; font-weight:650; letter-spacing:.01em; line-height:1.25}
+  .tagline{margin:8px 0 0; font-size:12.5px; color:var(--ink-soft); letter-spacing:.02em}
+  .contact{margin:10px 0 0; font-size:12px; color:var(--ink-mute); line-height:1.6}
+  .contact .dot{margin:0 7px; opacity:.6}
 
-  .head{text-align:center; padding-bottom:9px; border-bottom:1px solid var(--rule); margin-bottom:11px}
-  .head h1{margin:0; font-size:21px; font-weight:650; letter-spacing:.08em; line-height:1.2}
-  .tagline{margin:7px 0 0; font-size:10.4px; color:var(--ink-soft); letter-spacing:.02em}
-  .contact{margin:6px 0 0; font-size:9.8px; color:var(--ink-mute)}
-  .contact .dot{margin:0 6px; opacity:.65}
-
-  section{margin-top:11px}
+  section{margin-top:26px}
   h2{
-    margin:0 0 7px; font-size:10.8px; font-weight:700; letter-spacing:.03em; color:var(--ink);
+    margin:0 0 13px; padding-bottom:7px; font-size:12px; font-weight:600;
+    letter-spacing:.14em; color:var(--ink-soft); border-bottom:1px solid var(--rule);
   }
-  .item{margin-bottom:8px}
+  .item{margin-bottom:15px}
   .item:last-child{margin-bottom:0}
-  .ihead{display:flex; align-items:baseline; gap:10px; justify-content:space-between}
-  .org{font-size:11.6px; font-weight:650; line-height:1.35}
-  .when{font-size:9.8px; color:var(--ink-soft); white-space:nowrap}
-  .sub{font-size:10.2px; color:var(--ink-soft); margin-top:1px; line-height:1.4}
-  .bullets{margin:2px 0 0; padding:0; list-style:none}
-  .bullets li{
-    position:relative; padding-left:10px; margin:0 0 1px;
-    font-size:10.4px; line-height:1.52; color:var(--ink); text-align:justify;
+  .ihead{display:flex; align-items:baseline; gap:12px; justify-content:space-between}
+  .org{font-size:14.5px; font-weight:600; line-height:1.45}
+  .when{font-size:11.5px; color:var(--ink-mute); white-space:nowrap; letter-spacing:.02em}
+  .sub{font-size:12.5px; color:var(--ink-soft); margin-top:3px; line-height:1.6}
+  .bullets{
+    margin:7px 0 0; padding:0; list-style:none;
   }
-  .bullets li::before{content:"·"; position:absolute; left:1px; top:0; color:var(--ink-soft)}
+  .bullets li{
+    position:relative; padding-left:14px; margin:0 0 5px;
+    font-size:13.5px; line-height:1.72; color:var(--ink); letter-spacing:.005em;
+  }
+  .bullets li::before{
+    content:"·"; position:absolute; left:2px; top:0; color:var(--ink-mute);
+  }
   .bullets li:last-child{margin-bottom:0}
-  .bullets strong{font-weight:650}
-
-  /* 英文内容更长，单独收紧一档，保证同样一页 */
-  article[data-lang="en"] section{margin-top:9px}
-  article[data-lang="en"] h2{margin-bottom:6px}
-  article[data-lang="en"] .item{margin-bottom:6px}
-  article[data-lang="en"] .org{font-size:11.2px}
-  article[data-lang="en"] .sub{font-size:9.8px}
-  article[data-lang="en"] .bullets li{font-size:9.9px; line-height:1.45; margin-bottom:0}
+  .bullets strong{font-weight:600}
 
   [data-lang][hidden]{display:none}
 
-  @media (max-width:860px){
-    body{padding:0}
+  @media (max-width:640px){
     .lang{top:10px; right:10px}
-    .sheet{width:100%; min-height:auto; padding:28px 20px 34px; box-shadow:none}
-    .head h1{font-size:19px}
-    .bullets li{font-size:10.2px}
+    .sheet{margin:0; padding:30px 20px 40px; border-radius:0; box-shadow:none; min-height:100vh}
+    .head h1{font-size:25px}
+    .ihead{flex-direction:column; gap:1px}
+    .when{order:-1}
+    .bullets li{font-size:12.8px}
   }
-  /* 屏幕够宽时把 A4 纸等比放大一档，避免字太小 */
-  @media (min-width:1080px){
-    .sheet{zoom:1.18}
-  }
-  @page{size:A4; margin:0}
   @media print{
-    body{background:#fff; padding:0; display:block}
+    :root{--page:#fff; --paper:#fff; --ink:#111; --ink-soft:#444; --ink-mute:#777; --rule:#ddd}
+    body{background:#fff}
     .lang{display:none}
-    .sheet{width:210mm; min-height:auto; padding:12mm 14mm; box-shadow:none; zoom:1}
+    .sheet{max-width:none; margin:0; padding:0; box-shadow:none; border-radius:0}
+    section{break-inside:auto}
     .item{break-inside:avoid}
   }
 </style>
@@ -101,53 +104,6 @@
 </div>
 
 <main class="sheet">
-<article data-lang="en">
-<header class="head">
-<h1>Ning Yu</h1>
-<p class="tagline">Tactile Perception &amp; Application · Reinforcement Learning · Imitation Learning · VLA &amp; WM · System Identification</p>
-<p class="contact"><a href="mailto:Phil_ning@mail.dlut.edu.cn">Phil_ning@mail.dlut.edu.cn</a><span class="dot">·</span>197-4110-3867<span class="dot">·</span>Shanghai<span class="dot">·</span><a href="https://github.com/NY-WaKeUp">github.com/NY-WaKeUp</a></p>
-</header>
-<section>
-<h2>Education &amp; Training</h2>
-<div class="item">
-<div class="ihead"><span class="org">Dalian University of Technology (985)</span><span class="when">2024.09 - 2027.06</span></div>
-<div class="sub">M.S. · Computer Science and Technology | Advisor: Prof. Liu Qian</div>
-<ul class="bullets"><li>Dexterous-hand tactile perception and manipulation, reinforcement learning and imitation learning.</li></ul>
-</div>
-<div class="item">
-<div class="ihead"><span class="org">Hebei University of Technology (211)</span><span class="when">2020.09 - 2024.06</span></div>
-<div class="sub">B.Eng. · Internet of Things Engineering</div>
-</div>
-</section>
-<section>
-<h2>Professional Experience</h2>
-<div class="item">
-<div class="ihead"><span class="org">AgiBot</span><span class="when">2026.07 - Present</span></div>
-<div class="sub">Robot Motion Intelligence Intern · Shanghai</div>
-<ul class="bullets"><li><strong>Real-robot RL</strong> Built a real-robot RL pipeline for dexterous fine manipulation on <strong>HIL-SERL</strong> (O10hand + Franka Research 3), covering workspace setup, demo-buffer collection and a <strong>99% success rate within 40 min</strong></li><li><strong>real2sim2real &amp; sim2sim</strong> Built the RL training pipeline for the company flagship high-DoF dexterous hand; analyzed reward dynamics for the <strong>long-horizon temporal credit assignment</strong> problem; delivered the full workflow from simulation construction and training to sim-to-sim transfer, <strong>system identification</strong> and <strong>policy deployment</strong></li><li><strong>Exploratory — visuo-tactile / piezoresistive sensing </strong>In Isaac Sim, fused <strong>tacmap</strong> and <strong>hypershear</strong> methods to compute <strong>shear and normal forces</strong> on a <strong>curved visuo-tactile soft fingertip</strong>, with sensor calibration and tactile privileged distillation of the policy</li><li><strong>Exploratory — illumination-robust HIL-SERL </strong>With a <strong>world model</strong>, decoupled environment appearance from proprioceptive state and re-rendered the data, raising lighting robustness from <strong>65.7%</strong> to over <strong>90%</strong> and recovering to <strong>99%</strong> with light human intervention</li><li><strong>SuperMimic framework reproduction with a PPO baseline </strong>SuperMimic replaces large-scale simulation sampling with a differentiable world model: the policy is optimised by BPTT over short imagined rollouts inside the model, yielding analytic gradients rather than PPO-style environment interaction; moved the real2sim2real demo of the company's flagship dexterous hand onto this framework, trained the policy without any demonstration data, and benchmarked it against PPO on sample efficiency, convergence speed and final success rate</li></ul>
-</div>
-</section>
-<section>
-<h2>Research Experience</h2>
-<div class="item">
-<div class="ihead"><span class="org">Research on Visuo-Tactile Fusion for In-Hand Dexterous Manipulation</span><span class="when">2025.09-2026.01</span></div>
-<div class="sub">Master&#x27;s student · Advisor: Prof. Liu Qian · Wireless Multimedia Technology Lab, Dalian University of Technology</div>
-<ul class="bullets"><li><strong>Sensor layer</strong>: Designed a piezoresistive tactile sensing array and its calibration method for a five-fingered dexterous hand</li><li><strong>Perception layer</strong>: Proposed a hierarchical graph neural network (Hierarchical GNN) for in-hand tactile feature extraction, capturing spatial topology, plus a dual-branch high-/low-frequency Transformer modeling transient micro-vibrations and steady-state contact forces</li><li><strong>Multimodal fusion</strong>: Built a visuo-tactile fusion network with cross-attention and frequency-domain gating for the asynchronous demands of &ldquo;online visual perception and high-speed tactile servoing&rdquo;</li><li><strong>RL and Sim2Real</strong>: Built large-scale parallel simulation in Isaac Gym and learned in-hand manipulation policies with PPO; aligned system-identification parameters by grid-searching actuator joint responses, with domain randomization to narrow the Sim2Real gap</li><li><strong>Real-robot deployment</strong>: Built a real-time tactile acquisition, filtering and force-calibration system on ROS 2 Humble with a Linux RT kernel for high-frequency control; the policy ran closed-loop on a real five-fingered dexterous hand</li><li><strong>Output</strong>: Published one journal paper as sole first author: <a target="_blank" rel="noopener noreferrer" href="https://doi.org/10.3389/frobt.2026.1791424"><strong>TouchWGNN: spatio-temporal tactile perception for multimodal dexterous manipulation</strong></a></li></ul>
-</div>
-</section>
-<section>
-<h2>Selected Projects</h2>
-<div class="item">
-<div class="ihead"><span class="org">VLA Post-Training with Offline Policy Optimization for Bimanual Garment Folding</span><span class="when">2026.10</span></div>
-<ul class="bullets"><li><strong>Task and base model</strong> Folded 4 garment categories (long/short sleeves, trousers/shorts) with tianji bimanual dexterous hands; post-trained the Pi0.5 VLA base with multi-view visual and proprioceptive inputs and action-chunk outputs</li><li><strong>Offline policy optimization (AWR + RECAP)</strong> The flow-matching action head outputs only a velocity field with no action density, so log-prob-based on-policy methods do not apply: adopted AWR, reweighting data by exp(advantage) under a KL constraint at the sampling stage, plus RECAP dual-mode training — an unconditional pass learns the original distribution while an advantage-token conditional pass regresses only high-advantage actions and is the sole deployment mode, shifting the distribution toward high-return regions without leaving the action manifold</li><li><strong>Reward and advantage estimation</strong> Built dense intermediate rewards from keypoint checkpoints, reused the success-probability head as a value function and ran multi-step advantage estimation with GAE, turning sparse success into optimizable per-segment advantages</li><li><strong>Lightweight world model</strong> Added multi-task auxiliary heads to the VLA to predict keypoint distances several steps ahead; low-dimensional keypoint-distance sequences replace pixel reconstruction as the dynamics model, giving look-ahead signals without extra inference cost</li><li><strong>Distributed asynchronous training pipeline</strong> Decoupled training and rollout nodes via a model/data repository so they run asynchronously and scale independently; combined domain randomization (texture/lighting/camera/physics), curriculum learning, success replay and hard-example mining to raise data efficiency and robustness</li><li><strong>Sim2Real and human-in-the-loop</strong> Transferred sim-to-real via behavior-cloning fine-tuning and multi-source data mixing, aligning camera poses and execution speed with image augmentation; used DAgger to collect short corrective segments at failures, adding error recovery and mitigating the limited exploration of purely off-policy training</li></ul>
-</div>
-</section>
-<section>
-<h2>Skills &amp; Honors</h2>
-<ul class="bullets"><li>Robot platforms: Newton, ROS 2, MuJoCo, Isaac Gym, LeRobot, MjLab, Isaac Lab, Isaac Sim</li><li>Learning &amp; deployment: PyTorch, Jax, PPO/SAC/RLPD, ACT, Diffusion Policy, VLA, LoRA, Sim2Real, Sim2Sim</li><li>Tactile: tactile perception and application, visuo-tactile fusion, object-centric, GNN</li><li>Systems engineering: ZeroMQ, WebSocket, Linux RT, shared-memory IPC</li><li>CET-6</li><li>National Third Prize, National College English Competition</li><li>Provincial First Prize, National College Mathematics Competition</li><li>University Academic Excellence Scholarship</li><li>University Merit Student</li></ul>
-</section>
-</article>
-
 <article data-lang="zh" hidden>
 <header class="head">
 <h1>宁予</h1>
@@ -193,6 +149,53 @@
 <section>
 <h2>专业技能及获奖</h2>
 <ul class="bullets"><li>机器人平台：Newton、ROS 2、MuJoCo、Isaac Gym、LeRobot、MjLab，Isaac Lab，Isaac Sim</li><li>学习与部署：PyTorch、Jax、PPO/SAC/RLPD、ACT、Diffusion Policy、VLA、LoRA、Sim2Real、Sim2Sim</li><li>触觉：触觉感知与应用、视触融合、object-centric、GNN</li><li>系统工程：ZeroMQ、WebSocket、Linux RT、进程间共享内存</li><li>CET-6</li><li>全国大学生英语竞赛国家级三等奖</li><li>全国大学生数学竞赛省级一等奖</li><li>校学习优秀奖学金</li><li>校三好学生</li></ul>
+</section>
+</article>
+
+<article data-lang="en">
+<header class="head">
+<h1>Ning Yu</h1>
+<p class="tagline">Tactile Perception &amp; Application · Reinforcement Learning · Imitation Learning · VLA &amp; WM · System Identification</p>
+<p class="contact"><a href="mailto:Phil_ning@mail.dlut.edu.cn">Phil_ning@mail.dlut.edu.cn</a><span class="dot">·</span>197-4110-3867<span class="dot">·</span>Shanghai<span class="dot">·</span><a href="https://github.com/NY-WaKeUp">github.com/NY-WaKeUp</a></p>
+</header>
+<section>
+<h2>Education &amp; Training</h2>
+<div class="item">
+<div class="ihead"><span class="org">Dalian University of Technology (985)</span><span class="when">2024.09 - 2027.06</span></div>
+<div class="sub">M.S. · Computer Science and Technology | Advisor: Prof. Liu Qian</div>
+<ul class="bullets"><li>Dexterous-hand tactile perception and manipulation, reinforcement learning and imitation learning.</li></ul>
+</div>
+<div class="item">
+<div class="ihead"><span class="org">Hebei University of Technology (211)</span><span class="when">2020.09 - 2024.06</span></div>
+<div class="sub">B.Eng. · Internet of Things Engineering</div>
+</div>
+</section>
+<section>
+<h2>Professional Experience</h2>
+<div class="item">
+<div class="ihead"><span class="org">AgiBot</span><span class="when">2026.07 - Present</span></div>
+<div class="sub">Robot Motion Intelligence Intern · Shanghai</div>
+<ul class="bullets"><li><strong>Real-robot RL</strong> Built a real-robot RL pipeline for dexterous fine manipulation on <strong>HIL-SERL</strong> (O10hand + Franka Research 3), covering workspace setup, demo-buffer collection and a <strong>99% success rate within 40 min</strong></li><li><strong>real2sim2real &amp; sim2sim</strong> Built the RL training pipeline for the company flagship high-DoF dexterous hand; analyzed reward dynamics for the <strong>long-horizon temporal credit assignment</strong> problem; delivered the full workflow from simulation construction and training to sim-to-sim transfer, <strong>system identification</strong> and <strong>policy deployment</strong></li><li><strong>Exploratory — visuo-tactile / piezoresistive sensing </strong>In Isaac Sim, fused <strong>tacmap</strong> and <strong>hypershear</strong> methods to compute <strong>shear and normal forces</strong> on a <strong>curved visuo-tactile soft fingertip</strong>, with sensor calibration and tactile privileged distillation of the policy</li><li><strong>Exploratory — illumination-robust HIL-SERL </strong>With a <strong>world model</strong>, decoupled environment appearance from proprioceptive state and re-rendered the data, raising lighting robustness from <strong>65.7%</strong> to over <strong>90%</strong> and recovering to <strong>99%</strong> with light human intervention</li><li><strong>SuperMimic framework reproduction with a PPO baseline </strong>SuperMimic replaces large-scale simulation sampling with a differentiable world model: the policy is optimised by BPTT over short imagined rollouts inside the model, yielding analytic gradients rather than PPO-style environment interaction; moved the real2sim2real demo of the company's flagship dexterous hand onto this framework, trained the policy without any demonstration data, and benchmarked it against PPO on sample efficiency, convergence speed and final success rate</li></ul>
+</div>
+</section>
+<section>
+<h2>Research Experience</h2>
+<div class="item">
+<div class="ihead"><span class="org">Research on Visuo-Tactile Fusion for In-Hand Dexterous Manipulation</span><span class="when">2025.09-2026.01</span></div>
+<div class="sub">Master&#x27;s student · Advisor: Prof. Liu Qian · Wireless Multimedia Technology Lab, Dalian University of Technology</div>
+<ul class="bullets"><li><strong>Sensor layer</strong>: Designed a piezoresistive tactile sensing array and its calibration method for a five-fingered dexterous hand</li><li><strong>Perception layer</strong>: Proposed a hierarchical graph neural network (Hierarchical GNN) for in-hand tactile feature extraction, capturing spatial topology, plus a dual-branch high-/low-frequency Transformer modeling transient micro-vibrations and steady-state contact forces</li><li><strong>Multimodal fusion</strong>: Built a visuo-tactile fusion network with cross-attention and frequency-domain gating for the asynchronous demands of &ldquo;online visual perception and high-speed tactile servoing&rdquo;</li><li><strong>RL and Sim2Real</strong>: Built large-scale parallel simulation in Isaac Gym and learned in-hand manipulation policies with PPO; aligned system-identification parameters by grid-searching actuator joint responses, with domain randomization to narrow the Sim2Real gap</li><li><strong>Real-robot deployment</strong>: Built a real-time tactile acquisition, filtering and force-calibration system on ROS 2 Humble with a Linux RT kernel for high-frequency control; the policy ran closed-loop on a real five-fingered dexterous hand</li><li><strong>Output</strong>: Published one journal paper as sole first author: <a target="_blank" rel="noopener noreferrer" href="https://doi.org/10.3389/frobt.2026.1791424"><strong>TouchWGNN: spatio-temporal tactile perception for multimodal dexterous manipulation</strong></a></li></ul>
+</div>
+</section>
+<section>
+<h2>Selected Projects</h2>
+<div class="item">
+<div class="ihead"><span class="org">VLA Post-Training with Offline Policy Optimization for Bimanual Garment Folding</span><span class="when">2026.10</span></div>
+<ul class="bullets"><li><strong>Task and base model</strong> Folded 4 garment categories (long/short sleeves, trousers/shorts) with tianji bimanual dexterous hands; post-trained the Pi0.5 VLA base with multi-view visual and proprioceptive inputs and action-chunk outputs</li><li><strong>Offline policy optimization (AWR + RECAP)</strong> The flow-matching action head outputs only a velocity field with no action density, so log-prob-based on-policy methods do not apply: adopted AWR, reweighting data by exp(advantage) under a KL constraint at the sampling stage, plus RECAP dual-mode training — an unconditional pass learns the original distribution while an advantage-token conditional pass regresses only high-advantage actions and is the sole deployment mode, shifting the distribution toward high-return regions without leaving the action manifold</li><li><strong>Reward and advantage estimation</strong> Built dense intermediate rewards from keypoint checkpoints, reused the success-probability head as a value function and ran multi-step advantage estimation with GAE, turning sparse success into optimizable per-segment advantages</li><li><strong>Lightweight world model</strong> Added multi-task auxiliary heads to the VLA to predict keypoint distances several steps ahead; low-dimensional keypoint-distance sequences replace pixel reconstruction as the dynamics model, giving look-ahead signals without extra inference cost</li><li><strong>Distributed asynchronous training pipeline</strong> Decoupled training and rollout nodes via a model/data repository so they run asynchronously and scale independently; combined domain randomization (texture/lighting/camera/physics), curriculum learning, success replay and hard-example mining to raise data efficiency and robustness</li><li><strong>Sim2Real and human-in-the-loop</strong> Transferred sim-to-real via behavior-cloning fine-tuning and multi-source data mixing, aligning camera poses and execution speed with image augmentation; used DAgger to collect short corrective segments at failures, adding error recovery and mitigating the limited exploration of purely off-policy training</li></ul>
+</div>
+</section>
+<section>
+<h2>Skills &amp; Honors</h2>
+<ul class="bullets"><li>Robot platforms: Newton, ROS 2, MuJoCo, Isaac Gym, LeRobot, MjLab, Isaac Lab, Isaac Sim</li><li>Learning &amp; deployment: PyTorch, Jax, PPO/SAC/RLPD, ACT, Diffusion Policy, VLA, LoRA, Sim2Real, Sim2Sim</li><li>Tactile: tactile perception and application, visuo-tactile fusion, object-centric, GNN</li><li>Systems engineering: ZeroMQ, WebSocket, Linux RT, shared-memory IPC</li><li>CET-6</li><li>National Third Prize, National College English Competition</li><li>Provincial First Prize, National College Mathematics Competition</li><li>University Academic Excellence Scholarship</li><li>University Merit Student</li></ul>
 </section>
 </article>
 </main>
