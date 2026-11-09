@@ -1,0 +1,18 @@
+bytes 16924
+dark media: True
+html lang en: <html lang="en">
+lang buttons: True True
+'2026.09 - 2026.11' 1
+'2026.09-2026.11' 1
+'2026.07 - 2026.11' 1
+'2026.07-2026.11' 1
+'Present' 0
+'至今' 0
+en article CJK count: 0 
+zh has Frontiers: True
+zh has SuperMimic: True
+zh article head: 
+
+宁予
+触觉感知及应用 · 强化学习 · 模仿学习 · VLA &amp; WM · 系统辨识
+<p class="contact"
