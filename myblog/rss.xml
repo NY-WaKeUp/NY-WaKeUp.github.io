@@ -1,4 +1,52 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>worklog</title><link>https://ny-wakeup.github.io/myblog/posts/worklog/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/worklog/</guid><description>转多圈、真机 RL、触觉分层模块化等项目进度记录</description><pubDate>Tue, 23 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;转多圈&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>污水塘</title><description>Swimming In The Flood</description><link>https://ny-wakeup.github.io/</link><language>en</language><item><title>智元实习总结</title><link>https://ny-wakeup.github.io/myblog/posts/%E6%99%BA%E5%85%83%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/%E6%99%BA%E5%85%83%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/</guid><pubDate>Fri, 13 Nov 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;第一性原理想问题&lt;/h1&gt;
+&lt;p&gt;三段论是有必要的
+$$
+遇到什么问题，根本问题是什么，根本的矛盾是什么 \newline
+\downarrow \newline
+我想要怎么解决
+$$&lt;/p&gt;
+&lt;h1&gt;要透过事务的表象看问题，不要被事务的表象所迷惑&lt;/h1&gt;
+</content:encoded></item><item><title>sim2real</title><link>https://ny-wakeup.github.io/myblog/posts/sim2real/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/sim2real/</guid><pubDate>Mon, 12 Oct 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;相空间（Phase Space）&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一句话：&lt;strong&gt;相空间不是普通的位置空间，是把系统所有状态变量作为坐标轴构成的抽象空间，空间里一个点就代表系统在某一瞬间的完整状态。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;1. 定义（机器人/动力学语境，对应你这段Sim2Real论文）&lt;/h2&gt;
+&lt;p&gt;对动力学系统（比如机械臂、足式机器人）： 系统状态一般包含&lt;strong&gt;位置 + 速度&lt;/strong&gt;。 以单自由度关节为例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;状态变量：$q$（关节角度/位置）、$\dot q$（关节角速度）&lt;/li&gt;
+&lt;li&gt;相空间：二维平面，横轴 $q$，纵轴 $\dot q$&lt;/li&gt;
+&lt;li&gt;系统随时间演化，在这个平面画出一条曲线 → &lt;strong&gt;相轨迹（phase trajectory）&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对比普通“位置空间”：位置空间只看位置 $q$，看不到速度； 相空间同时记录位置+速度，&lt;strong&gt;完整刻画动力学状态&lt;/strong&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;2. 极限环 Limit cycle（文中紧跟着提到的）&lt;/h2&gt;
+&lt;p&gt;针对&lt;strong&gt;周期性运动&lt;/strong&gt;（机器人步态、摆动腿这类周期运动）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果系统稳定周期振荡，它的相轨迹会收敛成一条闭合曲线，这个闭合轨线就叫&lt;strong&gt;极限环&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;哪怕初始条件不一样，最后都会跑到这个闭合环上。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;论文里这句话的含义：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对周期性运动，可以在&lt;strong&gt;相空间&lt;/strong&gt;里对比仿真和真实机器人的极限环，并用自相关（autocorrelation）量化两者差异，以此评估仿真器好坏。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;✅ 为什么相空间对比比单纯时域轨迹对比更好？ 时域MSE只比较每个时刻的位置；&lt;strong&gt;相空间同时看位置+速度&lt;/strong&gt;，能捕捉动力学特性。两个时域波形看起来差不多，但速度演化差异很大时，相轨迹形状会明显不同，适合评估动力学仿真（Sim2Real）。&lt;/p&gt;
+&lt;h2&gt;3. 简单例子&lt;/h2&gt;
+&lt;p&gt;单摆：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;相空间：角度 $\theta$、角速度 $\dot\theta$&lt;/li&gt;
+&lt;li&gt;无阻尼理想单摆：相轨迹是闭合椭圆&lt;/li&gt;
+&lt;li&gt;有阻尼单摆：螺旋线收敛到原点&lt;/li&gt;
+&lt;li&gt;自激振荡（稳定周期摆动）：收敛到闭合极限环&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;4. 和文中其他指标横向对比&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;时域MSE（关节空间）：逐时刻对比扭矩/位置，看时序数值差距&lt;/li&gt;
+&lt;li&gt;频域带宽：看系统响应快慢、频率特性&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;相空间+极限环+自相关&lt;/strong&gt;：专门针对周期运动，评估动力学闭环行为&lt;/li&gt;
+&lt;li&gt;任务级指标：跟踪误差、稳定裕度，看最终任务性能&lt;/li&gt;
+&lt;/ol&gt;
+</content:encoded></item><item><title>worklog</title><link>https://ny-wakeup.github.io/myblog/posts/worklog/</link><guid isPermaLink="true">https://ny-wakeup.github.io/myblog/posts/worklog/</guid><description>转多圈、真机 RL、触觉分层模块化等项目进度记录</description><pubDate>Tue, 23 Jun 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;转多圈&lt;/h2&gt;
 &lt;p&gt;&amp;lt;video autoplay loop muted playsinline controls width=&quot;100%&quot; src=&quot;https://raw.githubusercontent.com/NY-WaKeUp/pics/master/TouchMulti_TouchMulti_envs-14919-11850-7490-4136_ep131.mp4&quot;&amp;gt;&amp;lt;/video&amp;gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;目前进度：&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
